@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ZhouSh Blog</title>
+    <description>这里是周诗蕙的个人博客</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 23 Nov 2022 10:16:02 +0800</pubDate>
+    <lastBuildDate>Wed, 23 Nov 2022 10:16:02 +0800</lastBuildDate>
+    <generator>Jekyll v4.3.1</generator>
+    
+      <item>
+        <title>ORB feature</title>
+        <description>&lt;p&gt;ORB特征由关键点和描述子两部分组成，关键点称为Oriented FAST，由FAST角点改进而来，描述子称为BRIEF（Binary Robust Independent Elementary Feature&lt;/p&gt;
+
+&lt;h2 id=&quot;fast&quot;&gt;Fast&lt;/h2&gt;
+
+&lt;p&gt;Fast是一种角点，主要检测局部像素灰度变化明显的地方，以速度快著称。步骤如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;在图像中选取像素p，假设它的亮度为Ip&lt;/li&gt;
+  &lt;li&gt;设置一个阈值T（如Ip的20%）&lt;/li&gt;
+  &lt;li&gt;以像素p为中心，选取半径为3的圆上的16个像素点&lt;/li&gt;
+  &lt;li&gt;如果选取的圆上有连续N个点亮度大于Ip+T或小于Ip-T，则像素p可被认为是特征点（N通常取9、11、12,被称为FAST-9、FAST-11、FAST-12）&lt;/li&gt;
+  &lt;li&gt;循环以上4步，对每个像素执行相同操作&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;为了更高效，可添加预测试操作，以快速排除绝大多数不是角点的像素。即直接检测领域圆上的第1、5、9、13个像素的亮度，只有这4个有3个亮度大于Ip+T或小于Ip-T，才可能是一个角点&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in_post/ORB-feature/1.png&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;原始的FAST角点容易扎堆，所以在第一遍检测之后，还需要用非极大值抑制，在一定区域内仅保留最大点（ORB-SLAM中会使用四叉树分裂得到更均匀的ORB分布）&lt;/p&gt;
+
+&lt;h3 id=&quot;问题&quot;&gt;问题&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;数量：FAST角点数量很大且不确定&lt;/li&gt;
+  &lt;li&gt;方向：不具有方向信息&lt;/li&gt;
+  &lt;li&gt;尺度：存在尺度问题（由于固定取半径为3的圆，远看像角点的地方，接近看可能就不是角点）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;orb&quot;&gt;ORB&lt;/h2&gt;
+
+&lt;p&gt;针对FAST存在的问题作出改进：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;数量：指定要提取的角点数N，对FAST角点分别计算Harris相应值，选取前N个最大相应值的角点&lt;/li&gt;
+  &lt;li&gt;方向：旋转由灰度质心法（Intensity Centroid）实现&lt;/li&gt;
+  &lt;li&gt;尺度：尺度不变性由构建图像金字塔，并在金字塔的每一层上检测角点实现（在ORB-SLAM中）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;oriented-fast&quot;&gt;Oriented FAST&lt;/h3&gt;
+
+&lt;p&gt;灰度质心法：以图像块几何中心到灰度质心的向量作为特征方向&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in_post/ORB-feature/2.png&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;steer-brief&quot;&gt;Steer BRIEF&lt;/h3&gt;
+
+&lt;p&gt;BRIEF是一种二进制描述子，其中的0和1编码了关键点附近两个像素p和q的大小关系。p和q按照某种分布随机选取，在ORB-SLAM2源码中，写死了一种pattern，是通过神经网络的训练，发现的一种效果很好的点对pattern。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in_post/ORB-feature/3.png&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;原始的BRIEF不具有旋转不变性，因此在图像发生旋转时容易丢失，而ORB在Oriented FAST中计算了关键点的方向，所以可以利用该方向计算旋转之后的Steer BREIED使其具有旋转不变性，即将图像块根据计算出的方向进行旋转，使得所有特征拥有统一的方向，在此基础上描述就避免了旋转带来的差异。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in_post/ORB-feature/4.png&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;《slam十四讲》&lt;/li&gt;
+  &lt;li&gt;《ORB : an efficient alternative to SIFT or SURF》&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 23 Nov 2022 09:38:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/11/23/ORB-feature/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/11/23/ORB-feature/</guid>
+        
+        <category>笔记</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Welcome to Jekyll!</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;“Yeah It’s on. ”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You’ll find this post in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;Jekyll requires blog post files to be named according to the following format:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR-MONTH-DAY-title.MARKUP&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR&lt;/code&gt; is a four-digit number, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MONTH&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DAY&lt;/code&gt; are both two-digit numbers, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MARKUP&lt;/code&gt; is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 21 Nov 2022 22:03:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/11/21/welcome-to-jekyll/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/11/21/welcome-to-jekyll/</guid>
+        
+        <category>教程</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>
