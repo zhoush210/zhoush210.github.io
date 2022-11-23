@@ -12,26 +12,17 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="ORB feature - 周诗蕙的博客 | ZhouSh Blog">
+        content="About - 周诗蕙的博客 | ZhouSh Blog">
     
-    <meta property="og:type" content="article">
-    <meta property="og:description" content="ORB特征由关键点和描述子两部分组成，关键点称为Oriented FAST，由FAST角点改进而来；描述子称为BRIEF（Binary Robust Independent Elementary Feature。下面先讲FAST，再介绍ORB。
-">
-    
-    <meta property="article:published_time" content=" 2022-11-23T09:38:00Z">
-    
-    
-    <meta property="article:author" content="ZhouSh">
-    
-    
-    <meta property="article:tag" content="笔记">
-    
+    <meta property="og:type" content="website">
+    <meta property="og:description"
+        content="「nice to meet you」">
     
     <meta property="og:image" content="http://localhost:4000./img/profile.jpg">
-    <meta property="og:url" content="http://localhost:4000/2022/11/23/ORB-feature/">
+    <meta property="og:url" content="http://localhost:4000/about/">
     <meta property="og:site_name" content="周诗蕙的博客 | ZhouSh Blog">
 
-    <title>ORB feature - 周诗蕙的博客 | ZhouSh Blog</title>
+    <title>About - 周诗蕙的博客 | ZhouSh Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -40,7 +31,7 @@
     <link rel="shortcut icon" href="/img/profile.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2022/11/23/ORB-feature/">
+    <link rel="canonical" href="http://localhost:4000/about/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css">
@@ -204,18 +195,14 @@
   </div>
 </div>
 
-    <!-- Image to hack wechat -->
-<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/in_post/ORB-feature/head.png" width="0" height="0"> -->
-
-<!-- Post Header -->
+    <!-- Page Header -->
 
 
 
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in_post/ORB-feature/head.png');
+        background-image: url('/img/bg-guidao3.jpg');
         background: ;
     }
 
@@ -224,7 +211,7 @@
         width: 100%;
         height: 100%;
         position: absolute;
-        background: rgba(0,0,0, 0.4);
+        background: rgba(0,0,0, 0.1);
     }
     
 </style>
@@ -232,159 +219,49 @@
 
 
 
-<header class="intro-header" >
 
-    <div class="header-mask"></div>
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                        <a class="tag" href="/archive/?tag=%E7%AC%94%E8%AE%B0" title="笔记">笔记</a>
-                        
-                    </div>
-                    <h1>ORB feature</h1>
-                    
-                    <h2 class="subheading"></h2>
-                    <span class="meta">Posted by ZhouSh on November 23, 2022</span>
-                </div>
-            </div>
+
+
+<header class="intro-header" style="background-image: url('/img/bg-guidao3.jpg')">
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <div class="site-heading">
+        
+          <h1>About</h1>
+          <span class="subheading">「nice to meet you」</span>
         </div>
+      </div>
     </div>
+  </div>
 </header>
 
 
 
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    
+
+    <!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
+      col-xs-12 postlist-container">
+      分享slam学习、读书笔记
 
 
 
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <!-- Multi-Lingual -->
-                
-
-				<p>ORB特征由<strong>关键点</strong>和<strong>描述子</strong>两部分组成，关键点称为Oriented FAST，由FAST角点改进而来；描述子称为BRIEF（Binary Robust Independent Elementary Feature。下面先讲FAST，再介绍ORB。</p>
-
-<h2 id="fast">FAST</h2>
-
-<p>Fast是一种角点，主要检测局部像素灰度变化明显的地方，以速度快著称。步骤如下：</p>
-
-<ol>
-  <li>在图像中选取像素p，假设它的亮度为Ip</li>
-  <li>设置一个阈值T（如Ip的20%）</li>
-  <li>以像素p为中心，选取半径为3的圆上的16个像素点</li>
-  <li>如果选取的圆上有连续N个点亮度大于Ip+T或小于Ip-T，则像素p可被认为是特征点（N通常取9、11、12,被称为FAST-9、FAST-11、FAST-12）</li>
-  <li>循环以上4步，对每个像素执行相同操作</li>
-</ol>
-
-<p>为了更高效，可添加预测试操作，以快速排除绝大多数不是角点的像素。即直接检测领域圆上的第1、5、9、13个像素的亮度，只有这4个有3个亮度大于Ip+T或小于Ip-T，才可能是一个角点。</p>
-
-<p><img src="/img/in_post/ORB-feature/1.png" width="60%" /></p>
-
-<p>原始的FAST角点容易扎堆，所以在第一遍检测之后，还需要用非极大值抑制，在一定区域内仅保留最大点（ORB-SLAM中使用四叉树分裂得到更均匀的ORB分布）。</p>
-
-<h3 id="fast的问题">FAST的问题</h3>
-
-<ol>
-  <li>数量：FAST角点数量很大且不确定</li>
-  <li>方向：不具有方向信息</li>
-  <li>尺度：存在尺度问题（由于固定取半径为3的圆，远看像角点的地方，接近看可能就不是角点）</li>
-</ol>
-
-<h2 id="orb">ORB</h2>
-
-<p>针对FAST存在的问题作出改进：</p>
-
-<ol>
-  <li>数量：指定要提取的角点数N，对FAST角点分别计算Harris相应值，选取前N个最大相应值的角点</li>
-  <li>方向：由灰度质心法（Intensity Centroid）计算旋转角，再根据旋转角旋转到统一方向</li>
-  <li>尺度：构建图像金字塔，并在金字塔的每一层上检测角点实现尺度不变性（在ORB-SLAM中）</li>
-</ol>
-
-<h3 id="oriented-fast">Oriented FAST</h3>
-
-<p>灰度质心法：以图像块几何中心到灰度质心的向量作为特征方向</p>
-
-<p><img src="/img/in_post/ORB-feature/2.png" width="60%" /></p>
-
-<h3 id="steer-brief">Steer BRIEF</h3>
-
-<p>BRIEF是一种二进制描述子，其中的0和1编码了关键点附近两个像素p和q的大小关系。p和q按照某种分布随机选取，在ORB-SLAM2源码中，写死了一种pattern，是通过神经网络的训练，发现的一种效果很好的点对pattern。</p>
-
-<p><img src="/img/in_post/ORB-feature/3.png" width="60%" /></p>
-
-<p>原始的BRIEF不具有旋转不变性，因此在图像发生旋转时容易丢失，而ORB在Oriented FAST中计算了关键点的方向，所以可以利用该方向计算旋转之后的Steer BREIED使其具有旋转不变性。即将图像块根据计算出的方向进行旋转，使得所有特征拥有统一的方向，在此基础上描述就避免了旋转带来的差异。</p>
-
-<p><img src="/img/in_post/ORB-feature/4.png" width="60%" /></p>
-
-<h2 id="参考">参考</h2>
-<ul>
-  <li>《slam十四讲》</li>
-  <li>《ORB : an efficient alternative to SIFT or SURF》</li>
-</ul>
-
-
-                <hr style="visibility: hidden;">
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/2022/11/21/welcome-to-jekyll/" data-toggle="tooltip" data-placement="top" title="Welcome to Jekyll!">
-                        Previous<br>
-                        <span>Welcome to Jekyll!</span>
-                        </a>
-                    </li>
-                    
-                    
-                </ul>
-                <hr style="visibility: hidden;">
-
-                
-
-                
-            </div>  
-
-    <!-- Side Catalog Container -->
-        
-            <div class="
-                col-lg-2 col-lg-offset-0
-                visible-lg-block
-                sidebar-container
-                catalog-container">
-                <div class="side-catalog">
-                    <hr class="hidden-sm hidden-xs">
-                    <h5>
-                        <a class="catalog-toggle" href="#">CATALOG</a>
-                    </h5>
-                    <ul class="catalog-body"></ul>
-                </div>
-            </div>
-        
-
+    </div>
     <!-- Sidebar Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
+    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
+      col-xs-12 sidebar-container">
+      <!-- Featured Tags -->
+      
 
 
 <section>
-    
-        <hr class="hidden-sm hidden-xs">
     
     <h5><a href="/archive/">FEATURED TAGS</a></h5>
     <div class="tags">
@@ -396,54 +273,49 @@
     </div>
 </section>
 
-            </div>
-        </div>
+
+      <!-- Short About -->
+      <section class="visible-md visible-lg">
+  <hr>
+  <h5><a href="/about/">ABOUT ME</a></h5>
+  <div class="short-about">
+    
+    <img src="./img/profile.jpg" />
+    
+    
+    <p></p>
+    
+    <!-- SNS Link -->
+    
+
+
+<ul class="list-inline">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/ZhouShihui210">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+  </div>
+</section>
     </div>
-</article>
+    
+  </div>
+</div>
 
-<!-- add support for mathjax by voleking-->
-
-
-
-
-
-
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'hover',
-          placement: 'right',
-          // icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
 
 
 
@@ -567,7 +439,7 @@
     function generateCatalog(selector) {
 
         // interop with multilangual 
-        if ('' == 'true') {
+        if ('true' == 'true') {
             _containerSelector = 'div.post-container.active'
         } else {
             _containerSelector = 'div.post-container'
@@ -624,6 +496,58 @@
 
 
 <!-- Multi-Lingual -->
+
+<!-- Handle Language Change -->
+<script type="text/javascript">
+    // get nodes
+    var $zh = document.querySelector(".zh");
+    var $en = document.querySelector(".en");
+    var $select = document.querySelector("select");
+
+    // Changes at v1.8.1: include lang flag as a url query. This interop well with catalog hash anchors.
+    function getLang() { return new URLSearchParams(document.location.search).get("lang") }
+
+    function setLang(newLang) {
+        var params = new URLSearchParams(document.location.search)
+        params.set("lang", newLang)
+        document.location.search = params.toString()  // refresh.
+    }
+
+    // handle render
+    function _render() {
+        var lang = getLang()
+        // en
+        if (lang == "en") {
+            $select.selectedIndex = 1;
+            $en.style.display = "block";
+            $en.classList.add("active");
+            $zh.style.display = "none";
+            $zh.classList.remove("active");
+            // default to zh-cn
+        } else {
+            $select.selectedIndex = 0;
+            $zh.style.display = "block";
+            $zh.classList.add("active");
+            $en.style.display = "none";
+            $en.classList.remove("active");
+        }
+        // interop with catalog 
+        generateCatalog(".catalog-body");
+    }
+
+    // handle select change
+    function onLanChange(index) {
+        if (index == 0) {
+            lang = "zh"
+        } else {
+            lang = "en"
+        }
+        setLang(lang)
+    }
+
+    // init
+    _render();
+</script>
 
 
 <!-- Simple Jekyll Search -->

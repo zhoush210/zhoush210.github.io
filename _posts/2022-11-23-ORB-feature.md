@@ -4,6 +4,7 @@ title:  "ORB feature"
 date:   2022-11-23 09:38:00 +0800
 author:     "ZhouSh"
 header-img: "img/in_post/ORB-feature/head.png"
+header-mask: 0.4
 tags:
     - 笔记
 ---
