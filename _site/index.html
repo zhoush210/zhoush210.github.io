@@ -244,6 +244,38 @@
       col-xs-12 postlist-container">
       
 <div class="post-preview">
+    <a href="/2022/11/24/loop-closing/">
+        <h2 class="post-title">
+            回环检测
+        </h2>
+        
+        <div class="post-content-preview">
+            
+                我们可以把仅有前端和局部后端的系统称为VO，而把带有回环检测和全局后端的系统称为SLAM
+
+朴素的回环检测：
+
+  对任意两幅图像都做一遍特征匹配
+  随机抽取历史数据并进行回环检测
+
+
+预计哪出可能出现回环：
+
+  基于里程计的几何关系（Odometry based）（存在倒为因果的假设，累积误差较大时不适用）
+  基于外观（Appearance based）（词袋模型BoW）
+
+
+准确率...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ZhouSh on November 24, 2022
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2022/11/23/ORB-feature/">
         <h2 class="post-title">
             ORB feature
@@ -316,6 +348,11 @@ You’ll find this post in your _posts directory. Go ahead and edit it and re-bu
         
         
         
+        
+                <a data-sort="0001" 
+                    href="/archive/?tag=%E7%AC%94%E8%AE%B0"
+                    title="笔记"
+                    rel="2">笔记</a>
     </div>
 </section>
 

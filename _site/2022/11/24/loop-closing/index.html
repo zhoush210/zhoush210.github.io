@@ -12,28 +12,26 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="Welcome to Jekyll! - 周诗蕙的博客 | ZhouSh Blog">
+        content="回环检测 - 周诗蕙的博客 | ZhouSh Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="
-  “Yeah It’s on. ”
-
+    <meta property="og:description" content="我们可以把仅有前端和局部后端的系统称为VO，而把带有回环检测和全局后端的系统称为SLAM
 ">
     
-    <meta property="article:published_time" content=" 2022-11-21T22:03:00Z">
+    <meta property="article:published_time" content=" 2022-11-24T09:05:00Z">
     
     
     <meta property="article:author" content="ZhouSh">
     
     
-    <meta property="article:tag" content="教程">
+    <meta property="article:tag" content="笔记">
     
     
     <meta property="og:image" content="http://localhost:4000./img/profile.jpg">
-    <meta property="og:url" content="http://localhost:4000/2022/11/21/welcome-to-jekyll/">
+    <meta property="og:url" content="http://localhost:4000/2022/11/24/loop-closing/">
     <meta property="og:site_name" content="周诗蕙的博客 | ZhouSh Blog">
 
-    <title>Welcome to Jekyll! - 周诗蕙的博客 | ZhouSh Blog</title>
+    <title>回环检测 - 周诗蕙的博客 | ZhouSh Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -42,7 +40,7 @@
     <link rel="shortcut icon" href="/img/profile.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2022/11/21/welcome-to-jekyll/">
+    <link rel="canonical" href="http://localhost:4000/2022/11/24/loop-closing/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css">
@@ -208,7 +206,7 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/bg-little-universe.jpg" width="0" height="0"> -->
+<!-- <img src="/img/in_post/loop-closing/head.png" width="0" height="0"> -->
 
 <!-- Post Header -->
 
@@ -217,10 +215,17 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/bg-little-universe.jpg');
+        background-image: url('/img/in_post/loop-closing/head.png');
         background: ;
     }
 
+    
+    header.intro-header .header-mask{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: rgba(0,0,0, 0.2);
+    }
     
 </style>
 
@@ -237,13 +242,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=%E6%95%99%E7%A8%8B" title="教程">教程</a>
+                        <a class="tag" href="/archive/?tag=%E7%AC%94%E8%AE%B0" title="笔记">笔记</a>
                         
                     </div>
-                    <h1>Welcome to Jekyll!</h1>
+                    <h1>回环检测</h1>
                     
-                    <h2 class="subheading"> "Hello World, Hello Blog"</h2>
-                    <span class="meta">Posted by ZhouSh on November 21, 2022</span>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">Posted by ZhouSh on November 24, 2022</span>
                 </div>
             </div>
         </div>
@@ -270,40 +275,75 @@
                 <!-- Multi-Lingual -->
                 
 
-				<blockquote>
-  <p>“Yeah It’s on. ”</p>
-</blockquote>
+				<p>我们可以把仅有前端和局部后端的系统称为<strong>VO</strong>，而把带有回环检测和全局后端的系统称为<strong>SLAM</strong></p>
 
-<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+<h3 id="朴素的回环检测">朴素的回环检测：</h3>
+<ul>
+  <li>对任意两幅图像都做一遍特征匹配</li>
+  <li>随机抽取历史数据并进行回环检测</li>
+</ul>
 
-<p>Jekyll requires blog post files to be named according to the following format:</p>
+<h3 id="预计哪出可能出现回环">预计哪出可能出现回环：</h3>
+<ol>
+  <li>基于里程计的几何关系（Odometry based）（存在倒为因果的假设，累积误差较大时不适用）</li>
+  <li>基于外观（Appearance based）（词袋模型BoW）</li>
+</ol>
 
-<p><code class="language-plaintext highlighter-rouge">YEAR-MONTH-DAY-title.MARKUP</code></p>
+<h3 id="准确率和召回率">准确率和召回率</h3>
+<p><img src="/img/in_post/loop-closing/1.png" width="70%" /></p>
 
-<p>Where <code class="language-plaintext highlighter-rouge">YEAR</code> is a four-digit number, <code class="language-plaintext highlighter-rouge">MONTH</code> and <code class="language-plaintext highlighter-rouge">DAY</code> are both two-digit numbers, and <code class="language-plaintext highlighter-rouge">MARKUP</code> is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+<ul>
+  <li>假阳性又称<strong>感知偏差</strong>，假阴性又称<strong>感知变异</strong></li>
+  <li>准确率：Precision=TP/(TP+FP)，描述算法提取的所有回环中确实是真实回环的概率</li>
+  <li>召回率：Recall=TP/(TP+FN)，描述在所有真实回环中被正确检测出来的概率</li>
+  <li>在SLAM中，我们对准确率的要求更高，对召回率则相对宽容（宁可放过一千，绝不错杀一个！hhh）</li>
+</ul>
 
-<p>Jekyll also offers powerful support for code snippets:</p>
+<h3 id="词袋模型bow">词袋模型BoW</h3>
+<p><img src="/img/in_post/loop-closing/3.png" width="40%" /></p>
+<ul>
+  <li>用 “图像上有哪些特征” 来描述一幅图像，假设字典为[眼，鼻，口，手]，则一幅仅包含一张人脸的图像可描述为[2，1，1，0]或[1，1，1，0]（不考虑数量），与特征的空间位置和排列顺序无关</li>
+  <li>考虑到字典通用性，通常会使用一个较大规模的字典，以保证当前使用环境中的图像特征都在其中</li>
+  <li>可用k叉树来表达字典（有点像生物中的界门纲目科属种）</li>
+</ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+<h3 id="k-means">K-means</h3>
+<p>字典的生成问题类似一个聚类问题，可以用K-means解决，步骤如下：</p>
+<ol>
+  <li>随机选取k个中心点</li>
+  <li>对每个样本，计算他们与每个中心点之间的距离，取最小的作为它的归类</li>
+  <li>重新计算每个类的中心点</li>
+  <li>如果每个中心点的变化很小，则算法收敛，退出；否则返回第2步重复</li>
+</ol>
 
-<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>
+<h3 id="相似度计算">相似度计算</h3>
+<p>我们希望对单词的区分性或重要性加以评估，给他们不同的权值以起到更好的效果。在文本检索中常用的一种做法是TF-IDF（Term Frequency-Inverse Document Frequency）。TF的思想是某单词在一幅图像中经常出现，它的区分度就高；IDF的思想是某单词在一幅图像中出现的频率越低，它的区分度越高。
+<img src="/img/in_post/loop-closing/2.png" width="80%" /></p>
 
+<h3 id="相似性评分的处理">相似性评分的处理</h3>
+<p>仅仅利用相似性不一定合适，比如办公室往往有很多同款桌椅。所以我们会先取一个先验相似度，表示某时刻关键帧图像与上以时刻关键帧的相似性，然后其他的分支都参照这个值归一化。比如说，如果当前帧与之前某关键帧的相似度超过当前帧与上一关键帧相似度的3倍，就认为可能存在回环。</p>
+
+<h3 id="检测之后的验证">检测之后的验证</h3>
+<p>词袋的回环检测算法完全依赖于外观而没有利用任何的几何信息，这导致外观相似的图像容易被当成回环。并且，由于词袋不在乎单词顺序，只在意单词有无的表达方式，更容易引发感知偏差。所以，在回环检测之后，我们通常还会有一个验证步骤</p>
+<ul>
+  <li><strong>时间一致性检测</strong>：设立回环的缓存机制，认为单次检测到的回环并不足以构成良好的约束，而在一段时间中一直检测到的回环，才认为是正确的回环。</li>
+  <li><strong>空间一致性检测</strong>：对回环检测到的两个帧进行特征匹配，估计相机的运动。然后，再把运动放到之前的Pose Graph中，检查与之前的估计是否有很大的出入。
+    <h2 id="参考">参考</h2>
+  </li>
+  <li>《slam十四讲》</li>
+</ul>
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
-                    
-                    <li class="next">
+                    <li class="previous">
                         <a href="/2022/11/23/ORB-feature/" data-toggle="tooltip" data-placement="top" title="ORB feature">
-                        Next<br>
+                        Previous<br>
                         <span>ORB feature</span>
                         </a>
                     </li>
+                    
                     
                 </ul>
                 <hr style="visibility: hidden;">
