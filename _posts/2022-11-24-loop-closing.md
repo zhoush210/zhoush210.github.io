@@ -6,7 +6,7 @@ author:     "ZhouSh"
 header-img: "img/in_post/loop-closing/head.png"
 header-mask: 0.2
 tags:
-    - 笔记
+    - SLAM
 ---
 我们可以把仅有前端和局部后端的系统称为**VO**，而把带有回环检测和全局后端的系统称为**SLAM**
 
