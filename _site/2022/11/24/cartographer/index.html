@@ -12,11 +12,19 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="回环检测 - 周诗蕙的博客 | ZhouSh Blog">
+        content="论文笔记：cartographer - 周诗蕙的博客 | ZhouSh Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="我们可以把仅有前端和局部后端的系统称为VO，而把带有回环检测和全局后端的系统称为SLAM
-">
+    <meta property="og:description" content="论文：Real-Time Loop Closure in 2D LIDAR SLAM
+Abstract
+为了实现实时的回环检测，cartographer使用分支定界法计算scan-to-map匹配作为约束
+Introduction
+本文的重点是减少大量数据下回环所需的计算量
+Related work
+匹配
+
+  Scan-to-scan matching：累计漂移误差大
+  Scan-to-...">
     
     <meta property="article:published_time" content=" 2022-11-24T09:05:00Z">
     
@@ -28,10 +36,10 @@
     
     
     <meta property="og:image" content="http://localhost:4000/img/profile.jpg">
-    <meta property="og:url" content="http://localhost:4000/2022/11/24/loop-closing/">
+    <meta property="og:url" content="http://localhost:4000/2022/11/24/cartographer/">
     <meta property="og:site_name" content="周诗蕙的博客 | ZhouSh Blog">
 
-    <title>回环检测 - 周诗蕙的博客 | ZhouSh Blog</title>
+    <title>论文笔记：cartographer - 周诗蕙的博客 | ZhouSh Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -40,7 +48,7 @@
     <link rel="shortcut icon" href="/img/profile.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2022/11/24/loop-closing/">
+    <link rel="canonical" href="http://localhost:4000/2022/11/24/cartographer/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css">
@@ -206,7 +214,7 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/in_post/loop-closing/head.png" width="0" height="0"> -->
+<!-- <img src="/img/in_post/cartographer/head.png" width="0" height="0"> -->
 
 <!-- Post Header -->
 
@@ -215,7 +223,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in_post/loop-closing/head.png');
+        background-image: url('/img/in_post/cartographer/head.png');
         background: ;
     }
 
@@ -224,7 +232,7 @@
         width: 100%;
         height: 100%;
         position: absolute;
-        background: rgba(0,0,0, 0.2);
+        background: rgba(0,0,0, 0);
     }
     
 </style>
@@ -245,9 +253,9 @@
                         <a class="tag" href="/archive/?tag=SLAM" title="SLAM">SLAM</a>
                         
                     </div>
-                    <h1>回环检测</h1>
+                    <h1>论文笔记：cartographer</h1>
                     
-                    <h2 class="subheading"></h2>
+                    <h2 class="subheading">Real-Time Loop Closure in 2D LIDAR SLAM</h2>
                     <span class="meta">Posted by ZhouSh on November 24, 2022</span>
                 </div>
             </div>
@@ -275,82 +283,222 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>我们可以把仅有前端和局部后端的系统称为<strong>VO</strong>，而把带有回环检测和全局后端的系统称为<strong>SLAM</strong></p>
-
-<h3 id="朴素的回环检测">朴素的回环检测：</h3>
+				<p>论文：<a href="/doc/cartographer%20-%202016%20-%20Real%20time%20loop%20closure%20in%202D%20LIDAR%20SLAM%20-%20Hess%20et%20al.pdf">Real-Time Loop Closure in 2D LIDAR SLAM</a></p>
+<h2 id="abstract">Abstract</h2>
+<p>为了实现实时的回环检测，cartographer使用<strong>分支定界法</strong>计算<strong>scan-to-map</strong>匹配作为约束</p>
+<h2 id="introduction">Introduction</h2>
+<p>本文的重点是减少大量数据下回环所需的<strong>计算量</strong></p>
+<h2 id="related-work">Related work</h2>
+<h3 id="匹配">匹配</h3>
 <ul>
-  <li>对任意两幅图像都做一遍特征匹配</li>
-  <li>随机抽取历史数据并进行回环检测</li>
-</ul>
-
-<h3 id="预计哪出可能出现回环">预计哪出可能出现回环：</h3>
-<ol>
-  <li>基于里程计的几何关系（Odometry based）（存在倒为因果的假设，累积误差较大时不适用）</li>
-  <li>基于外观（Appearance based）（词袋模型BoW）</li>
-</ol>
-
-<h3 id="准确率和召回率">准确率和召回率</h3>
-<p><img src="/img/in_post/loop-closing/1.png" width="70%" /></p>
-
-<ul>
-  <li>假阳性又称<strong>感知偏差</strong>，假阴性又称<strong>感知变异</strong></li>
-  <li>准确率：Precision=TP/(TP+FP)，描述算法提取的所有回环中确实是真实回环的概率</li>
-  <li>召回率：Recall=TP/(TP+FN)，描述在所有真实回环中被正确检测出来的概率</li>
-  <li>在SLAM中，我们对准确率的要求更高，对召回率则相对宽容（宁可放过一千，绝不错杀一个！hhh）</li>
-</ul>
-
-<h3 id="词袋模型bow">词袋模型BoW</h3>
-<p><img src="/img/in_post/loop-closing/3.png" width="40%" /></p>
-<ul>
-  <li>用 “图像上有哪些特征” 来描述一幅图像，假设字典为[眼，鼻，口，手]，则一幅仅包含一张人脸的图像可描述为[2，1，1，0]或[1，1，1，0]（不考虑数量），与特征的空间位置和排列顺序无关</li>
-  <li>考虑到字典通用性，通常会使用一个较大规模的字典，以保证当前使用环境中的图像特征都在其中</li>
-  <li>可用k叉树来表达字典（有点像生物中的界门纲目科属种）</li>
-</ul>
-
-<h3 id="k-means">K-means</h3>
-<p>字典的生成问题类似一个聚类问题，可以用K-means解决，步骤如下：</p>
-<ol>
-  <li>随机选取k个中心点</li>
-  <li>对每个样本，计算他们与每个中心点之间的距离，取最小的作为它的归类</li>
-  <li>重新计算每个类的中心点</li>
-  <li>如果每个中心点的变化很小，则算法收敛，退出；否则返回第2步重复</li>
-</ol>
-
-<h3 id="相似度计算">相似度计算</h3>
-<p>我们希望对单词的区分性或重要性加以评估，给他们不同的权值以起到更好的效果。在文本检索中常用的一种做法是TF-IDF（Term Frequency-Inverse Document Frequency）。TF的思想是某单词在一幅图像中经常出现，它的区分度就高；IDF的思想是某单词在一幅图像中出现的频率越低，它的区分度越高。
-<img src="/img/in_post/loop-closing/2.png" width="80%" /></p>
-
-<h3 id="相似性评分的处理">相似性评分的处理</h3>
-<p>仅仅利用相似性不一定合适，比如办公室往往有很多同款桌椅。所以我们会先取一个先验相似度，表示某时刻关键帧图像与上以时刻关键帧的相似性，然后其他的分支都参照这个值归一化。比如说，如果当前帧与之前某关键帧的相似度超过当前帧与上一关键帧相似度的3倍，就认为可能存在回环。</p>
-
-<h3 id="检测之后的验证">检测之后的验证</h3>
-<p>词袋的回环检测算法完全依赖于外观而没有利用任何的几何信息，这导致外观相似的图像容易被当成回环。并且，由于词袋不在乎单词顺序，只在意单词有无的表达方式，更容易引发感知偏差。所以，在回环检测之后，我们通常还会有一个验证步骤</p>
-<ul>
-  <li><strong>时间一致性检测</strong>：设立回环的缓存机制，认为单次检测到的回环并不足以构成良好的约束，而在一段时间中一直检测到的回环，才认为是正确的回环。</li>
-  <li><strong>空间一致性检测</strong>：对回环检测到的两个帧进行特征匹配，估计相机的运动。然后，再把运动放到之前的Pose Graph中，检查与之前的估计是否有很大的出入。
-    <h2 id="参考">参考</h2>
+  <li>Scan-to-scan matching：累计漂移误差大</li>
+  <li>Scan-to-map matching：累计漂移误差小，需要好的初始值，用高斯牛顿法找局部最优值</li>
+  <li>Pixel-accurate scan matching：漂移误差小，但计算量大
+    <ul>
+      <li>减少计算量的策略：通过laser特征提取匹配</li>
+      <li>加强回环检测的策略：直方图统计匹配、提取laser特征、机器学习</li>
+    </ul>
   </li>
-  <li>《slam十四讲》</li>
 </ul>
+
+<blockquote>
+  <p><strong>scan to scan match</strong>：两帧激光雷达数据之间的匹配。假如当前帧的激光雷达数据为A，和它匹配的另一帧激光雷达数据为B，如果以A为起始帧，B为目标帧，那么A经过一个相对平移和旋转变换到B，我们目的就是求出这个相对平移量和旋转角度。目前来说，匹配效果最好的算法就是ICP（Iterative Closest Point）方法，它充分利用了激光雷达每个数据点来进行匹配，后来所有ICP变种基本都是为了提高计算效率而演化的，如何减小循环次数加快收敛等等。<a href="https://www.jianshu.com/p/12cafbd14797">参考</a></p>
+
+  <p><strong>scan to map match</strong>：即激光雷达扫描数据直接与地图进行匹配，得到实际位置坐标[x,y,theta]。这种方式一边计算位置，一边把新扫描到的数据及时加入到先前地图中。<a href="https://www.jianshu.com/p/12cafbd14797">参考</a></p>
+</blockquote>
+
+<h3 id="减少局部累计误差">减少局部累计误差</h3>
+<ul>
+  <li>粒子滤波：对于grid-based SLAM，占用计算资源过多</li>
+  <li>基于图优化的SLAM：node表示位姿和特征，边表示观测约束</li>
+</ul>
+
+<blockquote>
+  <p><strong>粒子滤波</strong>：通过寻找一组在状态空间中传播的随机样本来近似的表示概率密度函数，用样本均值代替积分运算，进而获得系统状态的最小方差估计的过程，这些样本被形象的称为“粒子”，故而叫粒子滤波。<a href="https://baike.baidu.com/item/%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2/2128986">参考</a> ；<a href="https://zhuanlan.zhihu.com/p/161617286">附一个非常生动的说明</a></p>
+
+  <p><strong>基于图优化的SLAM</strong>：<a href="https://zhuanlan.zhihu.com/p/41424435">参考</a></p>
+</blockquote>
+
+<h2 id="system-overview">System overview</h2>
+<p><img src="/img/in_post/cartographer/system.png" alt="img" /></p>
+<ol>
+  <li>将laser scan插入submap中最合适的位置，假设该位置短时间内足够准确</li>
+  <li>Scan matching针对于当前submap进行，所以只依赖于当前scan，会累积全局误差</li>
+  <li>位姿优化：
+    <ul>
+      <li>当submap完成后（即没有新scan插入submap），submap将进行扫描匹配以检测回环</li>
+      <li>所有结束的submap和scan会自动进行回环</li>
+      <li>If they are close enough based on current pose estimates, a scan matcher tries to find the scan in the submap.（没理解指谁和谁比较，submap不是由scan组成的吗？包含的关系还能远吗？）</li>
+      <li>若在当前估计位姿周围的搜索窗口中找到了较好匹配，则将其作为回环约束加入优化问题</li>
+      <li>软约束：回环扫描匹配需比新增scan快一些，否则会有明显滞后</li>
+    </ul>
+    <ul>
+      <li>通过branch-and-bound和子图预算栅格加速回环检测（如何实现？）</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="local-2d-slam">Local 2D SLAM</h2>
+<ul>
+  <li>局部slam和全局slam的优化对象都是 pose（ξ x , ξ y , ξ θ）</li>
+  <li>不平稳测量平台（如背包）需要结合IMU，获取雷达相对于重力的方向，以将scan映射到2D平面</li>
+  <li>scan matching：用非线性优化对齐scan和submap，会产生累计误差，由全局方法消除</li>
+</ul>
+
+<h3 id="a-scans">A. scans</h3>
+<ol>
+  <li>submap的构造是重复对齐scan和submap坐标系的迭代过程</li>
+  <li>scan坐标系—&gt;submap坐标系：
+<img src="/img/in_post/cartographer/1.png" width="60%" /></li>
+</ol>
+
+<h3 id="b-submaps">B. submaps</h3>
+<p>（翻译成子图的话，这里的图是map而不是graph，容易产生歧义）</p>
+<ol>
+  <li>submap由几个连续的scan构建</li>
+  <li>submap采用栅格地图的形式，每格边长5cm，每格的值表示该格阻塞(有障碍物)的概率</li>
+  <li>pixel：某格点周围一圈格点</li>
+  <li>新增scan时，击中则更新击中点，为击中则更新一条射线</li>
+  <li>更新每格概率：
+<img src="/img/in_post/cartographer/2.png" width="60%" /></li>
+</ol>
+
+<h3 id="c-ceres-scan-matchng">C. Ceres scan matchng</h3>
+<blockquote>
+  <p>除第一个submap外，新增scan会插入相邻两个submap</p>
+</blockquote>
+
+<p>将scan插入submap之前，需要用基于ceres的scan matcher根据当前局部submap优化pose ξ 
+<img src="/img/in_post/cartographer/3.png" width="60%" /></p>
+<ol>
+  <li>Tξ将hk由scan坐标系变换至submap坐标系</li>
+  <li>Msmooth是平滑函数，用双三次插值减小[0，1]外点的影响</li>
+</ol>
+
+<blockquote>
+  <p>bicubic函数：
+<img src="/img/in_post/cartographer/4.png" width="30%" /></p>
+</blockquote>
+
+<h2 id="closing-loops">Closing loops</h2>
+<ol>
+  <li>大空间通过创建许多小submap处理</li>
+  <li>用稀疏位姿矫正（SPA）来优化所有scan和submap</li>
+  <li>插入scan的相对位姿存储在内存中，将在优化回环时使用。</li>
+  <li>一旦submap结束（不再新增scan），scan和submap就进行回环检测</li>
+  <li>Scan matcher在后台运行，一旦找到好的匹配，就将相对位姿加入优化问题</li>
+</ol>
+
+<h3 id="a-optimization-problem">A. Optimization problem</h3>
+<ol>
+  <li>回环优化和扫描匹配一样，也是一个非线性最小二乘问题</li>
+  <li>每隔几秒，用ceres计算下述问题的解：（Sparse Pose Adjustment）
+<img src="/img/in_post/cartographer/5.png" width="60%" />
+    <ul>
+      <li>Em=ξmi (i=1,…,m)是submap位姿，Es=ξsj (i=1,…,s)是scan位姿，在给定约束条件下进行优化</li>
+      <li>这些约束用相对位姿 ξij 和相关协方差矩阵 Σij 描述</li>
+      <li>对于一对submap i和scan j，位姿 ξij 描述了submap坐标系中scan匹配到的位置</li>
+      <li>此类约束的残差由下式计算：
+<img src="/img/in_post/cartographer/6.png" width="70%" /></li>
+      <li>损失函数ρ（例如huber损失函数）用于减少异常值的影响。这些异常值可能出现在scan matching向优化问题SPA增加不正确的约束时，例如像办公室隔间这样的局部对称空间。</li>
+    </ul>
+  </li>
+</ol>
+
+<blockquote>
+  <p>hube loss: 相比于最小二乘的线性回归，HuberLoss降低了对离群点的惩罚程度。当预测偏差小于 δ 时，采用平方误差；当预测偏差大于 δ 时，采用线性误差。<a href="https://www.cnblogs.com/nowgood/p/Huber-Loss.html">参考</a>
+<img src="/img/in_post/cartographer/7.png" width="60%" /></p>
+</blockquote>
+
+<h3 id="b-branch-and-bound-scan-matchingbbs">B. Branch-and-bound scan matching（BBS）</h3>
+<ol>
+  <li>pixel-accurate scan matching：
+<img src="/img/in_post/cartographer/8.png" width="60%" />
+    <ul>
+      <li>W是搜索窗口，M nearest是submap周围一圈格点</li>
+      <li>使用前面的CS公式可以提高匹配质量</li>
+    </ul>
+  </li>
+  <li>搜索步长对效率有很大影响
+    <ul>
+      <li>选择角度步长 δθ 使得扫描范围最大dmax处的扫描点移动不超过pixel的半径r，由余弦定理得：
+<img src="/img/in_post/cartographer/9.png" width="60%" /></li>
+      <li>计算一个完整的步数，覆盖给定的搜索窗口（例如Wx=Wy=7m，Wθ=30度），并对其取整
+<img src="/img/in_post/cartographer/10.png" width="60%" /></li>
+      <li>产生一个有限集合W形成以估计位姿ξ0为中心的搜索窗口
+<img src="/img/in_post/cartographer/11.png" width="70%" /></li>
+    </ul>
+  </li>
+  <li>朴素的暴力搜索太慢
+<img src="/img/in_post/cartographer/12.png" width="70%" /></li>
+  <li>用Branch-and-bound分支定界法在较大搜索窗口下求解BBS问题
+<img src="/img/in_post/cartographer/13.png" width="70%" /></li>
+</ol>
+
+<blockquote>
+  <p>分支定界法：通常，把全部可行解空间反复地分割为越来越小的子集，称为分支；并且对每个子集内的解集计算一个目标下界（对于最小值问题），这称为定界。在每次分枝后，凡是界限超出已知可行解集目标值的那些子集不再进一步分枝，这样，许多子集可不予考虑，这称剪枝。这就是分枝定界法的主要思路。<a href="https://baike.baidu.com/item/%E5%88%86%E6%94%AF%E5%AE%9A%E7%95%8C%E6%B3%95/9902038">参考</a></p>
+</blockquote>
+
+<p>要将分支定界法具体化，我们需要选择节点选择、分支、上界计算的方法</p>
+
+<h4 id="1-node-selection">1. Node selection</h4>
+<p>默认采用深度优先搜索DFS（利用栈的先进后出实现）</p>
+<ol>
+  <li>为避免加入坏匹配作为回环，引入一个分数阈值，小于阈值不予考虑。在实践中，通常不会超过阈值，这降低了节点选择和初始值的重要性。</li>
+  <li>计算每个子节点的分数上限，首先访问上限最大 最有希望的子节点
+<img src="/img/in_post/cartographer/14.png" width="70%" /></li>
+</ol>
+
+<h4 id="2-branching-rule">2. Branching rule</h4>
+<ol>
+  <li>树上的每个节点用一组整数表示 c=（cx，cy，cθ，ch），高度ch处的节点有2^ch*2^ch种组合，但只表示特定的旋转。子节点的高度为0，则对应可行解。
+<img src="/img/in_post/cartographer/15.png" width="60%" /></li>
+  <li>将节点分为4个子节点</li>
+</ol>
+
+<blockquote>
+  <p>分支：对一个大的步长在 x 和 y 方向进行对半拆分，而 θ 不变。对 x 和 y 都进行减半操作，相当于“分田”，在空间坐标上将搜索空间划分为四个更小的区域 <a href="https://zhuanlan.zhihu.com/p/364015137">参考</a></p>
+</blockquote>
+
+<h4 id="3-computing-upper-bounds">3. Computing upper bounds</h4>
+<p><img src="/img/in_post/cartographer/16.png" width="60%" /></p>
+
+<ol>
+  <li>
+    <p>为了提高效率，使用预算网格图
+<img src="/img/in_post/cartographer/17.png" width="70%" /></p>
+  </li>
+  <li>
+    <p>M_precomp和M_nearest一样有pixel结构，但每个pixel存储着2^h*2^h大的搜索窗口中的最大值
+<img src="/img/in_post/cartographer/18.png" width="60%" /></p>
+  </li>
+  <li>对于每个预算格，计算从这格开始的2^h宽的行的最大值。用它作为中间结果，构建下一个预算图。用这种方式，时间复杂度是O(n)，n为每个预算图中pixel个数</li>
+  <li>另一种计算上界的方式是计算分辨率较低（将分辨率依次减半）的概率栅格图，较省空间，但效果较差。</li>
+</ol>
+
+<blockquote>
+  <p>预算图的内核思想：运动是相对的，与其遍历计算所有可能位姿对应的scan（墙），不如计算固定位姿扫描到的 ”移动“ 的墙。</p>
+</blockquote>
+
+<h2 id="conclusions">Conclusions</h2>
+<ol>
+  <li>cartographer是一个2D SLAM系统，将scan-to-submap匹配回环检测和图优化相结合</li>
+  <li>单个子图轨迹由基于栅格的local SLAM建立</li>
+  <li>在后端，所有scan和submap都用pixel-accurate扫描匹配，以创建回环约束</li>
+  <li>scan和submap的约束在后端周期性进行优化</li>
+</ol>
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2022/11/23/ORB-feature/" data-toggle="tooltip" data-placement="top" title="ORB feature">
+                        <a href="/2022/11/24/loop-closing/" data-toggle="tooltip" data-placement="top" title="回环检测">
                         Previous<br>
-                        <span>ORB feature</span>
+                        <span>回环检测</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2022/11/24/cartographer/" data-toggle="tooltip" data-placement="top" title="论文笔记：cartographer">
-                        Next<br>
-                        <span>论文笔记：cartographer</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">
