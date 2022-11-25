@@ -2,7 +2,7 @@
 layout: post
 title:  "论文笔记：cartographer"
 subtitle: "Real-Time Loop Closure in 2D LIDAR SLAM"
-date:   2022-11-24 09:05:00 +0800
+date:   2022-11-25 09:05:00 +0800
 author:     "ZhouSh"
 header-img: "img/in_post/cartographer/head.png"
 header-mask: 0
