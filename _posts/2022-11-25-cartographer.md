@@ -150,3 +150,7 @@ tags:
 2. 单个子图轨迹由基于栅格的local SLAM建立
 3. 在后端，所有scan和submap都用pixel-accurate扫描匹配，以创建回环约束
 4. scan和submap的约束在后端周期性进行优化
+
+## Cartographer函数关系图
+[cartographer函数关系图](https://raw.githubusercontent.com/Sylviazsh/my_Graphviz/ad9664b28ac536cdc1b6400c96356e19bd959320/cartographer.svg)
+![cartographer函数关系图](https://raw.githubusercontent.com/Sylviazsh/my_Graphviz/ad9664b28ac536cdc1b6400c96356e19bd959320/cartographer.svg)
