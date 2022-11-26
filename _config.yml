@@ -16,6 +16,7 @@ RSS: false
 #weibo_username: huxpro
 #zhihu_username: huxpro
 github_username: ZhouShihui210
+bilibili_uid: 291406031 # 你主页的链接
 #twitter_username: huxpro
 #facebook_username:  huxpro
 #linkedin_username:  firstname-lastname-idxxxx
@@ -91,5 +92,7 @@ featured-condition-size: 1 # A tag will be featured if the size of it is more th
 # Friends
 friends:
   [
+    { title: "羟基香豆素", href: "https://hydroxycoumarin.github.io/" },
     { title: "膜法师猫定谔", href: "http://www.fangmuseum.com" },
+    { title: "yanglin", href: "http://www.yanglin.com" },
   ]
