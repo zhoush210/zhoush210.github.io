@@ -87,3 +87,9 @@ featured-condition-size: 1 # A tag will be featured if the size of it is more th
 
 # MathJax rendering for layout:page (e.g. post preview)
 #page-mathjax: false
+
+# Friends
+friends:
+  [
+    { title: "膜法师猫定谔", href: "http://www.fangmuseum.com" },
+  ]
