@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "摘记：围城",
+      "subtitle" : "",
+      "tags"     : "摘记",
+      "url"      : "/2022/11/27/weicheng/",
+      "date"     : "2022-11-27 10:57:00 +0800"
+    } ,
+  
+    {
       "title"    : "论文笔记：cartographer",
       "subtitle" : "Real-Time Loop Closure in 2D LIDAR SLAM",
       "tags"     : "SLAM",

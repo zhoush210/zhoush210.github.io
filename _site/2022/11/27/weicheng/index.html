@@ -12,34 +12,32 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="论文笔记：cartographer - 周诗蕙的博客 | ZhouSh Blog">
+        content="摘记：围城 - 周诗蕙的博客 | ZhouSh Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="论文：Real-Time Loop Closure in 2D LIDAR SLAM
-Abstract
-为了实现实时的回环检测，cartographer使用分支定界法计算scan-to-map匹配作为约束
-Introduction
-本文的重点是减少大量数据下回环所需的计算量
-Related work
-匹配
+    <meta property="og:description" content="
+  阅读时长：14h
 
-  Scan-to-scan matching：累计漂移误差大
-  Scan-to-...">
+  上次读时不知所云，这次读时尤为其中修辞叹服，希望下次读时能有“感悟”
+
+  目录为原书目录，下面是摘记
+
+">
     
-    <meta property="article:published_time" content=" 2022-11-25T09:05:00Z">
+    <meta property="article:published_time" content=" 2022-11-27T10:57:00Z">
     
     
     <meta property="article:author" content="ZhouSh">
     
     
-    <meta property="article:tag" content="SLAM">
+    <meta property="article:tag" content="摘记">
     
     
     <meta property="og:image" content="http://localhost:4000/img/profile.jpg">
-    <meta property="og:url" content="http://localhost:4000/2022/11/25/cartographer/">
+    <meta property="og:url" content="http://localhost:4000/2022/11/27/weicheng/">
     <meta property="og:site_name" content="周诗蕙的博客 | ZhouSh Blog">
 
-    <title>论文笔记：cartographer - 周诗蕙的博客 | ZhouSh Blog</title>
+    <title>摘记：围城 - 周诗蕙的博客 | ZhouSh Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -48,7 +46,7 @@ Related work
     <link rel="shortcut icon" href="/img/profile.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2022/11/25/cartographer/">
+    <link rel="canonical" href="http://localhost:4000/2022/11/27/weicheng/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css">
@@ -214,7 +212,7 @@ Related work
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/in_post/cartographer/head.png" width="0" height="0"> -->
+<!-- <img src="/img/in_post/weicheng/head.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 
@@ -223,7 +221,7 @@ Related work
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in_post/cartographer/head.png');
+        background-image: url('/img/in_post/weicheng/head.jpg');
         background: ;
     }
 
@@ -250,13 +248,13 @@ Related work
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=SLAM" title="SLAM">SLAM</a>
+                        <a class="tag" href="/archive/?tag=%E6%91%98%E8%AE%B0" title="摘记">摘记</a>
                         
                     </div>
-                    <h1>论文笔记：cartographer</h1>
+                    <h1>摘记：围城</h1>
                     
-                    <h2 class="subheading">Real-Time Loop Closure in 2D LIDAR SLAM</h2>
-                    <span class="meta">Posted by ZhouSh on November 25, 2022</span>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">Posted by ZhouSh on November 27, 2022</span>
                 </div>
             </div>
         </div>
@@ -283,235 +281,105 @@ Related work
                 <!-- Multi-Lingual -->
                 
 
-				<p>论文：<a href="/doc/cartographer%20-%202016%20-%20Real%20time%20loop%20closure%20in%202D%20LIDAR%20SLAM%20-%20Hess%20et%20al.pdf">Real-Time Loop Closure in 2D LIDAR SLAM</a></p>
-<h2 id="abstract">Abstract</h2>
-<p>为了实现实时的回环检测，cartographer使用<strong>分支定界法</strong>计算<strong>scan-to-map</strong>匹配作为约束</p>
-<h2 id="introduction">Introduction</h2>
-<p>本文的重点是减少大量数据下回环所需的<strong>计算量</strong></p>
-<h2 id="related-work">Related work</h2>
-<h3 id="匹配">匹配</h3>
-<ul>
-  <li>Scan-to-scan matching：累计漂移误差大</li>
-  <li>Scan-to-map matching：累计漂移误差小，需要好的初始值，用高斯牛顿法找局部最优值</li>
-  <li>Pixel-accurate scan matching：漂移误差小，但计算量大
-    <ul>
-      <li>减少计算量的策略：通过laser特征提取匹配</li>
-      <li>加强回环检测的策略：直方图统计匹配、提取laser特征、机器学习</li>
-    </ul>
-  </li>
-</ul>
+				<blockquote>
+  <p>阅读时长：14h</p>
 
-<blockquote>
-  <p><strong>scan to scan match</strong>：两帧激光雷达数据之间的匹配。假如当前帧的激光雷达数据为A，和它匹配的另一帧激光雷达数据为B，如果以A为起始帧，B为目标帧，那么A经过一个相对平移和旋转变换到B，我们目的就是求出这个相对平移量和旋转角度。目前来说，匹配效果最好的算法就是ICP（Iterative Closest Point）方法，它充分利用了激光雷达每个数据点来进行匹配，后来所有ICP变种基本都是为了提高计算效率而演化的，如何减小循环次数加快收敛等等。<a href="https://www.jianshu.com/p/12cafbd14797">参考</a></p>
+  <p>上次读时不知所云，这次读时尤为其中修辞叹服，希望下次读时能有“感悟”</p>
 
-  <p><strong>scan to map match</strong>：即激光雷达扫描数据直接与地图进行匹配，得到实际位置坐标[x,y,theta]。这种方式一边计算位置，一边把新扫描到的数据及时加入到先前地图中。<a href="https://www.jianshu.com/p/12cafbd14797">参考</a></p>
+  <p>目录为原书目录，下面是摘记</p>
 </blockquote>
 
-<h3 id="减少局部累计误差">减少局部累计误差</h3>
-<ul>
-  <li>粒子滤波：对于grid-based SLAM，占用计算资源过多</li>
-  <li>基于图优化的SLAM：node表示位姿和特征，边表示观测约束</li>
-</ul>
+<h4 id="一">一</h4>
 
+<p>这船，倚仗人的机巧，载满人的扰攘，寄满人的希望，热闹地行着，每分钟把沾污了人气的一小方水面，还给那无情、无尽、无际的大海。</p>
+
+<p>这一张文凭，仿佛有亚当、夏娃下身那片树叶的功用，可以遮羞包丑；小小一方纸能把一个人的空疏、寡陋、愚笨都掩盖起来。自己没有文凭，好像精神上赤条条的，没有包裹。</p>
 <blockquote>
-  <p><strong>粒子滤波</strong>：通过寻找一组在状态空间中传播的随机样本来近似的表示概率密度函数，用样本均值代替积分运算，进而获得系统状态的最小方差估计的过程，这些样本被形象的称为“粒子”，故而叫粒子滤波。<a href="https://baike.baidu.com/item/%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2/2128986">参考</a> ；<a href="https://zhuanlan.zhihu.com/p/161617286">附一个非常生动的说明</a></p>
-
-  <p><strong>基于图优化的SLAM</strong>：<a href="https://zhuanlan.zhihu.com/p/41424435">参考</a></p>
+  <p>☝ 依稀记得高中时也摘抄过这句话</p>
 </blockquote>
 
-<h2 id="system-overview">System overview</h2>
-<p><img src="/img/in_post/cartographer/system.png" alt="img" /></p>
-<ol>
-  <li>将laser scan插入submap中最合适的位置，假设该位置短时间内足够准确</li>
-  <li>Scan matching针对于当前submap进行，所以只依赖于当前scan，会累积全局误差</li>
-  <li>位姿优化：
-    <ul>
-      <li>当submap完成后（即没有新scan插入submap），submap将进行扫描匹配以检测回环</li>
-      <li>所有结束的submap和scan会自动进行回环</li>
-      <li>If they are close enough based on current pose estimates, a scan matcher tries to find the scan in the submap.（没理解指谁和谁比较，submap不是由scan组成的吗？包含的关系还能远吗？）</li>
-      <li>若在当前估计位姿周围的搜索窗口中找到了较好匹配，则将其作为回环约束加入优化问题</li>
-      <li>软约束：回环扫描匹配需比新增scan快一些，否则会有明显滞后</li>
-    </ul>
-    <ul>
-      <li>通过branch-and-bound和子图预算栅格加速回环检测（如何实现？）</li>
-    </ul>
-  </li>
-</ol>
+<p>方鸿渐把这种巧妙的词句和精密的计算来抚慰自己，可是失望、遭欺骗的情欲、被损伤的骄傲，都不肯平伏，像不倒翁，捺下去又竖起来，反而摇摆得厉害。</p>
 
-<h2 id="local-2d-slam">Local 2D SLAM</h2>
-<ul>
-  <li>局部slam和全局slam的优化对象都是 pose（ξ x , ξ y , ξ θ）</li>
-  <li>不平稳测量平台（如背包）需要结合IMU，获取雷达相对于重力的方向，以将scan映射到2D平面</li>
-  <li>scan matching：用非线性优化对齐scan和submap，会产生累计误差，由全局方法消除</li>
-</ul>
+<h4 id="二">二</h4>
 
-<h3 id="a-scans">A. scans</h3>
-<ol>
-  <li>submap的构造是重复对齐scan和submap坐标系的迭代过程</li>
-  <li>scan坐标系—&gt;submap坐标系：
-<img src="/img/in_post/cartographer/1.png" width="60%" /></li>
-</ol>
+<p>喜欢中国话里夹无谓的英文字。他并无中文难达的新意，需要借英文来讲；所以他说话里嵌的英文字，还比不得嘴里嵌的金牙，因为金牙不仅妆点，尚可使用，只好比牙缝里嵌的肉屑，表示饭菜吃得好，此外全无用处。</p>
 
-<h3 id="b-submaps">B. submaps</h3>
-<p>（翻译成子图的话，这里的图是map而不是graph，容易产生歧义）</p>
-<ol>
-  <li>submap由几个连续的scan构建</li>
-  <li>submap采用栅格地图的形式，每格边长5cm，每格的值表示该格阻塞(有障碍物)的概率</li>
-  <li>pixel：某格点周围一圈格点</li>
-  <li>新增scan时，击中则更新击中点，为击中则更新一条射线</li>
-  <li>更新每格概率：
-<img src="/img/in_post/cartographer/2.png" width="60%" /></li>
-</ol>
+<h4 id="三">三</h4>
 
-<h3 id="c-ceres-scan-matchng">C. Ceres scan matchng</h3>
-<blockquote>
-  <p>除第一个submap外，新增scan会插入相邻两个submap</p>
-</blockquote>
+<p>她跟辛楣的长期认识并不会日积月累地成为恋爱，好比冬季每天的气候罢，你没法把今天的温度加在昨天的上面，好等明天积成个和暖的春日。</p>
 
-<p>将scan插入submap之前，需要用基于ceres的scan matcher根据当前局部submap优化pose ξ 
-<img src="/img/in_post/cartographer/3.png" width="60%" /></p>
-<ol>
-  <li>Tξ将hk由scan坐标系变换至submap坐标系</li>
-  <li>Msmooth是平滑函数，用双三次插值减小[0，1]外点的影响</li>
-</ol>
+<p>出洋好比出痘子，出痧子，非出不可。小孩子出过痧痘，就可以安全长大，以后碰见这两种毛病，不怕传染。我们出过洋，也算了了一桩心愿，灵魂健全，见了博士硕士们这些微生虫，有抵抗力来自卫。</p>
 
-<blockquote>
-  <p>bicubic函数：
-<img src="/img/in_post/cartographer/4.png" width="30%" /></p>
-</blockquote>
+<p>慎明道：“关于Bertie离婚结婚的事，我也和他谈过。他引一句英国古话，说结婚仿佛金漆的鸟笼，笼子外面的鸟想住进去，笼内的鸟想飞出来；所以结而离，离而结，没有了局。”
+苏小姐道：“法国也有这么一句话。不过，不说是鸟笼，说是被围困的城堡，城外的人想冲进去，城里的人想逃出来。”</p>
 
-<h2 id="closing-loops">Closing loops</h2>
-<ol>
-  <li>大空间通过创建许多小submap处理</li>
-  <li>用稀疏位姿矫正（SPA）来优化所有scan和submap</li>
-  <li>插入scan的相对位姿存储在内存中，将在优化回环时使用。</li>
-  <li>一旦submap结束（不再新增scan），scan和submap就进行回环检测</li>
-  <li>Scan matcher在后台运行，一旦找到好的匹配，就将相对位姿加入优化问题</li>
-</ol>
+<p>这时候，他等待他们的恭维，同时知道这恭维不会满足自己，仿佛鸦片瘾发的时候只找到一包香烟的心理。</p>
 
-<h3 id="a-optimization-problem">A. Optimization problem</h3>
-<ol>
-  <li>回环优化和扫描匹配一样，也是一个非线性最小二乘问题</li>
-  <li>每隔几秒，用ceres计算下述问题的解：（Sparse Pose Adjustment）
-<img src="/img/in_post/cartographer/5.png" width="60%" />
-    <ul>
-      <li>Em=ξmi (i=1,…,m)是submap位姿，Es=ξsj (i=1,…,s)是scan位姿，在给定约束条件下进行优化</li>
-      <li>这些约束用相对位姿 ξij 和相关协方差矩阵 Σij 描述</li>
-      <li>对于一对submap i和scan j，位姿 ξij 描述了submap坐标系中scan匹配到的位置</li>
-      <li>此类约束的残差由下式计算：
-<img src="/img/in_post/cartographer/6.png" width="70%" /></li>
-      <li>损失函数ρ（例如huber损失函数）用于减少异常值的影响。这些异常值可能出现在scan matching向优化问题SPA增加不正确的约束时，例如像办公室隔间这样的局部对称空间。</li>
-    </ul>
-  </li>
-</ol>
+<p>“方先生的过去太丰富了！我爱的人，我要能占领他整个生命，他在碰见我以前，没有过去，留着空白等待我。我只希望方先生前途无量。”</p>
+
+<h4 id="四">四</h4>
+
+<p>他所说的“让她三分”，不是“三分流水七分尘”的“三分”，而是“天下只有三分月色”的三分。</p>
+
+<p>鸿渐道：“这不是大教授干政治，这是小政客办教育。从前愚民政策是不许人民受教育，现代愚民政策是只许人民受某一种教育。不受教育的人，因为不识字，上人的当，受教育的人，因为识了字，上印刷品的当，像你们的报纸宣传品、训练干部讲义之类。”</p>
+
+<h4 id="五">五</h4>
+
+<p>“应当是杏花，表示你爱她，她不爱你；还有水仙花，表示她心肠太硬；外加艾草，表示你为了她终身痛苦。另外要配上石竹花来加重这涵意的力量。”</p>
+
+<p>“那最好！不要提起我，不要提起我。”鸿渐嘴里机械地说着，心里仿佛黑牢里的禁锢者摸索着一根火柴，刚划亮，火柴就熄了，眼前美看清的一片又滑回黑暗里。譬如黑夜里两条船相迎擦过，一个在这条船上，瞥见对面船舱的灯光里正是自己梦寐不忘的脸，没来得及叫唤，彼此早距离远了。这一刹那的接近，反见得暌隔的渺茫。鸿渐这时候只暗叹恨幸楣糊涂。</p>
+
+<p>鸿渐昨晚没睡好，今天又累了，邻室虽然弦歌交作，睡眠漆黑一团，当头罩下来，他一忽睡到天明，觉得身体里纤屑蜷伏的疲倦，都给睡眠熨平了，像衣服上的皱纹折痕经过烙铁一样。</p>
+
+<p>这雨愈下愈老成，水点贯串作丝，河面上像出了痘，无数麻瘢似的水涡，随生随灭，息息不停，到雨线更密，又仿佛光滑的水面上在长毛。</p>
+
+<p>辛楣也累得很，只怕鸿渐鼾声打搅，正在担心，没提防睡眠闷棍似的忽然一下子打他入黑暗底，滤清了梦，纯粹、完整的睡眠。</p>
+
+<p>鸿渐睡梦里，觉得有东西在撞这肌理稠密的睡，只破了一个小孔，而整个睡都退散了，像一道滚水似的注射冰面，醒过来只听见：“哙！哙！”。</p>
+
+<p>侯营长有个桔皮大鼻子，鼻子上附带一张脸，脸上应有尽有，并未给鼻子挤去眉眼，鼻尖生几个酒刺，像未熟的草莓。</p>
+
+<p>鸿渐想起唐小芙和自己，心像火焰的舌头突跳而起，说：“想到你还是想你？我们一天要想到不知多少人，亲戚、朋友、仇人，以及不相干的见过面的人。真正想一个人，记挂着他，希望跟他接近，这少得很。人事太忙了，不许我们全神贯注，无间断地怀念一个人。我们一生对于最亲爱的人的想念，加起来恐怕不到一刻钟，此外不过是念头在他身上瞥过，想到而已。”</p>
+
+<p>那天晚上，大家睡熟了还觉得饿，仿佛饿宣告独立，具体化了，跟身子分开似的。</p>
+
+<p>那一晚，山里的寒气把旅客们的睡眠冻得收缩，不够包裹整个身心，五人只支离零碎地睡到天明。</p>
+
+<p>辛楣道：“像咱们这种旅行，最试验得出一个人的品性。旅行是最劳顿，最麻烦，叫人本相毕现的时候。经过长期苦旅而彼此不讨厌的人，才可以结交作朋友——且慢，你听我说——结婚以后的蜜月旅行是次序颠倒的，应该先同旅行一个月，一个月舟车仆仆以后，双方还没有彼此看破，彼此厌恶，还没有吵嘴翻脸，还要维持原有的婚约，这种夫妇保证不会离婚。”</p>
+
+<h4 id="六">六</h4>
+
+<p>顾尔谦点头叹道：“念中国书的人，毕竟知礼，我想旁系的学生绝不会这样尊师重道的。”说完笑眯眯地望着李梅亭，这时候，上帝会懊悔没在人身上添一条能摇的狗尾巴，因此减低了不知多少表情的效果。</p>
+
+<p>他先出宿舍到厕所去,宿舍楼上楼下都睡得静悄悄的，脚步就像践踏在这些睡人的梦上，钉铁跟的皮鞋太重，会踏碎几个脆薄的梦。</p>
 
 <blockquote>
-  <p>hube loss: 相比于最小二乘的线性回归，HuberLoss降低了对离群点的惩罚程度。当预测偏差小于 δ 时，采用平方误差；当预测偏差大于 δ 时，采用线性误差。<a href="https://www.cnblogs.com/nowgood/p/Huber-Loss.html">参考</a>
-<img src="/img/in_post/cartographer/7.png" width="60%" /></p>
+  <p>有好几处描写睡眠的呀，都把睡眠当作个泡泡，这泡泡有时能把人包裹其中，听不见外界吵闹，有时一戳就破，泡泡里的人就摔到床上。</p>
 </blockquote>
 
-<h3 id="b-branch-and-bound-scan-matchingbbs">B. Branch-and-bound scan matching（BBS）</h3>
-<ol>
-  <li>pixel-accurate scan matching：
-<img src="/img/in_post/cartographer/8.png" width="60%" />
-    <ul>
-      <li>W是搜索窗口，M nearest是submap周围一圈格点</li>
-      <li>使用前面的CS公式可以提高匹配质量</li>
-    </ul>
-  </li>
-  <li>搜索步长对效率有很大影响
-    <ul>
-      <li>选择角度步长 δθ 使得扫描范围最大dmax处的扫描点移动不超过pixel的半径r，由余弦定理得：
-<img src="/img/in_post/cartographer/9.png" width="60%" /></li>
-      <li>计算一个完整的步数，覆盖给定的搜索窗口（例如Wx=Wy=7m，Wθ=30度），并对其取整
-<img src="/img/in_post/cartographer/10.png" width="60%" /></li>
-      <li>产生一个有限集合W形成以估计位姿ξ0为中心的搜索窗口
-<img src="/img/in_post/cartographer/11.png" width="70%" /></li>
-    </ul>
-  </li>
-  <li>朴素的暴力搜索太慢
-<img src="/img/in_post/cartographer/12.png" width="70%" /></li>
-  <li>用Branch-and-bound分支定界法在较大搜索窗口下求解BBS问题
-<img src="/img/in_post/cartographer/13.png" width="70%" /></li>
-</ol>
+<h4 id="八">八</h4>
 
-<blockquote>
-  <p>分支定界法：通常，把全部可行解空间反复地分割为越来越小的子集，称为分支；并且对每个子集内的解集计算一个目标下界（对于最小值问题），这称为定界。在每次分枝后，凡是界限超出已知可行解集目标值的那些子集不再进一步分枝，这样，许多子集可不予考虑，这称剪枝。这就是分枝定界法的主要思路。<a href="https://baike.baidu.com/item/%E5%88%86%E6%94%AF%E5%AE%9A%E7%95%8C%E6%B3%95/9902038">参考</a></p>
-</blockquote>
+<p>睡眠这东西脾气怪得很，不要它，它偏会来，请它，哄它，千方百计勾引它，它拿身分躲得影子都不见。</p>
 
-<p>要将分支定界法具体化，我们需要选择节点选择、分支、上界计算的方法</p>
+<h4 id="九">九</h4>
 
-<h4 id="1-node-selection">1. Node selection</h4>
-<p>默认采用深度优先搜索DFS（利用栈的先进后出实现）</p>
-<ol>
-  <li>为避免加入坏匹配作为回环，引入一个分数阈值，小于阈值不予考虑。在实践中，通常不会超过阈值，这降低了节点选择和初始值的重要性。</li>
-  <li>计算每个子节点的分数上限，首先访问上限最大 最有希望的子节点
-<img src="/img/in_post/cartographer/14.png" width="70%" /></li>
-</ol>
+<p>廉耻并不廉，许多人维持它不起。</p>
 
-<h4 id="2-branching-rule">2. Branching rule</h4>
-<ol>
-  <li>树上的每个节点用一组整数表示 c=（cx，cy，cθ，ch），高度ch处的节点有2^ch*2^ch种组合，但只表示特定的旋转。子节点的高度为0，则对应可行解。
-<img src="/img/in_post/cartographer/15.png" width="60%" /></li>
-  <li>将节点分为4个子节点</li>
-</ol>
+<p>房子比职业更难找。满街是屋，可是轮不到他们住。上海仿佛希望每个新来的人都像只戴壳的蜗牛，随身带着宿舍。</p>
 
-<blockquote>
-  <p>分支：对一个大的步长在 x 和 y 方向进行对半拆分，而 θ 不变。对 x 和 y 都进行减半操作，相当于“分田”，在空间坐标上将搜索空间划分为四个更小的区域 <a href="https://zhuanlan.zhihu.com/p/364015137">参考</a></p>
-</blockquote>
-
-<h4 id="3-computing-upper-bounds">3. Computing upper bounds</h4>
-<p><img src="/img/in_post/cartographer/16.png" width="60%" /></p>
-
-<ol>
-  <li>
-    <p>为了提高效率，使用预算网格图
-<img src="/img/in_post/cartographer/17.png" width="70%" /></p>
-  </li>
-  <li>
-    <p>M_precomp和M_nearest一样有pixel结构，但每个pixel存储着2^h*2^h大的搜索窗口中的最大值
-<img src="/img/in_post/cartographer/18.png" width="60%" /></p>
-  </li>
-  <li>对于每个预算格，计算从这格开始的2^h宽的行的最大值。用它作为中间结果，构建下一个预算图。用这种方式，时间复杂度是O(n)，n为每个预算图中pixel个数</li>
-  <li>另一种计算上界的方式是计算分辨率较低（将分辨率依次减半）的概率栅格图，较省空间，但效果较差。</li>
-</ol>
-
-<blockquote>
-  <p>预算图的内核思想：运动是相对的，与其遍历计算所有可能位姿对应的scan（墙），不如计算固定位姿扫描到的 ”移动“ 的墙。</p>
-</blockquote>
-
-<h2 id="conclusions">Conclusions</h2>
-<ol>
-  <li>cartographer是一个2D SLAM系统，将scan-to-submap匹配回环检测和图优化相结合</li>
-  <li>单个子图轨迹由基于栅格的local SLAM建立</li>
-  <li>在后端，所有scan和submap都用pixel-accurate扫描匹配，以创建回环约束</li>
-  <li>scan和submap的约束在后端周期性进行优化</li>
-</ol>
-
-<h2 id="cartographer-代码">Cartographer 代码</h2>
-<p><a href="https://raw.githubusercontent.com/Sylviazsh/my_Graphviz/ad9664b28ac536cdc1b6400c96356e19bd959320/cartographer.svg">cartographer函数关系图</a>
-<img src="https://raw.githubusercontent.com/Sylviazsh/my_Graphviz/ad9664b28ac536cdc1b6400c96356e19bd959320/cartographer.svg" alt="cartographer函数关系图" /></p>
-
-<p><a href="https://github.com/ZhouShihui210/cartographer_detailed_comments_ws">cartographer代码注释</a></p>
+<p>柔嘉眼睁睁看他出了房，瘫倒在沙发里，扶头痛哭，这一阵泪不像只是眼里流的，宛如心里、整个身体里都挤出热泪合在一起宣泄。</p>
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2022/11/24/loop-closing/" data-toggle="tooltip" data-placement="top" title="回环检测">
+                        <a href="/2022/11/25/cartographer/" data-toggle="tooltip" data-placement="top" title="论文笔记：cartographer">
                         Previous<br>
-                        <span>回环检测</span>
+                        <span>论文笔记：cartographer</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2022/11/27/weicheng/" data-toggle="tooltip" data-placement="top" title="摘记：围城">
-                        Next<br>
-                        <span>摘记：围城</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">
