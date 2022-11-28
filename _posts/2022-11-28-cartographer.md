@@ -2,7 +2,7 @@
 layout: post
 title:  "论文笔记：cartographer"
 subtitle: "Real-Time Loop Closure in 2D LIDAR SLAM"
-date:   2022-11-25 09:05:00 +0800
+date:   2022-11-28 09:05:00 +0800
 author:     "ZhouSh"
 header-img: "img/in_post/cartographer/head.png"
 header-mask: 0
@@ -47,7 +47,7 @@ tags:
     - 通过branch-and-bound和子图预算栅格加速回环检测（如何实现？）
 
 ## Local 2D SLAM
-- 局部slam和全局slam的优化对象都是 pose（ξ x , ξ y , ξ θ）
+- 局部slam和全局slam的优化对象都是 pose（$\xi x$ , $\xi y$ , $\xi \theta$）
 - 不平稳测量平台（如背包）需要结合IMU，获取雷达相对于重力的方向，以将scan映射到2D平面
 - scan matching：用非线性优化对齐scan和submap，会产生累计误差，由全局方法消除
 
@@ -68,9 +68,9 @@ tags:
 ### C. Ceres scan matchng
 > 除第一个submap外，新增scan会插入相邻两个submap
 
-将scan插入submap之前，需要用基于ceres的scan matcher根据当前局部submap优化pose ξ 
+将scan插入submap之前，需要用基于ceres的scan matcher根据当前局部submap优化pose $\xi$ 
 <img src="/img/in_post/cartographer/3.png" width="60%">
-1. Tξ将hk由scan坐标系变换至submap坐标系
+1. $T_\xi$将$h_k$由scan坐标系变换至submap坐标系
 2. Msmooth是平滑函数，用双三次插值减小[0，1]外点的影响
 
 > bicubic函数：
@@ -87,27 +87,27 @@ tags:
 1. 回环优化和扫描匹配一样，也是一个非线性最小二乘问题
 2. 每隔几秒，用ceres计算下述问题的解：（Sparse Pose Adjustment）
 <img src="/img/in_post/cartographer/5.png" width="60%">
-  - Em=ξmi (i=1,...,m)是submap位姿，Es=ξsj (i=1,...,s)是scan位姿，在给定约束条件下进行优化
-  - 这些约束用相对位姿 ξij 和相关协方差矩阵 Σij 描述
-  - 对于一对submap i和scan j，位姿 ξij 描述了submap坐标系中scan匹配到的位置
+  - $E_m$=$\xi_{mi}$ (i=1,...,m)是submap位姿，$E_s$=$\xi_{sj}$ (i=1,...,s)是scan位姿，在给定约束条件下进行优化
+  - 这些约束用相对位姿 $\xi_{ij}$ 和相关协方差矩阵 $\Sigma_{ij}$ 描述
+  - 对于一对submap i和scan j，位姿 $\xi_{ij}$ 描述了submap坐标系中scan匹配到的位置
   - 此类约束的残差由下式计算：
 <img src="/img/in_post/cartographer/6.png" width="70%">
-  - 损失函数ρ（例如huber损失函数）用于减少异常值的影响。这些异常值可能出现在scan matching向优化问题SPA增加不正确的约束时，例如像办公室隔间这样的局部对称空间。
+  - 损失函数$\rho$（例如huber损失函数）用于减少异常值的影响。这些异常值可能出现在scan matching向优化问题SPA增加不正确的约束时，例如像办公室隔间这样的局部对称空间。
 
-> hube loss: 相比于最小二乘的线性回归，HuberLoss降低了对离群点的惩罚程度。当预测偏差小于 δ 时，采用平方误差；当预测偏差大于 δ 时，采用线性误差。[参考](https://www.cnblogs.com/nowgood/p/Huber-Loss.html)
+> hube loss: 相比于最小二乘的线性回归，HuberLoss降低了对离群点的惩罚程度。当预测偏差小于 $\delta$ 时，采用平方误差；当预测偏差大于 $\delta$ 时，采用线性误差。[参考](https://www.cnblogs.com/nowgood/p/Huber-Loss.html)
 <img src="/img/in_post/cartographer/7.png" width="60%">
 
 ### B. Branch-and-bound scan matching（BBS）
 1. pixel-accurate scan matching：
 <img src="/img/in_post/cartographer/8.png" width="60%">
-  - W是搜索窗口，M nearest是submap周围一圈格点
+  - W是搜索窗口，$M_{nearest}$是submap周围一圈格点
   - 使用前面的CS公式可以提高匹配质量
 2. 搜索步长对效率有很大影响
-  - 选择角度步长 δθ 使得扫描范围最大dmax处的扫描点移动不超过pixel的半径r，由余弦定理得：
+  - 选择角度步长 $\delta_\theta$ 使得扫描范围最大$d_{max}$处的扫描点移动不超过pixel的半径r，由余弦定理得：
 <img src="/img/in_post/cartographer/9.png" width="60%">
-  - 计算一个完整的步数，覆盖给定的搜索窗口（例如Wx=Wy=7m，Wθ=30度），并对其取整
+  - 计算一个完整的步数，覆盖给定的搜索窗口（例如$W_x$=$W_y$=7m，$W_\theta$=30度），并对其取整
 <img src="/img/in_post/cartographer/10.png" width="60%">
-  - 产生一个有限集合W形成以估计位姿ξ0为中心的搜索窗口
+  - 产生一个有限集合W形成以估计位姿 $\xi_\theta$ 为中心的搜索窗口
 <img src="/img/in_post/cartographer/11.png" width="70%">
 3. 朴素的暴力搜索太慢
 <img src="/img/in_post/cartographer/12.png" width="70%">
@@ -125,11 +125,11 @@ tags:
 <img src="/img/in_post/cartographer/14.png" width="70%">
 
 #### 2. Branching rule
-  1. 树上的每个节点用一组整数表示 c=（cx，cy，cθ，ch），高度ch处的节点有2^ch*2^ch种组合，但只表示特定的旋转。子节点的高度为0，则对应可行解。
+  1. 树上的每个节点用一组整数表示 c=（$c_x$，$c_y$，$c_\theta$，$c_h$），高度$c_h$处的节点有$2^{ch}*2^{ch}$种组合，但只表示特定的旋转。子节点的高度为$\theta$，则对应可行解。
 <img src="/img/in_post/cartographer/15.png" width="60%">
   2. 将节点分为4个子节点
 
-> 分支：对一个大的步长在 x 和 y 方向进行对半拆分，而 θ 不变。对 x 和 y 都进行减半操作，相当于“分田”，在空间坐标上将搜索空间划分为四个更小的区域 [参考](https://zhuanlan.zhihu.com/p/364015137)
+> 分支：对一个大的步长在 x 和 y 方向进行对半拆分，而 $\theta$ 不变。对 x 和 y 都进行减半操作，相当于“分田”，在空间坐标上将搜索空间划分为四个更小的区域 [参考](https://zhuanlan.zhihu.com/p/364015137)
 
 #### 3. Computing upper bounds
 <img src="/img/in_post/cartographer/16.png" width="60%">
@@ -137,10 +137,10 @@ tags:
   1. 为了提高效率，使用预算网格图
 <img src="/img/in_post/cartographer/17.png" width="70%">
 
-  2. M_precomp和M_nearest一样有pixel结构，但每个pixel存储着2^h*2^h大的搜索窗口中的最大值
+  2. $M_{precomp}$和$M_{nearest}$一样有pixel结构，但每个pixel存储着$2^h*2^h$大的搜索窗口中的最大值
 <img src="/img/in_post/cartographer/18.png" width="60%">
 
-  3. 对于每个预算格，计算从这格开始的2^h宽的行的最大值。用它作为中间结果，构建下一个预算图。用这种方式，时间复杂度是O(n)，n为每个预算图中pixel个数
+  3. 对于每个预算格，计算从这格开始的$2^h$宽的行的最大值。用它作为中间结果，构建下一个预算图。用这种方式，时间复杂度是O(n)，n为每个预算图中pixel个数
   4. 另一种计算上界的方式是计算分辨率较低（将分辨率依次减半）的概率栅格图，较省空间，但效果较差。
 
 > 预算图的内核思想：运动是相对的，与其遍历计算所有可能位姿对应的scan（墙），不如计算固定位姿扫描到的 ”移动“ 的墙。

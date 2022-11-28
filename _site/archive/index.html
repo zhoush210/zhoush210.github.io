@@ -280,13 +280,13 @@ https://github.com/kitian616/jekyll-TeXt-theme
 					<span class="fa listing-seperator">
 						<span class="tag-text">2022</span>
 					</span><div class="post-preview item" data-tags="SLAM">
-						<a href="/2022/11/28/ORB-SLAM1/">
+						<a href="/2022/11/28/cartographer/">
 							<h2 class="post-title">
-								论文笔记：ORB SLAM 1
+								论文笔记：cartographer
 							</h2>
 							
 							<h3 class="post-subtitle">
-								ORB-SLAM: a Versatile and Accurate Monocular SLAM System
+								Real-Time Loop Closure in 2D LIDAR SLAM
 							</h3>
 							
 						</a>
@@ -300,13 +300,13 @@ https://github.com/kitian616/jekyll-TeXt-theme
 						</a>
 						<hr>
 					</div><div class="post-preview item" data-tags="SLAM">
-						<a href="/2022/11/25/cartographer/">
+						<a href="/2022/11/25/ORB-SLAM1/">
 							<h2 class="post-title">
-								论文笔记：cartographer
+								论文笔记：ORB SLAM 1
 							</h2>
 							
 							<h3 class="post-subtitle">
-								Real-Time Loop Closure in 2D LIDAR SLAM
+								ORB-SLAM: a Versatile and Accurate Monocular SLAM System
 							</h3>
 							
 						</a>
@@ -611,5 +611,27 @@ https://github.com/kitian616/jekyll-TeXt-theme
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
+
+
+<!-- Add support for Mathjax by Voleking-->
+<!-- If you want to see formulars well in post preview, Maybe you should add this.-->
+<!-- However, most of the time formulars may not appear in the post preview, you can delete it.-->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 </html>

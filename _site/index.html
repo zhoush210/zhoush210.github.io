@@ -244,22 +244,22 @@
       col-xs-12 postlist-container">
       
 <div class="post-preview">
-    <a href="/2022/11/28/ORB-SLAM1/">
+    <a href="/2022/11/28/cartographer/">
         <h2 class="post-title">
-            论文笔记：ORB SLAM 1
+            论文笔记：cartographer
         </h2>
         
         <h3 class="post-subtitle">
-            ORB-SLAM: a Versatile and Accurate Monocular SLAM System
+            Real-Time Loop Closure in 2D LIDAR SLAM
         </h3>
         
         <div class="post-content-preview">
             
-                论文：ORB-SLAM: a Versatile and Accurate Monocular SLAM System
-
-主要贡献
-
-  对追踪、地图构建、重定位、闭环检测采用相同的特征，使得系统更高效、简单、可靠。采用的ORB特征在...
+                论文：Real-Time Loop Closure in 2D LIDAR SLAM
+Abstract
+为了实现实时的回环检测，cartographer使用分支定界法计算scan-to-map匹配作为约束
+Introduction
+本...
             
         </div>
     </a>
@@ -298,22 +298,22 @@
 <hr>
 
 <div class="post-preview">
-    <a href="/2022/11/25/cartographer/">
+    <a href="/2022/11/25/ORB-SLAM1/">
         <h2 class="post-title">
-            论文笔记：cartographer
+            论文笔记：ORB SLAM 1
         </h2>
         
         <h3 class="post-subtitle">
-            Real-Time Loop Closure in 2D LIDAR SLAM
+            ORB-SLAM: a Versatile and Accurate Monocular SLAM System
         </h3>
         
         <div class="post-content-preview">
             
-                论文：Real-Time Loop Closure in 2D LIDAR SLAM
-Abstract
-为了实现实时的回环检测，cartographer使用分支定界法计算scan-to-map匹配作为约束
-Introduction
-本...
+                论文：ORB-SLAM: a Versatile and Accurate Monocular SLAM System
+
+主要贡献
+
+  对追踪、地图构建、重定位、闭环检测采用相同的特征，使得系统更高效、简单、可靠。采用的ORB特征在...
             
         </div>
     </a>
@@ -770,5 +770,27 @@ You’ll find this post in your _posts directory. Go ahead and edit it and re-bu
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
+
+
+<!-- Add support for Mathjax by Voleking-->
+<!-- If you want to see formulars well in post preview, Maybe you should add this.-->
+<!-- However, most of the time formulars may not appear in the post preview, you can delete it.-->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 </html>

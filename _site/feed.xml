@@ -5,235 +5,226 @@
     <description>这里是周诗蕙的个人博客</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 28 Nov 2022 21:52:19 +0800</pubDate>
-    <lastBuildDate>Mon, 28 Nov 2022 21:52:19 +0800</lastBuildDate>
+    <pubDate>Mon, 28 Nov 2022 22:38:00 +0800</pubDate>
+    <lastBuildDate>Mon, 28 Nov 2022 22:38:00 +0800</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
     
       <item>
-        <title>论文笔记：ORB SLAM 1</title>
-        <description>&lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/pdf/1502.00956.pdf&quot;&gt;ORB-SLAM: a Versatile and Accurate Monocular SLAM System&lt;/a&gt;&lt;/p&gt;
+        <title>论文笔记：cartographer</title>
+        <description>&lt;p&gt;论文：&lt;a href=&quot;/doc/cartographer%20-%202016%20-%20Real%20time%20loop%20closure%20in%202D%20LIDAR%20SLAM%20-%20Hess%20et%20al.pdf&quot;&gt;Real-Time Loop Closure in 2D LIDAR SLAM&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;abstract&quot;&gt;Abstract&lt;/h2&gt;
+&lt;p&gt;为了实现实时的回环检测，cartographer使用&lt;strong&gt;分支定界法&lt;/strong&gt;计算&lt;strong&gt;scan-to-map&lt;/strong&gt;匹配作为约束&lt;/p&gt;
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;本文的重点是减少大量数据下回环所需的&lt;strong&gt;计算量&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;related-work&quot;&gt;Related work&lt;/h2&gt;
+&lt;h3 id=&quot;匹配&quot;&gt;匹配&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Scan-to-scan matching：累计漂移误差大&lt;/li&gt;
+  &lt;li&gt;Scan-to-map matching：累计漂移误差小，需要好的初始值，用高斯牛顿法找局部最优值&lt;/li&gt;
+  &lt;li&gt;Pixel-accurate scan matching：漂移误差小，但计算量大
+    &lt;ul&gt;
+      &lt;li&gt;减少计算量的策略：通过laser特征提取匹配&lt;/li&gt;
+      &lt;li&gt;加强回环检测的策略：直方图统计匹配、提取laser特征、机器学习&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h2 id=&quot;主要贡献&quot;&gt;主要贡献&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;scan to scan match&lt;/strong&gt;：两帧激光雷达数据之间的匹配。假如当前帧的激光雷达数据为A，和它匹配的另一帧激光雷达数据为B，如果以A为起始帧，B为目标帧，那么A经过一个相对平移和旋转变换到B，我们目的就是求出这个相对平移量和旋转角度。目前来说，匹配效果最好的算法就是ICP（Iterative Closest Point）方法，它充分利用了激光雷达每个数据点来进行匹配，后来所有ICP变种基本都是为了提高计算效率而演化的，如何减小循环次数加快收敛等等。&lt;a href=&quot;https://www.jianshu.com/p/12cafbd14797&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;scan to map match&lt;/strong&gt;：即激光雷达扫描数据直接与地图进行匹配，得到实际位置坐标[x,y,theta]。这种方式一边计算位置，一边把新扫描到的数据及时加入到先前地图中。&lt;a href=&quot;https://www.jianshu.com/p/12cafbd14797&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;减少局部累计误差&quot;&gt;减少局部累计误差&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;粒子滤波：对于grid-based SLAM，占用计算资源过多&lt;/li&gt;
+  &lt;li&gt;基于图优化的SLAM：node表示位姿和特征，边表示观测约束&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;粒子滤波&lt;/strong&gt;：通过寻找一组在状态空间中传播的随机样本来近似的表示概率密度函数，用样本均值代替积分运算，进而获得系统状态的最小方差估计的过程，这些样本被形象的称为“粒子”，故而叫粒子滤波。&lt;a href=&quot;https://baike.baidu.com/item/%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2/2128986&quot;&gt;参考&lt;/a&gt; ；&lt;a href=&quot;https://zhuanlan.zhihu.com/p/161617286&quot;&gt;附一个非常生动的说明&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;基于图优化的SLAM&lt;/strong&gt;：&lt;a href=&quot;https://zhuanlan.zhihu.com/p/41424435&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;system-overview&quot;&gt;System overview&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in_post/cartographer/system.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 &lt;ol&gt;
-  &lt;li&gt;对追踪、地图构建、重定位、闭环检测采用&lt;strong&gt;相同的特征&lt;/strong&gt;，使得系统更高效、简单、可靠。采用的ORB特征在没有GPU的情况下也有很好的实时性，且具有旋转不变性和光照不变性。&lt;/li&gt;
-  &lt;li&gt;支持在大场景中实时运行。由于共视图（covisibility graph）的使用，特征点的跟踪与构图主要集中在局部共视区域，而与全局地图的尺寸无关。&lt;/li&gt;
-  &lt;li&gt;使用一种我们称为Essential Graph的位姿图优化位姿，实现实时回环检测。它是由系统维护的生成树、闭环的链接和共视图（covisibility graph）的强边共同构建的。&lt;/li&gt;
-  &lt;li&gt;实时相机重定位具有明显的旋转不变特性和光照不变性。这就使得跟踪丢失后可以恢复，增强了地图的重用性。&lt;/li&gt;
-  &lt;li&gt;一种新的基于模型选择的自动和鲁棒的初始化程序，它允许创建平面和非平面场景的初始建图&lt;/li&gt;
-  &lt;li&gt;提出了一种用来选择地图点和关键帧的“适者生存”方法：生成时宽松但剔除时严格。这种策略可以剔除冗余的关键帧，从而增强追踪的鲁棒性以及长时间运行的能力。&lt;/li&gt;
+  &lt;li&gt;将laser scan插入submap中最合适的位置，假设该位置短时间内足够准确&lt;/li&gt;
+  &lt;li&gt;Scan matching针对于当前submap进行，所以只依赖于当前scan，会累积全局误差&lt;/li&gt;
+  &lt;li&gt;位姿优化：
+    &lt;ul&gt;
+      &lt;li&gt;当submap完成后（即没有新scan插入submap），submap将进行扫描匹配以检测回环&lt;/li&gt;
+      &lt;li&gt;所有结束的submap和scan会自动进行回环&lt;/li&gt;
+      &lt;li&gt;If they are close enough based on current pose estimates, a scan matcher tries to find the scan in the submap.（没理解指谁和谁比较，submap不是由scan组成的吗？包含的关系还能远吗？）&lt;/li&gt;
+      &lt;li&gt;若在当前估计位姿周围的搜索窗口中找到了较好匹配，则将其作为回环约束加入优化问题&lt;/li&gt;
+      &lt;li&gt;软约束：回环扫描匹配需比新增scan快一些，否则会有明显滞后&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul&gt;
+      &lt;li&gt;通过branch-and-bound和子图预算栅格加速回环检测（如何实现？）&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;local-2d-slam&quot;&gt;Local 2D SLAM&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;局部slam和全局slam的优化对象都是 pose（$\xi x$ , $\xi y$ , $\xi \theta$）&lt;/li&gt;
+  &lt;li&gt;不平稳测量平台（如背包）需要结合IMU，获取雷达相对于重力的方向，以将scan映射到2D平面&lt;/li&gt;
+  &lt;li&gt;scan matching：用非线性优化对齐scan和submap，会产生累计误差，由全局方法消除&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;a-scans&quot;&gt;A. scans&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;submap的构造是重复对齐scan和submap坐标系的迭代过程&lt;/li&gt;
+  &lt;li&gt;scan坐标系—&amp;gt;submap坐标系：
+&lt;img src=&quot;/img/in_post/cartographer/1.png&quot; width=&quot;60%&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;b-submaps&quot;&gt;B. submaps&lt;/h3&gt;
+&lt;p&gt;（翻译成子图的话，这里的图是map而不是graph，容易产生歧义）&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;submap由几个连续的scan构建&lt;/li&gt;
+  &lt;li&gt;submap采用栅格地图的形式，每格边长5cm，每格的值表示该格阻塞(有障碍物)的概率&lt;/li&gt;
+  &lt;li&gt;pixel：某格点周围一圈格点&lt;/li&gt;
+  &lt;li&gt;新增scan时，击中则更新击中点，为击中则更新一条射线&lt;/li&gt;
+  &lt;li&gt;更新每格概率：
+&lt;img src=&quot;/img/in_post/cartographer/2.png&quot; width=&quot;60%&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;c-ceres-scan-matchng&quot;&gt;C. Ceres scan matchng&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;除第一个submap外，新增scan会插入相邻两个submap&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;将scan插入submap之前，需要用基于ceres的scan matcher根据当前局部submap优化pose $\xi$ 
+&lt;img src=&quot;/img/in_post/cartographer/3.png&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;$T_\xi$将$h_k$由scan坐标系变换至submap坐标系&lt;/li&gt;
+  &lt;li&gt;Msmooth是平滑函数，用双三次插值减小[0，1]外点的影响&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;回环和重定位方法基于他们之前提出的：Fast relocalisation and loop closing in key-frame-based SLAM&lt;/p&gt;
-
-  &lt;p&gt;该系统的初步版本在：ORB-SALM:Tracking and mapping recognizable featrues&lt;/p&gt;
+  &lt;p&gt;bicubic函数：
+&lt;img src=&quot;/img/in_post/cartographer/4.png&quot; width=&quot;30%&quot; /&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/in_post/ORB-SLAM1/1.png&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;地图点和关键帧&quot;&gt;地图点和关键帧&lt;/h2&gt;
-&lt;p&gt;每个地图点p_i存储：&lt;/p&gt;
+&lt;h2 id=&quot;closing-loops&quot;&gt;Closing loops&lt;/h2&gt;
 &lt;ol&gt;
-  &lt;li&gt;世界坐标系下3D位置X_wi&lt;/li&gt;
-  &lt;li&gt;观测方向n_i（相机光心到观测点的方向）&lt;/li&gt;
-  &lt;li&gt;ORB描述子D_i，它的汉明距离相对于被观察到的关键帧中的所有其他相关描述子是最小的&lt;/li&gt;
-  &lt;li&gt;根据尺度不变性可以看到的该点的最大尺寸和最小尺寸d_min, d_max&lt;/li&gt;
+  &lt;li&gt;大空间通过创建许多小submap处理&lt;/li&gt;
+  &lt;li&gt;用稀疏位姿矫正（SPA）来优化所有scan和submap&lt;/li&gt;
+  &lt;li&gt;插入scan的相对位姿存储在内存中，将在优化回环时使用。&lt;/li&gt;
+  &lt;li&gt;一旦submap结束（不再新增scan），scan和submap就进行回环检测&lt;/li&gt;
+  &lt;li&gt;Scan matcher在后台运行，一旦找到好的匹配，就将相对位姿加入优化问题&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;每个关键帧K_i存储：&lt;/p&gt;
+&lt;h3 id=&quot;a-optimization-problem&quot;&gt;A. Optimization problem&lt;/h3&gt;
 &lt;ol&gt;
-  &lt;li&gt;相机位姿T_iw，即刚体从世界坐标系到相机坐标系的转换&lt;/li&gt;
-  &lt;li&gt;相机内参，包括焦距和主点&lt;/li&gt;
-  &lt;li&gt;在帧中提取的所有ORB特征&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;共视图和本质图&quot;&gt;共视图和本质图&lt;/h2&gt;
-
-&lt;p&gt;共视图：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;无向加权图&lt;/li&gt;
-  &lt;li&gt;每个节点代表一个关键帧&lt;/li&gt;
-  &lt;li&gt;若两关键帧同时观测到15个地图点以上，则这2个节点用一条边相连&lt;/li&gt;
-  &lt;li&gt;其共同观测到的地图点数，作为该边的权重&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;本质图：&lt;/p&gt;
-
-&lt;p&gt;位姿优化时需将回路误差进行传播，因为共视图会非常密集，所以需要包含所有节点但边更稀疏的图&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;从初始关键帧开始增量式构建一个生成树，该树提供了一个边数最少的共视图的连接子图&lt;/li&gt;
-  &lt;li&gt;当插入新关键帧时，将该关键帧与树上与其有最多共同观测点的关键帧相连接&lt;/li&gt;
-  &lt;li&gt;当一个关键帧被剔除时，系统将更新受该关键帧影响的连接&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;本质图包含了生成树、共视图的边的子集、以及回环的边&lt;/p&gt;
-
-&lt;h2 id=&quot;一tracking&quot;&gt;一、Tracking&lt;/h2&gt;
-&lt;p&gt;作用：计算相机位姿、插入关键帧&lt;/p&gt;
-
-&lt;p&gt;流程：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;计算初始特征和上一帧匹配，用motion-only BA优化位姿&lt;/li&gt;
-  &lt;li&gt;如果跟踪失败，进行全局重定位&lt;/li&gt;
-  &lt;li&gt;如果跟踪顺利，用关键帧的共可视图得出局部地图&lt;/li&gt;
-  &lt;li&gt;用重投影搜索局部地图点&lt;/li&gt;
-  &lt;li&gt;决定是否插入新关键帧&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;自动初始化地图：&lt;/p&gt;
-
-&lt;p&gt;因为单目相机无法获取深度信息，就无法获取尺度信息，所以需要初始化地图。我们需要计算两帧间的位姿关系，通过三角化算出初始地图点。&lt;/p&gt;
-
-&lt;p&gt;步骤：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;在当前帧中寻找与参考帧匹配的特征&lt;/li&gt;
-  &lt;li&gt;计算单应矩阵H和基础矩阵F&lt;/li&gt;
-  &lt;li&gt;选择模型，平面用H，非平面用F&lt;/li&gt;
-  &lt;li&gt;根据选择的模型计算运动，H用8点法，F用4点法&lt;/li&gt;
-  &lt;li&gt;BA&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;tracking&quot;&gt;tracking&lt;/h3&gt;
-&lt;p&gt;步骤：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;提取ORB
+  &lt;li&gt;回环优化和扫描匹配一样，也是一个非线性最小二乘问题&lt;/li&gt;
+  &lt;li&gt;每隔几秒，用ceres计算下述问题的解：（Sparse Pose Adjustment）
+&lt;img src=&quot;/img/in_post/cartographer/5.png&quot; width=&quot;60%&quot; /&gt;
     &lt;ul&gt;
-      &lt;li&gt;在8层图像金字塔上提取FAST角点&lt;/li&gt;
-      &lt;li&gt;为了确保特征点分布均匀，先将每层图像分成网格，每格提取至少5个特征点&lt;/li&gt;
-      &lt;li&gt;如果某格不够提取5个，就调整检测器阈值再检测一次&lt;/li&gt;
-      &lt;li&gt;根据FAST角点计算其方向和ORB特征描述子&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;通过上一帧(运动模型)估计初始位姿
-    &lt;ul&gt;
-      &lt;li&gt;如果跟踪成功，利用匀速运动模型估计相机位姿，对上一帧观测到的地图点进行搜索&lt;/li&gt;
-      &lt;li&gt;如果跟踪失败，在上一帧地图点的基础上加大搜索范围，然后根据找到的匹配关系优化位姿&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;通过全局重定位估计初始位姿
-    &lt;ul&gt;
-      &lt;li&gt;如果跟踪失败，将当前帧转化为词袋(BoW)向量，在数据库中查询关键帧进行重定位&lt;/li&gt;
-      &lt;li&gt;计算每个候选关键帧的ORB与地图点的对应关系&lt;/li&gt;
-      &lt;li&gt;对每个候选关键帧进行RANSAC迭代，并用PnP计算当前位姿&lt;/li&gt;
-      &lt;li&gt;若重定位成功，则跟踪继续进行&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;跟踪局部地图
-    &lt;ul&gt;
-      &lt;li&gt;局部地图包含一组关键帧K1，他们和当前帧有部分共同的地图点；其中与当前帧有最多公共地图点的为参考帧K_ref&lt;/li&gt;
-      &lt;li&gt;共可视图中和K1相连的关键帧记为K2&lt;/li&gt;
-      &lt;li&gt;在当前帧中搜索K1和K2中的地图点：&lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;ol&gt;
-      &lt;li&gt;计算地图点在当前帧中的投影点，若超出边缘则舍弃&lt;/li&gt;
-      &lt;li&gt;计算当前观测方向和地图点平均观测方向的夹角，若小于60°则舍弃&lt;/li&gt;
-      &lt;li&gt;计算地图点到相机光心的距离d，若超出尺度不变区域[dmin,dmax]则舍弃&lt;/li&gt;
-      &lt;li&gt;计算当前帧的尺度d/dmin&lt;/li&gt;
-      &lt;li&gt;将地图点的描述子和当前帧中未匹配的ORB进行匹配
-     - 通过当前帧的所有地图点进行位姿优化&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;插入新关键帧
-    &lt;ul&gt;
-      &lt;li&gt;由于相机运动，要尽可能快地插入新关键帧，回头再剔除冗余关键帧&lt;/li&gt;
-      &lt;li&gt;插入新关键帧要满足以下要求：&lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;ol&gt;
-      &lt;li&gt;距上一次全局重定位超过20帧（确保好的重定位）&lt;/li&gt;
-      &lt;li&gt;局部建图处于空闲状态，或距上一关键帧超过20帧&lt;/li&gt;
-      &lt;li&gt;当前帧跟踪至少50个地图点（确保好的跟踪）&lt;/li&gt;
-      &lt;li&gt;当前帧与参考帧K_ref共同观测到的地图点少于90%（最小视图变换）&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;二local-mapping&quot;&gt;二、Local Mapping&lt;/h2&gt;
-&lt;p&gt;作用：负责处理新的关键帧，使用局部BA对相机位姿周围环境进行优化重构&lt;/p&gt;
-
-&lt;p&gt;流程：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;在共视图连接的所有参考帧中寻找当前帧中未匹配ORB的对应项，将之三角化为新的地图点&lt;/li&gt;
-  &lt;li&gt;剔除冗余关键帧&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;步骤：&lt;/p&gt;
-
-&lt;p&gt;对于每一帧关键帧Ki：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;插入关键帧
-    &lt;ul&gt;
-      &lt;li&gt;更新共视图：增加Ki节点，更新它和关键帧之间的边（存在共同地图点）&lt;/li&gt;
-      &lt;li&gt;更新生成树&lt;/li&gt;
-      &lt;li&gt;更新词袋(BoW)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;剔除最近地图点
-  满足以下条件的地图点才能保留，否则剔除
-    &lt;ul&gt;
-      &lt;li&gt;追踪线程在预测可见该地图点的关键帧中有超过25%确实可以找到该地图点&lt;/li&gt;
-      &lt;li&gt;创建地图点后，至少往后3帧都可看到该地图点&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;创建新地图点
-    &lt;ul&gt;
-      &lt;li&gt;在其他关键帧的未匹配ORB特征中查找Ki中的未匹配ORB&lt;/li&gt;
-      &lt;li&gt;三角化ORB特征对后，检查是否在相机前方、视差、重投影误差、尺度一致性&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;局部BA
-    &lt;ul&gt;
-      &lt;li&gt;优化对象：当前帧、共视图中与其相连的关键帧、这些帧中的地图点&lt;/li&gt;
-      &lt;li&gt;优化后的异常值会被删去&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;剔除局部关键帧
-    &lt;ul&gt;
-      &lt;li&gt;若该关键帧有90%地图点被其他3帧在相同尺度下观测到，则剔除&lt;/li&gt;
+      &lt;li&gt;$E_m$=$\xi_{mi}$ (i=1,…,m)是submap位姿，$E_s$=$\xi_{sj}$ (i=1,…,s)是scan位姿，在给定约束条件下进行优化&lt;/li&gt;
+      &lt;li&gt;这些约束用相对位姿 $\xi_{ij}$ 和相关协方差矩阵 $\Sigma_{ij}$ 描述&lt;/li&gt;
+      &lt;li&gt;对于一对submap i和scan j，位姿 $\xi_{ij}$ 描述了submap坐标系中scan匹配到的位置&lt;/li&gt;
+      &lt;li&gt;此类约束的残差由下式计算：
+&lt;img src=&quot;/img/in_post/cartographer/6.png&quot; width=&quot;70%&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;损失函数$\rho$（例如huber损失函数）用于减少异常值的影响。这些异常值可能出现在scan matching向优化问题SPA增加不正确的约束时，例如像办公室隔间这样的局部对称空间。&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&quot;三loop-closing&quot;&gt;三、Loop Closing&lt;/h2&gt;
-&lt;p&gt;作用：对每个新关键帧进行闭环搜索，检测到闭环就进行优化&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;hube loss: 相比于最小二乘的线性回归，HuberLoss降低了对离群点的惩罚程度。当预测偏差小于 $\delta$ 时，采用平方误差；当预测偏差大于 $\delta$ 时，采用线性误差。&lt;a href=&quot;https://www.cnblogs.com/nowgood/p/Huber-Loss.html&quot;&gt;参考&lt;/a&gt;
+&lt;img src=&quot;/img/in_post/cartographer/7.png&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;步骤：&lt;/p&gt;
+&lt;h3 id=&quot;b-branch-and-bound-scan-matchingbbs&quot;&gt;B. Branch-and-bound scan matching（BBS）&lt;/h3&gt;
 &lt;ol&gt;
-  &lt;li&gt;检测候选回环
+  &lt;li&gt;pixel-accurate scan matching：
+&lt;img src=&quot;/img/in_post/cartographer/8.png&quot; width=&quot;60%&quot; /&gt;
     &lt;ul&gt;
-      &lt;li&gt;计算Ki和其共视图邻边的BoW向量，记最低分为s_min&lt;/li&gt;
-      &lt;li&gt;检索数据库，舍弃分数低于s_min的关键帧&lt;/li&gt;
-      &lt;li&gt;舍弃在共视图中与Ki相连的关键帧&lt;/li&gt;
-      &lt;li&gt;连续检测到3帧回环才算回环&lt;/li&gt;
+      &lt;li&gt;W是搜索窗口，$M_{nearest}$是submap周围一圈格点&lt;/li&gt;
+      &lt;li&gt;使用前面的CS公式可以提高匹配质量&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;计算相似变换
+  &lt;li&gt;搜索步长对效率有很大影响
     &lt;ul&gt;
-      &lt;li&gt;计算当前帧与候选回环关键帧之间的ORB对应关系&lt;/li&gt;
-      &lt;li&gt;对每个候选回环执行PANSAC迭代，用Horn方法计算相似变换&lt;/li&gt;
+      &lt;li&gt;选择角度步长 $\delta_\theta$ 使得扫描范围最大$d_{max}$处的扫描点移动不超过pixel的半径r，由余弦定理得：
+&lt;img src=&quot;/img/in_post/cartographer/9.png&quot; width=&quot;60%&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;计算一个完整的步数，覆盖给定的搜索窗口（例如$W_x$=$W_y$=7m，$W_\theta$=30度），并对其取整
+&lt;img src=&quot;/img/in_post/cartographer/10.png&quot; width=&quot;60%&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;产生一个有限集合W形成以估计位姿 $\xi_\theta$ 为中心的搜索窗口
+&lt;img src=&quot;/img/in_post/cartographer/11.png&quot; width=&quot;70%&quot; /&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;回环融合
-    &lt;ul&gt;
-      &lt;li&gt;融合重复的点，在共视图中插入与回环相关的新边&lt;/li&gt;
-      &lt;li&gt;通过相似变换矫正当前帧位姿，将矫正传播到相连边，对其回环两侧&lt;/li&gt;
-      &lt;li&gt;将回环关键帧及其邻帧的地图点都投影到当前帧及其邻帧上，并在投影附近小范围搜索对应匹配点，进行融合&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;本质图优化&lt;/li&gt;
+  &lt;li&gt;朴素的暴力搜索太慢
+&lt;img src=&quot;/img/in_post/cartographer/12.png&quot; width=&quot;70%&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;用Branch-and-bound分支定界法在较大搜索窗口下求解BBS问题
+&lt;img src=&quot;/img/in_post/cartographer/13.png&quot; width=&quot;70%&quot; /&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&quot;代码&quot;&gt;代码&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;分支定界法：通常，把全部可行解空间反复地分割为越来越小的子集，称为分支；并且对每个子集内的解集计算一个目标下界（对于最小值问题），这称为定界。在每次分枝后，凡是界限超出已知可行解集目标值的那些子集不再进一步分枝，这样，许多子集可不予考虑，这称剪枝。这就是分枝定界法的主要思路。&lt;a href=&quot;https://baike.baidu.com/item/%E5%88%86%E6%94%AF%E5%AE%9A%E7%95%8C%E6%B3%95/9902038&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/ZhouShihui210/ORB_SLAM2&quot;&gt;ORB-SLAM2 我的代码仓库&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;要将分支定界法具体化，我们需要选择节点选择、分支、上界计算的方法&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://raw.githubusercontent.com/ZhouShihui210/my_Graphviz/c59a56268e4d8af6f7451da9ef89fd1430650150/orb_slam2/orb_slam2.svg&quot;&gt;函数关系图&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;1-node-selection&quot;&gt;1. Node selection&lt;/h4&gt;
+&lt;p&gt;默认采用深度优先搜索DFS（利用栈的先进后出实现）&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;为避免加入坏匹配作为回环，引入一个分数阈值，小于阈值不予考虑。在实践中，通常不会超过阈值，这降低了节点选择和初始值的重要性。&lt;/li&gt;
+  &lt;li&gt;计算每个子节点的分数上限，首先访问上限最大 最有希望的子节点
+&lt;img src=&quot;/img/in_post/cartographer/14.png&quot; width=&quot;70%&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/ZhouShihui210/my_Graphviz/c59a56268e4d8af6f7451da9ef89fd1430650150/orb_slam2/orb_slam2.svg&quot; alt=&quot;函数关系图&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;2-branching-rule&quot;&gt;2. Branching rule&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;树上的每个节点用一组整数表示 c=（$c_x$，$c_y$，$c_\theta$，$c_h$），高度$c_h$处的节点有$2^{ch}*2^{ch}$种组合，但只表示特定的旋转。子节点的高度为$\theta$，则对应可行解。
+&lt;img src=&quot;/img/in_post/cartographer/15.png&quot; width=&quot;60%&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;将节点分为4个子节点&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;分支：对一个大的步长在 x 和 y 方向进行对半拆分，而 $\theta$ 不变。对 x 和 y 都进行减半操作，相当于“分田”，在空间坐标上将搜索空间划分为四个更小的区域 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/364015137&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;3-computing-upper-bounds&quot;&gt;3. Computing upper bounds&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in_post/cartographer/16.png&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;为了提高效率，使用预算网格图
+&lt;img src=&quot;/img/in_post/cartographer/17.png&quot; width=&quot;70%&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$M_{precomp}$和$M_{nearest}$一样有pixel结构，但每个pixel存储着$2^h*2^h$大的搜索窗口中的最大值
+&lt;img src=&quot;/img/in_post/cartographer/18.png&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;对于每个预算格，计算从这格开始的$2^h$宽的行的最大值。用它作为中间结果，构建下一个预算图。用这种方式，时间复杂度是O(n)，n为每个预算图中pixel个数&lt;/li&gt;
+  &lt;li&gt;另一种计算上界的方式是计算分辨率较低（将分辨率依次减半）的概率栅格图，较省空间，但效果较差。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;预算图的内核思想：运动是相对的，与其遍历计算所有可能位姿对应的scan（墙），不如计算固定位姿扫描到的 ”移动“ 的墙。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;cartographer是一个2D SLAM系统，将scan-to-submap匹配回环检测和图优化相结合&lt;/li&gt;
+  &lt;li&gt;单个子图轨迹由基于栅格的local SLAM建立&lt;/li&gt;
+  &lt;li&gt;在后端，所有scan和submap都用pixel-accurate扫描匹配，以创建回环约束&lt;/li&gt;
+  &lt;li&gt;scan和submap的约束在后端周期性进行优化&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;cartographer-代码&quot;&gt;Cartographer 代码&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://raw.githubusercontent.com/Sylviazsh/my_Graphviz/ad9664b28ac536cdc1b6400c96356e19bd959320/cartographer.svg&quot;&gt;cartographer函数关系图&lt;/a&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/Sylviazsh/my_Graphviz/ad9664b28ac536cdc1b6400c96356e19bd959320/cartographer.svg&quot; alt=&quot;cartographer函数关系图&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/ZhouShihui210/cartographer_detailed_comments_ws&quot;&gt;cartographer代码注释&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Mon, 28 Nov 2022 14:58:00 +0800</pubDate>
-        <link>http://localhost:4000/2022/11/28/ORB-SLAM1/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022/11/28/ORB-SLAM1/</guid>
+        <pubDate>Mon, 28 Nov 2022 09:05:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/11/28/cartographer/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/11/28/cartographer/</guid>
         
         <category>SLAM</category>
         
@@ -340,221 +331,230 @@
       </item>
     
       <item>
-        <title>论文笔记：cartographer</title>
-        <description>&lt;p&gt;论文：&lt;a href=&quot;/doc/cartographer%20-%202016%20-%20Real%20time%20loop%20closure%20in%202D%20LIDAR%20SLAM%20-%20Hess%20et%20al.pdf&quot;&gt;Real-Time Loop Closure in 2D LIDAR SLAM&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;abstract&quot;&gt;Abstract&lt;/h2&gt;
-&lt;p&gt;为了实现实时的回环检测，cartographer使用&lt;strong&gt;分支定界法&lt;/strong&gt;计算&lt;strong&gt;scan-to-map&lt;/strong&gt;匹配作为约束&lt;/p&gt;
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;本文的重点是减少大量数据下回环所需的&lt;strong&gt;计算量&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;related-work&quot;&gt;Related work&lt;/h2&gt;
-&lt;h3 id=&quot;匹配&quot;&gt;匹配&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Scan-to-scan matching：累计漂移误差大&lt;/li&gt;
-  &lt;li&gt;Scan-to-map matching：累计漂移误差小，需要好的初始值，用高斯牛顿法找局部最优值&lt;/li&gt;
-  &lt;li&gt;Pixel-accurate scan matching：漂移误差小，但计算量大
+        <title>论文笔记：ORB SLAM 1</title>
+        <description>&lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/pdf/1502.00956.pdf&quot;&gt;ORB-SLAM: a Versatile and Accurate Monocular SLAM System&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;主要贡献&quot;&gt;主要贡献&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;对追踪、地图构建、重定位、闭环检测采用&lt;strong&gt;相同的特征&lt;/strong&gt;，使得系统更高效、简单、可靠。采用的ORB特征在没有GPU的情况下也有很好的实时性，且具有旋转不变性和光照不变性。&lt;/li&gt;
+  &lt;li&gt;支持在大场景中实时运行。由于共视图（covisibility graph）的使用，特征点的跟踪与构图主要集中在局部共视区域，而与全局地图的尺寸无关。&lt;/li&gt;
+  &lt;li&gt;使用一种我们称为Essential Graph的位姿图优化位姿，实现实时回环检测。它是由系统维护的生成树、闭环的链接和共视图（covisibility graph）的强边共同构建的。&lt;/li&gt;
+  &lt;li&gt;实时相机重定位具有明显的旋转不变特性和光照不变性。这就使得跟踪丢失后可以恢复，增强了地图的重用性。&lt;/li&gt;
+  &lt;li&gt;一种新的基于模型选择的自动和鲁棒的初始化程序，它允许创建平面和非平面场景的初始建图&lt;/li&gt;
+  &lt;li&gt;提出了一种用来选择地图点和关键帧的“适者生存”方法：生成时宽松但剔除时严格。这种策略可以剔除冗余的关键帧，从而增强追踪的鲁棒性以及长时间运行的能力。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;回环和重定位方法基于他们之前提出的：Fast relocalisation and loop closing in key-frame-based SLAM&lt;/p&gt;
+
+  &lt;p&gt;该系统的初步版本在：ORB-SALM:Tracking and mapping recognizable featrues&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in_post/ORB-SLAM1/1.png&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;地图点和关键帧&quot;&gt;地图点和关键帧&lt;/h2&gt;
+&lt;p&gt;每个地图点$p_i$存储：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;世界坐标系下3D位置$X_{wi}$&lt;/li&gt;
+  &lt;li&gt;观测方向$n_i$（相机光心到观测点的方向）&lt;/li&gt;
+  &lt;li&gt;ORB描述子$D_i$，它的汉明距离相对于被观察到的关键帧中的所有其他相关描述子是最小的&lt;/li&gt;
+  &lt;li&gt;根据尺度不变性可以看到的该点的最大尺寸和最小尺寸$d_{min}$, $d_{max}$&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;每个关键帧$K_i$存储：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;相机位姿$T_{iw}$，即刚体从世界坐标系到相机坐标系的转换&lt;/li&gt;
+  &lt;li&gt;相机内参，包括焦距和主点&lt;/li&gt;
+  &lt;li&gt;在帧中提取的所有ORB特征&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;共视图和本质图&quot;&gt;共视图和本质图&lt;/h2&gt;
+
+&lt;p&gt;共视图：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;无向加权图&lt;/li&gt;
+  &lt;li&gt;每个节点代表一个关键帧&lt;/li&gt;
+  &lt;li&gt;若两关键帧同时观测到15个地图点以上，则这2个节点用一条边相连&lt;/li&gt;
+  &lt;li&gt;其共同观测到的地图点数，作为该边的权重&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;本质图：&lt;/p&gt;
+
+&lt;p&gt;位姿优化时需将回路误差进行传播，因为共视图会非常密集，所以需要包含所有节点但边更稀疏的图&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;从初始关键帧开始增量式构建一个生成树，该树提供了一个边数最少的共视图的连接子图&lt;/li&gt;
+  &lt;li&gt;当插入新关键帧时，将该关键帧与树上与其有最多共同观测点的关键帧相连接&lt;/li&gt;
+  &lt;li&gt;当一个关键帧被剔除时，系统将更新受该关键帧影响的连接&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;本质图包含了生成树、共视图的边的子集、以及回环的边&lt;/p&gt;
+
+&lt;h2 id=&quot;一tracking&quot;&gt;一、Tracking&lt;/h2&gt;
+&lt;p&gt;作用：计算相机位姿、插入关键帧&lt;/p&gt;
+
+&lt;p&gt;流程：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;计算初始特征和上一帧匹配，用motion-only BA优化位姿&lt;/li&gt;
+  &lt;li&gt;如果跟踪失败，进行全局重定位&lt;/li&gt;
+  &lt;li&gt;如果跟踪顺利，用关键帧的共可视图得出局部地图&lt;/li&gt;
+  &lt;li&gt;用重投影搜索局部地图点&lt;/li&gt;
+  &lt;li&gt;决定是否插入新关键帧&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;自动初始化地图：&lt;/p&gt;
+
+&lt;p&gt;因为单目相机无法获取深度信息，就无法获取尺度信息，所以需要初始化地图。我们需要计算两帧间的位姿关系，通过三角化算出初始地图点。&lt;/p&gt;
+
+&lt;p&gt;步骤：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;在当前帧中寻找与参考帧匹配的特征&lt;/li&gt;
+  &lt;li&gt;计算单应矩阵H和基础矩阵F&lt;/li&gt;
+  &lt;li&gt;选择模型，平面用H，非平面用F&lt;/li&gt;
+  &lt;li&gt;根据选择的模型计算运动，H用8点法，F用4点法&lt;/li&gt;
+  &lt;li&gt;BA&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;tracking&quot;&gt;tracking&lt;/h3&gt;
+&lt;p&gt;步骤：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;提取ORB
     &lt;ul&gt;
-      &lt;li&gt;减少计算量的策略：通过laser特征提取匹配&lt;/li&gt;
-      &lt;li&gt;加强回环检测的策略：直方图统计匹配、提取laser特征、机器学习&lt;/li&gt;
+      &lt;li&gt;在8层图像金字塔上提取FAST角点&lt;/li&gt;
+      &lt;li&gt;为了确保特征点分布均匀，先将每层图像分成网格，每格提取至少5个特征点&lt;/li&gt;
+      &lt;li&gt;如果某格不够提取5个，就调整检测器阈值再检测一次&lt;/li&gt;
+      &lt;li&gt;根据FAST角点计算其方向和ORB特征描述子&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;scan to scan match&lt;/strong&gt;：两帧激光雷达数据之间的匹配。假如当前帧的激光雷达数据为A，和它匹配的另一帧激光雷达数据为B，如果以A为起始帧，B为目标帧，那么A经过一个相对平移和旋转变换到B，我们目的就是求出这个相对平移量和旋转角度。目前来说，匹配效果最好的算法就是ICP（Iterative Closest Point）方法，它充分利用了激光雷达每个数据点来进行匹配，后来所有ICP变种基本都是为了提高计算效率而演化的，如何减小循环次数加快收敛等等。&lt;a href=&quot;https://www.jianshu.com/p/12cafbd14797&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-  &lt;p&gt;&lt;strong&gt;scan to map match&lt;/strong&gt;：即激光雷达扫描数据直接与地图进行匹配，得到实际位置坐标[x,y,theta]。这种方式一边计算位置，一边把新扫描到的数据及时加入到先前地图中。&lt;a href=&quot;https://www.jianshu.com/p/12cafbd14797&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;减少局部累计误差&quot;&gt;减少局部累计误差&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;粒子滤波：对于grid-based SLAM，占用计算资源过多&lt;/li&gt;
-  &lt;li&gt;基于图优化的SLAM：node表示位姿和特征，边表示观测约束&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;粒子滤波&lt;/strong&gt;：通过寻找一组在状态空间中传播的随机样本来近似的表示概率密度函数，用样本均值代替积分运算，进而获得系统状态的最小方差估计的过程，这些样本被形象的称为“粒子”，故而叫粒子滤波。&lt;a href=&quot;https://baike.baidu.com/item/%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2/2128986&quot;&gt;参考&lt;/a&gt; ；&lt;a href=&quot;https://zhuanlan.zhihu.com/p/161617286&quot;&gt;附一个非常生动的说明&lt;/a&gt;&lt;/p&gt;
-
-  &lt;p&gt;&lt;strong&gt;基于图优化的SLAM&lt;/strong&gt;：&lt;a href=&quot;https://zhuanlan.zhihu.com/p/41424435&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;system-overview&quot;&gt;System overview&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/img/in_post/cartographer/system.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;将laser scan插入submap中最合适的位置，假设该位置短时间内足够准确&lt;/li&gt;
-  &lt;li&gt;Scan matching针对于当前submap进行，所以只依赖于当前scan，会累积全局误差&lt;/li&gt;
-  &lt;li&gt;位姿优化：
+  &lt;li&gt;通过上一帧(运动模型)估计初始位姿
     &lt;ul&gt;
-      &lt;li&gt;当submap完成后（即没有新scan插入submap），submap将进行扫描匹配以检测回环&lt;/li&gt;
-      &lt;li&gt;所有结束的submap和scan会自动进行回环&lt;/li&gt;
-      &lt;li&gt;If they are close enough based on current pose estimates, a scan matcher tries to find the scan in the submap.（没理解指谁和谁比较，submap不是由scan组成的吗？包含的关系还能远吗？）&lt;/li&gt;
-      &lt;li&gt;若在当前估计位姿周围的搜索窗口中找到了较好匹配，则将其作为回环约束加入优化问题&lt;/li&gt;
-      &lt;li&gt;软约束：回环扫描匹配需比新增scan快一些，否则会有明显滞后&lt;/li&gt;
+      &lt;li&gt;如果跟踪成功，利用匀速运动模型估计相机位姿，对上一帧观测到的地图点进行搜索&lt;/li&gt;
+      &lt;li&gt;如果跟踪失败，在上一帧地图点的基础上加大搜索范围，然后根据找到的匹配关系优化位姿&lt;/li&gt;
     &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;通过全局重定位估计初始位姿
     &lt;ul&gt;
-      &lt;li&gt;通过branch-and-bound和子图预算栅格加速回环检测（如何实现？）&lt;/li&gt;
+      &lt;li&gt;如果跟踪失败，将当前帧转化为词袋(BoW)向量，在数据库中查询关键帧进行重定位&lt;/li&gt;
+      &lt;li&gt;计算每个候选关键帧的ORB与地图点的对应关系&lt;/li&gt;
+      &lt;li&gt;对每个候选关键帧进行RANSAC迭代，并用PnP计算当前位姿&lt;/li&gt;
+      &lt;li&gt;若重定位成功，则跟踪继续进行&lt;/li&gt;
     &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;跟踪局部地图
+    &lt;ul&gt;
+      &lt;li&gt;局部地图包含一组关键帧$K_1$，他们和当前帧有部分共同的地图点；其中与当前帧有最多公共地图点的为参考帧$K_{ref}$&lt;/li&gt;
+      &lt;li&gt;共可视图中和$K_1$相连的关键帧记为$K_2$&lt;/li&gt;
+      &lt;li&gt;在当前帧中搜索$K_1$和$K_2$中的地图点：&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ol&gt;
+      &lt;li&gt;计算地图点在当前帧中的投影点，若超出边缘则舍弃&lt;/li&gt;
+      &lt;li&gt;计算当前观测方向和地图点平均观测方向的夹角，若小于60°则舍弃&lt;/li&gt;
+      &lt;li&gt;计算地图点到相机光心的距离d，若超出尺度不变区域[$d_{min}$ , $d_{max}$]则舍弃&lt;/li&gt;
+      &lt;li&gt;计算当前帧的尺度$d/d_{min}$&lt;/li&gt;
+      &lt;li&gt;将地图点的描述子和当前帧中未匹配的ORB进行匹配
+     - 通过当前帧的所有地图点进行位姿优化&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;插入新关键帧
+    &lt;ul&gt;
+      &lt;li&gt;由于相机运动，要尽可能快地插入新关键帧，回头再剔除冗余关键帧&lt;/li&gt;
+      &lt;li&gt;插入新关键帧要满足以下要求：&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ol&gt;
+      &lt;li&gt;距上一次全局重定位超过20帧（确保好的重定位）&lt;/li&gt;
+      &lt;li&gt;局部建图处于空闲状态，或距上一关键帧超过20帧&lt;/li&gt;
+      &lt;li&gt;当前帧跟踪至少50个地图点（确保好的跟踪）&lt;/li&gt;
+      &lt;li&gt;当前帧与参考帧$K_{ref}$共同观测到的地图点少于90%（最小视图变换）&lt;/li&gt;
+    &lt;/ol&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&quot;local-2d-slam&quot;&gt;Local 2D SLAM&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;局部slam和全局slam的优化对象都是 pose（ξ x , ξ y , ξ θ）&lt;/li&gt;
-  &lt;li&gt;不平稳测量平台（如背包）需要结合IMU，获取雷达相对于重力的方向，以将scan映射到2D平面&lt;/li&gt;
-  &lt;li&gt;scan matching：用非线性优化对齐scan和submap，会产生累计误差，由全局方法消除&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h2 id=&quot;二local-mapping&quot;&gt;二、Local Mapping&lt;/h2&gt;
+&lt;p&gt;作用：负责处理新的关键帧，使用局部BA对相机位姿周围环境进行优化重构&lt;/p&gt;
 
-&lt;h3 id=&quot;a-scans&quot;&gt;A. scans&lt;/h3&gt;
+&lt;p&gt;流程：&lt;/p&gt;
 &lt;ol&gt;
-  &lt;li&gt;submap的构造是重复对齐scan和submap坐标系的迭代过程&lt;/li&gt;
-  &lt;li&gt;scan坐标系—&amp;gt;submap坐标系：
-&lt;img src=&quot;/img/in_post/cartographer/1.png&quot; width=&quot;60%&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;在共视图连接的所有参考帧中寻找当前帧中未匹配ORB的对应项，将之三角化为新的地图点&lt;/li&gt;
+  &lt;li&gt;剔除冗余关键帧&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;b-submaps&quot;&gt;B. submaps&lt;/h3&gt;
-&lt;p&gt;（翻译成子图的话，这里的图是map而不是graph，容易产生歧义）&lt;/p&gt;
+&lt;p&gt;步骤：&lt;/p&gt;
+
+&lt;p&gt;对于每一帧关键帧Ki：&lt;/p&gt;
 &lt;ol&gt;
-  &lt;li&gt;submap由几个连续的scan构建&lt;/li&gt;
-  &lt;li&gt;submap采用栅格地图的形式，每格边长5cm，每格的值表示该格阻塞(有障碍物)的概率&lt;/li&gt;
-  &lt;li&gt;pixel：某格点周围一圈格点&lt;/li&gt;
-  &lt;li&gt;新增scan时，击中则更新击中点，为击中则更新一条射线&lt;/li&gt;
-  &lt;li&gt;更新每格概率：
-&lt;img src=&quot;/img/in_post/cartographer/2.png&quot; width=&quot;60%&quot; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;c-ceres-scan-matchng&quot;&gt;C. Ceres scan matchng&lt;/h3&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;除第一个submap外，新增scan会插入相邻两个submap&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;将scan插入submap之前，需要用基于ceres的scan matcher根据当前局部submap优化pose ξ 
-&lt;img src=&quot;/img/in_post/cartographer/3.png&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Tξ将hk由scan坐标系变换至submap坐标系&lt;/li&gt;
-  &lt;li&gt;Msmooth是平滑函数，用双三次插值减小[0，1]外点的影响&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;bicubic函数：
-&lt;img src=&quot;/img/in_post/cartographer/4.png&quot; width=&quot;30%&quot; /&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;closing-loops&quot;&gt;Closing loops&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;大空间通过创建许多小submap处理&lt;/li&gt;
-  &lt;li&gt;用稀疏位姿矫正（SPA）来优化所有scan和submap&lt;/li&gt;
-  &lt;li&gt;插入scan的相对位姿存储在内存中，将在优化回环时使用。&lt;/li&gt;
-  &lt;li&gt;一旦submap结束（不再新增scan），scan和submap就进行回环检测&lt;/li&gt;
-  &lt;li&gt;Scan matcher在后台运行，一旦找到好的匹配，就将相对位姿加入优化问题&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;a-optimization-problem&quot;&gt;A. Optimization problem&lt;/h3&gt;
-&lt;ol&gt;
-  &lt;li&gt;回环优化和扫描匹配一样，也是一个非线性最小二乘问题&lt;/li&gt;
-  &lt;li&gt;每隔几秒，用ceres计算下述问题的解：（Sparse Pose Adjustment）
-&lt;img src=&quot;/img/in_post/cartographer/5.png&quot; width=&quot;60%&quot; /&gt;
+  &lt;li&gt;插入关键帧
     &lt;ul&gt;
-      &lt;li&gt;Em=ξmi (i=1,…,m)是submap位姿，Es=ξsj (i=1,…,s)是scan位姿，在给定约束条件下进行优化&lt;/li&gt;
-      &lt;li&gt;这些约束用相对位姿 ξij 和相关协方差矩阵 Σij 描述&lt;/li&gt;
-      &lt;li&gt;对于一对submap i和scan j，位姿 ξij 描述了submap坐标系中scan匹配到的位置&lt;/li&gt;
-      &lt;li&gt;此类约束的残差由下式计算：
-&lt;img src=&quot;/img/in_post/cartographer/6.png&quot; width=&quot;70%&quot; /&gt;&lt;/li&gt;
-      &lt;li&gt;损失函数ρ（例如huber损失函数）用于减少异常值的影响。这些异常值可能出现在scan matching向优化问题SPA增加不正确的约束时，例如像办公室隔间这样的局部对称空间。&lt;/li&gt;
+      &lt;li&gt;更新共视图：增加$K_i$节点，更新它和关键帧之间的边（存在共同地图点）&lt;/li&gt;
+      &lt;li&gt;更新生成树&lt;/li&gt;
+      &lt;li&gt;更新词袋(BoW)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;剔除最近地图点
+  满足以下条件的地图点才能保留，否则剔除
+    &lt;ul&gt;
+      &lt;li&gt;追踪线程在预测可见该地图点的关键帧中有超过25%确实可以找到该地图点&lt;/li&gt;
+      &lt;li&gt;创建地图点后，至少往后3帧都可看到该地图点&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;创建新地图点
+    &lt;ul&gt;
+      &lt;li&gt;在其他关键帧的未匹配ORB特征中查找$K_i$中的未匹配ORB&lt;/li&gt;
+      &lt;li&gt;三角化ORB特征对后，检查是否在相机前方、视差、重投影误差、尺度一致性&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;局部BA
+    &lt;ul&gt;
+      &lt;li&gt;优化对象：当前帧、共视图中与其相连的关键帧、这些帧中的地图点&lt;/li&gt;
+      &lt;li&gt;优化后的异常值会被删去&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;剔除局部关键帧
+    &lt;ul&gt;
+      &lt;li&gt;若该关键帧有90%地图点被其他3帧在相同尺度下观测到，则剔除&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;hube loss: 相比于最小二乘的线性回归，HuberLoss降低了对离群点的惩罚程度。当预测偏差小于 δ 时，采用平方误差；当预测偏差大于 δ 时，采用线性误差。&lt;a href=&quot;https://www.cnblogs.com/nowgood/p/Huber-Loss.html&quot;&gt;参考&lt;/a&gt;
-&lt;img src=&quot;/img/in_post/cartographer/7.png&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;h2 id=&quot;三loop-closing&quot;&gt;三、Loop Closing&lt;/h2&gt;
+&lt;p&gt;作用：对每个新关键帧进行闭环搜索，检测到闭环就进行优化&lt;/p&gt;
 
-&lt;h3 id=&quot;b-branch-and-bound-scan-matchingbbs&quot;&gt;B. Branch-and-bound scan matching（BBS）&lt;/h3&gt;
+&lt;p&gt;步骤：&lt;/p&gt;
 &lt;ol&gt;
-  &lt;li&gt;pixel-accurate scan matching：
-&lt;img src=&quot;/img/in_post/cartographer/8.png&quot; width=&quot;60%&quot; /&gt;
+  &lt;li&gt;检测候选回环
     &lt;ul&gt;
-      &lt;li&gt;W是搜索窗口，M nearest是submap周围一圈格点&lt;/li&gt;
-      &lt;li&gt;使用前面的CS公式可以提高匹配质量&lt;/li&gt;
+      &lt;li&gt;计算$K_i$和其共视图邻边的BoW向量，记最低分为$s_{min}$&lt;/li&gt;
+      &lt;li&gt;检索数据库，舍弃分数低于$s_{min}$的关键帧&lt;/li&gt;
+      &lt;li&gt;舍弃在共视图中与Ki相连的关键帧&lt;/li&gt;
+      &lt;li&gt;连续检测到3帧回环才算回环&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;搜索步长对效率有很大影响
+  &lt;li&gt;计算相似变换
     &lt;ul&gt;
-      &lt;li&gt;选择角度步长 δθ 使得扫描范围最大dmax处的扫描点移动不超过pixel的半径r，由余弦定理得：
-&lt;img src=&quot;/img/in_post/cartographer/9.png&quot; width=&quot;60%&quot; /&gt;&lt;/li&gt;
-      &lt;li&gt;计算一个完整的步数，覆盖给定的搜索窗口（例如Wx=Wy=7m，Wθ=30度），并对其取整
-&lt;img src=&quot;/img/in_post/cartographer/10.png&quot; width=&quot;60%&quot; /&gt;&lt;/li&gt;
-      &lt;li&gt;产生一个有限集合W形成以估计位姿ξ0为中心的搜索窗口
-&lt;img src=&quot;/img/in_post/cartographer/11.png&quot; width=&quot;70%&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;计算当前帧与候选回环关键帧之间的ORB对应关系&lt;/li&gt;
+      &lt;li&gt;对每个候选回环执行PANSAC迭代，用Horn方法计算相似变换&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;朴素的暴力搜索太慢
-&lt;img src=&quot;/img/in_post/cartographer/12.png&quot; width=&quot;70%&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;用Branch-and-bound分支定界法在较大搜索窗口下求解BBS问题
-&lt;img src=&quot;/img/in_post/cartographer/13.png&quot; width=&quot;70%&quot; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;分支定界法：通常，把全部可行解空间反复地分割为越来越小的子集，称为分支；并且对每个子集内的解集计算一个目标下界（对于最小值问题），这称为定界。在每次分枝后，凡是界限超出已知可行解集目标值的那些子集不再进一步分枝，这样，许多子集可不予考虑，这称剪枝。这就是分枝定界法的主要思路。&lt;a href=&quot;https://baike.baidu.com/item/%E5%88%86%E6%94%AF%E5%AE%9A%E7%95%8C%E6%B3%95/9902038&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;要将分支定界法具体化，我们需要选择节点选择、分支、上界计算的方法&lt;/p&gt;
-
-&lt;h4 id=&quot;1-node-selection&quot;&gt;1. Node selection&lt;/h4&gt;
-&lt;p&gt;默认采用深度优先搜索DFS（利用栈的先进后出实现）&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;为避免加入坏匹配作为回环，引入一个分数阈值，小于阈值不予考虑。在实践中，通常不会超过阈值，这降低了节点选择和初始值的重要性。&lt;/li&gt;
-  &lt;li&gt;计算每个子节点的分数上限，首先访问上限最大 最有希望的子节点
-&lt;img src=&quot;/img/in_post/cartographer/14.png&quot; width=&quot;70%&quot; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;2-branching-rule&quot;&gt;2. Branching rule&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;树上的每个节点用一组整数表示 c=（cx，cy，cθ，ch），高度ch处的节点有2^ch*2^ch种组合，但只表示特定的旋转。子节点的高度为0，则对应可行解。
-&lt;img src=&quot;/img/in_post/cartographer/15.png&quot; width=&quot;60%&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;将节点分为4个子节点&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;分支：对一个大的步长在 x 和 y 方向进行对半拆分，而 θ 不变。对 x 和 y 都进行减半操作，相当于“分田”，在空间坐标上将搜索空间划分为四个更小的区域 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/364015137&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;3-computing-upper-bounds&quot;&gt;3. Computing upper bounds&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;/img/in_post/cartographer/16.png&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;为了提高效率，使用预算网格图
-&lt;img src=&quot;/img/in_post/cartographer/17.png&quot; width=&quot;70%&quot; /&gt;&lt;/p&gt;
+  &lt;li&gt;回环融合
+    &lt;ul&gt;
+      &lt;li&gt;融合重复的点，在共视图中插入与回环相关的新边&lt;/li&gt;
+      &lt;li&gt;通过相似变换矫正当前帧位姿，将矫正传播到相连边，对其回环两侧&lt;/li&gt;
+      &lt;li&gt;将回环关键帧及其邻帧的地图点都投影到当前帧及其邻帧上，并在投影附近小范围搜索对应匹配点，进行融合&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;M_precomp和M_nearest一样有pixel结构，但每个pixel存储着2^h*2^h大的搜索窗口中的最大值
-&lt;img src=&quot;/img/in_post/cartographer/18.png&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;对于每个预算格，计算从这格开始的2^h宽的行的最大值。用它作为中间结果，构建下一个预算图。用这种方式，时间复杂度是O(n)，n为每个预算图中pixel个数&lt;/li&gt;
-  &lt;li&gt;另一种计算上界的方式是计算分辨率较低（将分辨率依次减半）的概率栅格图，较省空间，但效果较差。&lt;/li&gt;
+  &lt;li&gt;本质图优化&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;预算图的内核思想：运动是相对的，与其遍历计算所有可能位姿对应的scan（墙），不如计算固定位姿扫描到的 ”移动“ 的墙。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;h2 id=&quot;代码&quot;&gt;代码&lt;/h2&gt;
 
-&lt;h2 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;cartographer是一个2D SLAM系统，将scan-to-submap匹配回环检测和图优化相结合&lt;/li&gt;
-  &lt;li&gt;单个子图轨迹由基于栅格的local SLAM建立&lt;/li&gt;
-  &lt;li&gt;在后端，所有scan和submap都用pixel-accurate扫描匹配，以创建回环约束&lt;/li&gt;
-  &lt;li&gt;scan和submap的约束在后端周期性进行优化&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/ZhouShihui210/ORB_SLAM2&quot;&gt;ORB-SLAM2 我的代码仓库&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;cartographer-代码&quot;&gt;Cartographer 代码&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://raw.githubusercontent.com/Sylviazsh/my_Graphviz/ad9664b28ac536cdc1b6400c96356e19bd959320/cartographer.svg&quot;&gt;cartographer函数关系图&lt;/a&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/Sylviazsh/my_Graphviz/ad9664b28ac536cdc1b6400c96356e19bd959320/cartographer.svg&quot; alt=&quot;cartographer函数关系图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://raw.githubusercontent.com/ZhouShihui210/my_Graphviz/c59a56268e4d8af6f7451da9ef89fd1430650150/orb_slam2/orb_slam2.svg&quot;&gt;函数关系图&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/ZhouShihui210/cartographer_detailed_comments_ws&quot;&gt;cartographer代码注释&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/ZhouShihui210/my_Graphviz/c59a56268e4d8af6f7451da9ef89fd1430650150/orb_slam2/orb_slam2.svg&quot; alt=&quot;函数关系图&quot; /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Fri, 25 Nov 2022 09:05:00 +0800</pubDate>
-        <link>http://localhost:4000/2022/11/25/cartographer/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022/11/25/cartographer/</guid>
+        <pubDate>Fri, 25 Nov 2022 14:58:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/11/25/ORB-SLAM1/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/11/25/ORB-SLAM1/</guid>
         
         <category>SLAM</category>
         
@@ -639,14 +639,14 @@
 &lt;p&gt;Fast是一种角点，主要检测局部像素灰度变化明显的地方，以速度快著称。步骤如下：&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;在图像中选取像素p，假设它的亮度为Ip&lt;/li&gt;
-  &lt;li&gt;设置一个阈值T（如Ip的20%）&lt;/li&gt;
+  &lt;li&gt;在图像中选取像素p，假设它的亮度为$I_p$&lt;/li&gt;
+  &lt;li&gt;设置一个阈值T（如$I_p$的20%）&lt;/li&gt;
   &lt;li&gt;以像素p为中心，选取半径为3的圆上的16个像素点&lt;/li&gt;
-  &lt;li&gt;如果选取的圆上有连续N个点亮度大于Ip+T或小于Ip-T，则像素p可被认为是特征点（N通常取9、11、12,被称为FAST-9、FAST-11、FAST-12）&lt;/li&gt;
+  &lt;li&gt;如果选取的圆上有连续N个点亮度大于$I_p$+T或小于$I_p$-T，则像素p可被认为是特征点（N通常取9、11、12,被称为FAST-9、FAST-11、FAST-12）&lt;/li&gt;
   &lt;li&gt;循环以上4步，对每个像素执行相同操作&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;为了更高效，可添加预测试操作，以快速排除绝大多数不是角点的像素。即直接检测领域圆上的第1、5、9、13个像素的亮度，只有这4个有3个亮度大于Ip+T或小于Ip-T，才可能是一个角点。&lt;/p&gt;
+&lt;p&gt;为了更高效，可添加预测试操作，以快速排除绝大多数不是角点的像素。即直接检测领域圆上的第1、5、9、13个像素的亮度，只有这4个有3个亮度大于$I_p$+T或小于$I_p$-T，才可能是一个角点。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/in_post/ORB-feature/1.png&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
 

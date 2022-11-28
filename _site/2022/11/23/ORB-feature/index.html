@@ -282,14 +282,14 @@
 <p>Fast是一种角点，主要检测局部像素灰度变化明显的地方，以速度快著称。步骤如下：</p>
 
 <ol>
-  <li>在图像中选取像素p，假设它的亮度为Ip</li>
-  <li>设置一个阈值T（如Ip的20%）</li>
+  <li>在图像中选取像素p，假设它的亮度为$I_p$</li>
+  <li>设置一个阈值T（如$I_p$的20%）</li>
   <li>以像素p为中心，选取半径为3的圆上的16个像素点</li>
-  <li>如果选取的圆上有连续N个点亮度大于Ip+T或小于Ip-T，则像素p可被认为是特征点（N通常取9、11、12,被称为FAST-9、FAST-11、FAST-12）</li>
+  <li>如果选取的圆上有连续N个点亮度大于$I_p$+T或小于$I_p$-T，则像素p可被认为是特征点（N通常取9、11、12,被称为FAST-9、FAST-11、FAST-12）</li>
   <li>循环以上4步，对每个像素执行相同操作</li>
 </ol>
 
-<p>为了更高效，可添加预测试操作，以快速排除绝大多数不是角点的像素。即直接检测领域圆上的第1、5、9、13个像素的亮度，只有这4个有3个亮度大于Ip+T或小于Ip-T，才可能是一个角点。</p>
+<p>为了更高效，可添加预测试操作，以快速排除绝大多数不是角点的像素。即直接检测领域圆上的第1、5、9、13个像素的亮度，只有这4个有3个亮度大于$I_p$+T或小于$I_p$-T，才可能是一个角点。</p>
 
 <p><img src="/img/in_post/ORB-feature/1.png" width="60%" /></p>
 
@@ -473,6 +473,28 @@
         }
     }
 </style>
+
+
+
+<!-- Add support for Mathjax by Voleking-->
+<!-- If you want to see formulars well in post preview, Maybe you should add this.-->
+<!-- However, most of the time formulars may not appear in the post preview, you can delete it.-->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 
@@ -729,5 +751,27 @@
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
+
+
+<!-- Add support for Mathjax by Voleking-->
+<!-- If you want to see formulars well in post preview, Maybe you should add this.-->
+<!-- However, most of the time formulars may not appear in the post preview, you can delete it.-->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 </html>
