@@ -5,8 +5,8 @@
     <description>这里是周诗蕙的个人博客</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 28 Nov 2022 16:43:38 +0800</pubDate>
-    <lastBuildDate>Mon, 28 Nov 2022 16:43:38 +0800</lastBuildDate>
+    <pubDate>Mon, 28 Nov 2022 21:52:19 +0800</pubDate>
+    <lastBuildDate>Mon, 28 Nov 2022 21:52:19 +0800</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
     
       <item>
@@ -101,7 +101,7 @@
     &lt;ul&gt;
       &lt;li&gt;在8层图像金字塔上提取FAST角点&lt;/li&gt;
       &lt;li&gt;为了确保特征点分布均匀，先将每层图像分成网格，每格提取至少5个特征点&lt;/li&gt;
-      &lt;li&gt;如果某个不够提取5个，就调整检测器阈值再检测一次&lt;/li&gt;
+      &lt;li&gt;如果某格不够提取5个，就调整检测器阈值再检测一次&lt;/li&gt;
       &lt;li&gt;根据FAST角点计算其方向和ORB特征描述子&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
