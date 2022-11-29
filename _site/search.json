@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "论文笔记：LVI-SAM",
+      "subtitle" : "Tightly-coupled Lidar-Visual-Inertial Odometry via Smoothing and Mapping",
+      "tags"     : "SLAM",
+      "url"      : "/2022/11/29/LVI-SAM/",
+      "date"     : "2022-11-29 20:32:00 +0800"
+    } ,
+  
+    {
       "title"    : "论文笔记：cartographer",
       "subtitle" : "Real-Time Loop Closure in 2D LIDAR SLAM",
       "tags"     : "SLAM",

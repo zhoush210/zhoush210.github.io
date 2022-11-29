@@ -12,17 +12,26 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="周诗蕙的博客 | ZhouSh Blog">
+        content="论文笔记：LVI-SAM - 周诗蕙的博客 | ZhouSh Blog">
     
-    <meta property="og:type" content="website">
-    <meta property="og:description"
-        content="「Hi there」">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="论文：LVI-SAM: Tightly-coupled Lidar-Visual-Inertial Odometry via Smoothing and Mapping
+">
+    
+    <meta property="article:published_time" content=" 2022-11-29T20:32:00Z">
+    
+    
+    <meta property="article:author" content="ZhouSh">
+    
+    
+    <meta property="article:tag" content="SLAM">
+    
     
     <meta property="og:image" content="http://localhost:4000/img/profile.jpg">
-    <meta property="og:url" content="http://localhost:4000/">
+    <meta property="og:url" content="http://localhost:4000/2022/11/29/LVI-SAM/">
     <meta property="og:site_name" content="周诗蕙的博客 | ZhouSh Blog">
 
-    <title>周诗蕙的博客 | ZhouSh Blog</title>
+    <title>论文笔记：LVI-SAM - 周诗蕙的博客 | ZhouSh Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -31,7 +40,7 @@
     <link rel="shortcut icon" href="/img/profile.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/">
+    <link rel="canonical" href="http://localhost:4000/2022/11/29/LVI-SAM/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css">
@@ -195,258 +204,204 @@
   </div>
 </div>
 
-    <!-- Page Header -->
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/in_post/LVI-SAM/head.png" width="0" height="0"> -->
+
+<!-- Post Header -->
 
 
 
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/bg-guidao5.jpg');
+        background-image: url('/img/in_post/LVI-SAM/head.png');
         background: ;
     }
 
+    
+    header.intro-header .header-mask{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: rgba(0,0,0, 0.3);
+    }
     
 </style>
 
 
 
 
+<header class="intro-header" >
 
-
-
-<header class="intro-header" style="background-image: url('/img/bg-guidao5.jpg')">
-  <div class="header-mask"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="site-heading">
-        
-          <h1>ZhouSh Blog</h1>
-          <span class="subheading">「Hi there」</span>
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=SLAM" title="SLAM">SLAM</a>
+                        
+                    </div>
+                    <h1>论文笔记：LVI-SAM</h1>
+                    
+                    <h2 class="subheading">Tightly-coupled Lidar-Visual-Inertial Odometry via Smoothing and Mapping</h2>
+                    <span class="meta">Posted by ZhouSh on November 29, 2022</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 
 
 
-<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    
 
-    <!-- USE SIDEBAR -->
-    <!-- PostList Container -->
-    <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
-      col-xs-12 postlist-container">
-      
-<div class="post-preview">
-    <a href="/2022/11/29/LVI-SAM/">
-        <h2 class="post-title">
-            论文笔记：LVI-SAM
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Tightly-coupled Lidar-Visual-Inertial Odometry via Smoothing and Mapping
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                论文：LVI-SAM: Tightly-coupled Lidar-Visual-Inertial Odometry via Smoothing and Mapping
 
-Abstract
 
-  3D雷达、单目相机、IMU
-  LVI...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by ZhouSh on November 29, 2022
-    </p>
-</div>
-<hr>
 
-<div class="post-preview">
-    <a href="/2022/11/28/cartographer/">
-        <h2 class="post-title">
-            论文笔记：cartographer
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Real-Time Loop Closure in 2D LIDAR SLAM
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                论文：Real-Time Loop Closure in 2D LIDAR SLAM
-Abstract
-为了实现实时的回环检测，cartographer使用分支定界法计算scan-to-map匹配作为约束
-Introduction
-本...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by ZhouSh on November 28, 2022
-    </p>
-</div>
-<hr>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-<div class="post-preview">
-    <a href="/2022/11/27/weicheng/">
-        <h2 class="post-title">
-            摘记：围城
-        </h2>
-        
-        <h3 class="post-subtitle">
-            城外的人想冲进去，城里的人想逃出来。
-        </h3>
-        
-        <div class="post-content-preview">
-            
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
                 
-  阅读时长：14h
 
-  上次读时不知所云，这次读时尤为其中修辞叹服，希望下次读时能有“感悟”
+				<p>论文：<a href="https://arxiv.org/pdf/2104.10831v2.pdf">LVI-SAM: Tightly-coupled Lidar-Visual-Inertial Odometry via Smoothing and Mapping</a></p>
 
-  目录为原书目录，下面是摘记
+<h2 id="abstract">Abstract</h2>
+<ol>
+  <li>3D雷达、单目相机、IMU</li>
+  <li>LVI-SAM建立在<strong>因子图</strong>上，由两个子系统组成：视觉惯性系统（VIS）和激光雷达惯性系统（LIS）</li>
+  <li>两系统紧耦合
+    <ul>
+      <li>VIS利用LIS初始化</li>
+      <li>LIS的深度信息帮助VIS提高视觉特征的精度</li>
+      <li>LIS利用VIS的估计结果作为扫描匹配的初始值</li>
+      <li>回环先由VIS识别，再由LIS优化</li>
+      <li>两子系统任一故障，LVI-SAM仍可以进行，从而提高无纹理无特征环境下的鲁棒性</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+<p><img src="/img/in_post/LVI-SAM/1.png" alt="img" /></p>
+<ol>
+  <li>VIS进行视觉特征跟踪，并可选用LIS提取特征的深度</li>
+  <li>VIS通过优化视觉重投影误差和IMU测量获得视觉里程计，可作为雷达扫描匹配的初始值，并将约束引入因子图</li>
+  <li>使用IMU测量值进行点云校准后，LIS将提取雷达的边和面特征，并将其与滑动窗口中的特征图进行匹配</li>
+  <li>LIS估计出的系统状态可用于VIS初始化</li>
+  <li>回环先由VIS识别候选匹配，再由LIS优化</li>
+  <li>在因子图中共同优化视觉里程计、雷达里程计、IMU预积分、闭环等约束条件</li>
+  <li>利用优化的IMU偏置项传播IMU测量值，以IMU的速率进行状态估计</li>
+</ol>
+
+<h2 id="vis">VIS</h2>
+<ol>
+  <li>VIS采用VINS-MONO，特征点用”Good Features To Track”，KLT稀疏光流跟踪法</li>
+  <li>初始化：首先初始化LIS获得系统状态x和b，然后根据图像时间戳将他们插入并关联到每个图像关键帧，最后使用LIS估计的x和b作为VIS的初始值</li>
+  <li>特征深度：首先将视觉特征和雷达点投影到以相机为中心的单位球体上，然后对深度点下采样至恒定密度，并用极坐标存储。对于一个视觉特征，通过极坐标搜索二维K-D树，找到球体上离该视觉特征点最近的3个深度点。特征深度就是相机中心到视觉特征，与笛卡尔空间中的3个深度点形成的平面相交的线段（如下图Depth association，特征深度为Oc到浅蓝色点的线段）。另外还需验证深度，计算3个特征点之间的特征距离，如果最大距离超过2m，则该特征点没有深度信息。
+<img src="/img/in_post/LVI-SAM/2.png" width="90%" /></li>
+  <li>回环检测：用DBoW2进行回环检测。对于每个新图像关键帧，提取BRIEF描述子，与先前的描述子进行匹配。把DBoW2返回的回环候选图像时间戳发送到LIS进行进一步验证。</li>
+</ol>
+
+<h2 id="lis">LIS</h2>
+<p><img src="/img/in_post/LVI-SAM/3.png" width="90%" /></p>
+<ol>
+  <li>LIS采用LIO-SAM，用因子图实现全局优化</li>
+  <li>4种约束添加到图中联合优化：IMU预积分约束、视觉里程计约束、雷达里程计约束、回环约束
+    <ul>
+      <li>雷达约束来自扫描匹配，当前雷达关键帧和全局特征图进行匹配</li>
+      <li>回环约束由VIS提供，再由扫描匹配优化</li>
+    </ul>
+  </li>
+  <li>初始化：初始化之前假设机器人静止，假设IMU的偏置和噪声为0，两帧雷达算出平移旋转作为初始值。初始化之后，从因子图中估计IMU偏置、机器人位姿、速度，然后发给VIS进行初始化。初始化之后可以由VIS或校正后的IMU获得初始值。</li>
+</ol>
+
+<h2 id="消融实验">消融实验</h2>
+<p><img src="/img/in_post/LVI-SAM/4.png" width="70%" />
+<img src="/img/in_post/LVI-SAM/5.png" width="80%" /></p>
+
+<p>该场景由于植被茂密，GPS信号差，所以在同一位置开始和结束录制数据，比较起点和终点的平移和旋转误差</p>
+
+<ul>
+  <li>A1：VIS</li>
+  <li>A2：LIS</li>
+  <li>A3：VIS+LIS，激光为视觉提供深度信息，没有视觉回环</li>
+  <li>A4：VIS+LIS，激光为视觉提供深度信息，有视觉回环（完整系统）</li>
+</ul>
+
+<blockquote>
+  <p>表格中的w/o表示without，w/表示with</p>
+
+  <p>A1中的with depth深度信息来自于雷达，VIS并不是完全不使用雷达，详见VIS部分</p>
+</blockquote>
+
+<h2 id="运行代码">运行代码</h2>
+<p>rviz
+<img src="/img/in_post/LVI-SAM/6.png" alt="img" /></p>
+
+<p>rqt_graph
+<img src="/img/in_post/LVI-SAM/7.png" alt="img" /></p>
 
 
-一
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2022/11/28/cartographer/" data-toggle="tooltip" data-placement="top" title="论文笔记：cartographer">
+                        Previous<br>
+                        <span>论文笔记：cartographer</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <hr style="visibility: hidden;">
 
-这船，倚仗人的机巧，载满人的扰攘，寄满人的希望，热闹地行着，每分钟把沾污了人气的一小方水面...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by ZhouSh on November 27, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/11/25/ORB-SLAM1/">
-        <h2 class="post-title">
-            论文笔记：ORB SLAM 1
-        </h2>
-        
-        <h3 class="post-subtitle">
-            ORB-SLAM: a Versatile and Accurate Monocular SLAM System
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                论文：ORB-SLAM: a Versatile and Accurate Monocular SLAM System
-
-主要贡献
-
-  对追踪、地图构建、重定位、闭环检测采用相同的特征，使得系统更高效、简单、可靠。采用的ORB特征在...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by ZhouSh on November 25, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/11/24/loop-closing/">
-        <h2 class="post-title">
-            回环检测
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Bag of Word
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                我们可以把仅有前端和局部后端的系统称为VO，而把带有回环检测和全局后端的系统称为SLAM
-
-朴素的回环检测：
-
-  对任意两幅图像都做一遍特征匹配
-  随机抽取历史数据并进行回环检测
-
-
-预计哪出可能出现回环：
-
-  基于里程计的几何...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by ZhouSh on November 24, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/11/23/ORB-feature/">
-        <h2 class="post-title">
-            ORB feature
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Oriented FAST + BRIEF
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                ORB特征由关键点和描述子两部分组成，关键点称为Oriented FAST，由FAST角点改进而来；描述子称为BRIEF（Binary Robust Independent Elementary Feature。下面先讲FAST，再介...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by ZhouSh on November 23, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/11/21/welcome-to-jekyll/">
-        <h2 class="post-title">
-            Welcome to Jekyll!
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "Hello World, Hello Blog"
-        </h3>
-        
-        <div class="post-content-preview">
-            
                 
-  “Yeah It’s on. ”
 
+                
+            </div>  
 
-You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to s...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by ZhouSh on November 21, 2022
-    </p>
-</div>
-<hr>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-1
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
 
-
-<!-- Pager -->
-
-
-    </div>
     <!-- Sidebar Container -->
-    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
-      col-xs-12 sidebar-container">
-      <!-- Featured Tags -->
-      
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
 
 
 <section>
+    
+        <hr class="hidden-sm hidden-xs">
     
     <h5><a href="/archive/">FEATURED TAGS</a></h5>
     <div class="tags">
@@ -464,56 +419,8 @@ You’ll find this post in your _posts directory. Go ahead and edit it and re-bu
 </section>
 
 
-      <!-- Short About -->
-      <section class="visible-md visible-lg">
-  <hr>
-  <h5><a href="/about/">ABOUT ME</a></h5>
-  <div class="short-about">
-    
-    <img src="/img/profile.jpg" />
-    
-    
-    <p></p>
-    
-    <!-- SNS Link -->
-    
-
-
-<ul class="list-inline">
-
-
-  
-  
-  
-  <li>
-    <a target="_blank" href="https://github.com/ZhouShihui210">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-  
-  
-  <li>
-    <a target="_blank" href="https://space.bilibili.com/291406031">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-camera-retro fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-  
-</ul>
-  </div>
-</section>
-
-      <!-- Friends Blog -->
-      
+                <!-- Friends Blog -->
+                
 <hr>
 <h5>FRIENDS</h5>
 <ul class="list-inline">
@@ -528,10 +435,55 @@ You’ll find this post in your _posts directory. Go ahead and edit it and re-bu
   
 </ul>
 
+            </div>
+        </div>
     </div>
-    
-  </div>
-</div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
 <!-- Add support for Mathjax by Voleking-->
