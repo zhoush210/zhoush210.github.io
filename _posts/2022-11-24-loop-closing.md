@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "回环检测"
+subtitle:   "Bag of Word"
 date:   2022-11-24 09:05:00 +0800
 author:     "ZhouSh"
 header-img: "img/in_post/loop-closing/head.png"
