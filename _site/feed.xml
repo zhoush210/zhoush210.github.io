@@ -5,8 +5,8 @@
     <description>这里是周诗蕙的个人博客</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 01 Dec 2022 10:31:27 +0800</pubDate>
-    <lastBuildDate>Thu, 01 Dec 2022 10:31:27 +0800</lastBuildDate>
+    <pubDate>Thu, 01 Dec 2022 17:01:08 +0800</pubDate>
+    <lastBuildDate>Thu, 01 Dec 2022 17:01:08 +0800</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
     
       <item>
@@ -705,9 +705,11 @@
 &lt;p&gt;词袋的回环检测算法完全依赖于外观而没有利用任何的几何信息，这导致外观相似的图像容易被当成回环。并且，由于词袋不在乎单词顺序，只在意单词有无的表达方式，更容易引发感知偏差。所以，在回环检测之后，我们通常还会有一个验证步骤&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;时间一致性检测&lt;/strong&gt;：设立回环的缓存机制，认为单次检测到的回环并不足以构成良好的约束，而在一段时间中一直检测到的回环，才认为是正确的回环。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;空间一致性检测&lt;/strong&gt;：对回环检测到的两个帧进行特征匹配，估计相机的运动。然后，再把运动放到之前的Pose Graph中，检查与之前的估计是否有很大的出入。
-    &lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;空间一致性检测&lt;/strong&gt;：对回环检测到的两个帧进行特征匹配，估计相机的运动。然后，再把运动放到之前的Pose Graph中，检查与之前的估计是否有很大的出入。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
   &lt;li&gt;《slam十四讲》&lt;/li&gt;
 &lt;/ul&gt;
 </description>
