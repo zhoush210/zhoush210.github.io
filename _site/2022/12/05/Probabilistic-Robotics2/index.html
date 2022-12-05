@@ -12,26 +12,26 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="论文笔记：LVI-SAM - 周诗蕙的博客 | ZhouSh Blog">
+        content="笔记：Probabilistic Robotics Chapter2 - 周诗蕙的博客 | ZhouSh Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="论文：LVI-SAM: Tightly-coupled Lidar-Visual-Inertial Odometry via Smoothing and Mapping
+    <meta property="og:description" content="《Probabilistic Robotics》
 ">
     
-    <meta property="article:published_time" content=" 2022-11-29T20:32:00Z">
+    <meta property="article:published_time" content=" 2022-12-05T13:47:00Z">
     
     
     <meta property="article:author" content="ZhouSh">
     
     
-    <meta property="article:tag" content="SLAM">
+    <meta property="article:tag" content="概率机器人">
     
     
     <meta property="og:image" content="http://localhost:4000/img/profile.jpg">
-    <meta property="og:url" content="http://localhost:4000/2022/11/29/LVI-SAM/">
+    <meta property="og:url" content="http://localhost:4000/2022/12/05/Probabilistic-Robotics2/">
     <meta property="og:site_name" content="周诗蕙的博客 | ZhouSh Blog">
 
-    <title>论文笔记：LVI-SAM - 周诗蕙的博客 | ZhouSh Blog</title>
+    <title>笔记：Probabilistic Robotics Chapter2 - 周诗蕙的博客 | ZhouSh Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -40,7 +40,7 @@
     <link rel="shortcut icon" href="/img/profile.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2022/11/29/LVI-SAM/">
+    <link rel="canonical" href="http://localhost:4000/2022/12/05/Probabilistic-Robotics2/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css">
@@ -206,7 +206,7 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/in_post/LVI-SAM/head.png" width="0" height="0"> -->
+<!-- <img src="/img/in_post/Probabilistic-Robotics/head1.png" width="0" height="0"> -->
 
 <!-- Post Header -->
 
@@ -215,7 +215,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in_post/LVI-SAM/head.png');
+        background-image: url('/img/in_post/Probabilistic-Robotics/head1.png');
         background: ;
     }
 
@@ -224,7 +224,7 @@
         width: 100%;
         height: 100%;
         position: absolute;
-        background: rgba(0,0,0, 0.3);
+        background: rgba(0,0,0, 0.4);
     }
     
 </style>
@@ -242,13 +242,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=SLAM" title="SLAM">SLAM</a>
+                        <a class="tag" href="/archive/?tag=%E6%A6%82%E7%8E%87%E6%9C%BA%E5%99%A8%E4%BA%BA" title="概率机器人">概率机器人</a>
                         
                     </div>
-                    <h1>论文笔记：LVI-SAM</h1>
+                    <h1>笔记：Probabilistic Robotics Chapter2</h1>
                     
-                    <h2 class="subheading">Tightly-coupled Lidar-Visual-Inertial Odometry via Smoothing and Mapping</h2>
-                    <span class="meta">Posted by ZhouSh on November 29, 2022</span>
+                    <h2 class="subheading">Recursive State Estimation</h2>
+                    <span class="meta">Posted by ZhouSh on December 5, 2022</span>
                 </div>
             </div>
         </div>
@@ -275,103 +275,127 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>论文：<a href="https://arxiv.org/pdf/2104.10831v2.pdf">LVI-SAM: Tightly-coupled Lidar-Visual-Inertial Odometry via Smoothing and Mapping</a></p>
+				<p><a href="https://gaoyichao.com/Xiaotu//resource/refs/PR.MIT.en.pdf">《Probabilistic Robotics》</a></p>
 
-<h2 id="abstract">Abstract</h2>
+<p><a href="https://gaoyichao.com/Xiaotu/?book=probabilistic_robotics&amp;title=index">一个较好的中文翻译版（无处不在的小土）</a></p>
+
+<h2 id="notes">Notes</h2>
+
+<h3 id="22-basic-concepts-in-probability">2.2 Basic Concepts in Probability</h3>
+
 <ol>
-  <li>3D雷达、单目相机、IMU</li>
-  <li>LVI-SAM建立在<strong>因子图</strong>上，由两个子系统组成：视觉惯性系统（VIS）和激光雷达惯性系统（LIS）</li>
-  <li>两系统紧耦合
-    <ul>
-      <li>VIS利用LIS初始化</li>
-      <li>LIS的深度信息帮助VIS提高视觉特征的精度</li>
-      <li>LIS利用VIS的估计结果作为扫描匹配的初始值</li>
-      <li>回环先由VIS识别，再由LIS优化</li>
-      <li>两子系统任一故障，LVI-SAM仍可以进行，从而提高无纹理无特征环境下的鲁棒性</li>
-    </ul>
+  <li>
+    <p>假设所有随机变量都有概率密度函数（PDF，probability dendity function）</p>
+  </li>
+  <li>
+    <p>一维正态分布的PDF（高斯函数）：</p>
+
+    <p>$
+ p(x)=(2\pi\sigma)^{-\frac{1}{2}} exp\lbrace-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}\rbrace
+ $</p>
+  </li>
+  <li>
+    <p>多元正态分布的PDF：</p>
+
+    <p>$
+ p(x)=det(2\pi\Sigma)^{-\frac{1}{2}} exp\lbrace-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\rbrace
+ $</p>
+
+    <p>其中，$\mu$是平均向量，$\Sigma$是一个半正定对称矩阵，协方差。$\Sigma=\sigma^2$时，和一元正态分布函数等价</p>
+    <blockquote>
+      <p><a href="https://baike.baidu.com/item/%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/11030459">正定矩阵</a>的性质类似复数中的正实数</p>
+
+      <p><a href="https://baike.baidu.com/item/%E5%8D%8A%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/2152711">半正定矩阵</a>，设A是n阶方阵或实对称矩阵，如果对任何非零向量X，都有$X^TAX\geq0$ ，就称A为半正定矩阵</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>PDF的值不以1为上限</p>
+  </li>
+  <li>
+    <p>贝叶斯定律：</p>
+
+    <p>$
+ p(x|y)=\frac{p(y|x)p(x)}{p(y)}=\eta\ p(y|x)p(x)
+ $</p>
+
+    <p>其中$\eta$为归一化常数。如果要从y推出x，则称$p(x)$为先验分布，y为data，$p(x|y)$为后验分布</p>
+  </li>
+  <li>
+    <p>期望：</p>
+
+    <p>$
+ E[X]=\sum_x x\ p(x)
+ $</p>
+  </li>
+  <li>
+    <p>协方差：</p>
+
+    <p>$
+ Cov[X]=E[X-E[X]]^2=E(X^2+E(X)^2-2XE(X))=E[X^2]-E[X]^2
+ $</p>
+  </li>
+  <li>
+    <p>熵：假设x的概率为 $p(x)$，则编码x需要 $-log_2 p(x)$ 位字节</p>
+
+    <p>$
+ H_p(x)=E[-log_2 p(x)]
+ $</p>
   </li>
 </ol>
 
-<h2 id="introduction">Introduction</h2>
-<p><img src="/img/in_post/LVI-SAM/1.png" alt="img" /></p>
-<ol>
-  <li>VIS进行视觉特征跟踪，并可选用LIS提取特征的深度</li>
-  <li>VIS通过优化视觉重投影误差和IMU测量获得视觉里程计，可作为雷达扫描匹配的初始值，并将约束引入因子图</li>
-  <li>使用IMU测量值进行点云校准后，LIS将提取雷达的边和面特征，并将其与滑动窗口中的特征图进行匹配</li>
-  <li>LIS估计出的系统状态可用于VIS初始化</li>
-  <li>回环先由VIS识别候选匹配，再由LIS优化</li>
-  <li>在因子图中共同优化视觉里程计、雷达里程计、IMU预积分、闭环等约束条件</li>
-  <li>利用优化的IMU偏置项传播IMU测量值，以IMU的速率进行状态估计</li>
-</ol>
+<h3 id="23-robot-environment-interaction">2.3 Robot Environment Interaction</h3>
 
-<h2 id="vis">VIS</h2>
 <ol>
-  <li>VIS采用VINS-MONO，特征点用”Good Features To Track”，KLT稀疏光流跟踪法</li>
-  <li>初始化：首先初始化LIS获得系统状态x和b，然后根据图像时间戳将他们插入并关联到每个图像关键帧，最后使用LIS估计的x和b作为VIS的初始值</li>
-  <li>特征深度：首先将视觉特征和雷达点投影到以相机为中心的单位球体上，然后对深度点下采样至恒定密度，并用极坐标存储。对于一个视觉特征，通过极坐标搜索二维K-D树，找到球体上离该视觉特征点最近的3个深度点。特征深度就是相机中心到视觉特征，与笛卡尔空间中的3个深度点形成的平面相交的线段（如下图Depth association，特征深度为Oc到浅蓝色点的线段）。另外还需验证深度，计算3个特征点之间的特征距离，如果最大距离超过2m，则该特征点没有深度信息。
-<img src="/img/in_post/LVI-SAM/2.png" width="90%" /></li>
-  <li>回环检测：用DBoW2进行回环检测。对于每个新图像关键帧，提取BRIEF描述子，与先前的描述子进行匹配。把DBoW2返回的回环候选图像时间戳发送到LIS进行进一步验证。</li>
-</ol>
-
-<h2 id="lis">LIS</h2>
-<p><img src="/img/in_post/LVI-SAM/3.png" width="90%" /></p>
-<ol>
-  <li>LIS采用LIO-SAM，用因子图实现全局优化</li>
-  <li>4种约束添加到图中联合优化：IMU预积分约束、视觉里程计约束、雷达里程计约束、回环约束
-    <ul>
-      <li>雷达约束来自扫描匹配，当前雷达关键帧和全局特征图进行匹配</li>
-      <li>回环约束由VIS提供，再由扫描匹配优化</li>
-    </ul>
+  <li>
+    <p>A state $x_t$ will be called $complete$ if it is the best predictor of the futrue.</p>
   </li>
-  <li>初始化：初始化之前假设机器人静止，假设IMU的偏置和噪声为0，两帧雷达算出平移旋转作为初始值。初始化之后，从因子图中估计IMU偏置、机器人位姿、速度，然后发给VIS进行初始化。初始化之后可以由VIS或校正后的IMU获得初始值。</li>
+  <li>
+    <p>belief（包含t时刻的测量）：
+ $
+ bel(x_t)=p(x_t|z_{1:\ t},u_{1:\ t})
+ $</p>
+
+    <p>belief（不包含t时刻的测量）：
+ $
+ \overline {bel}(x_t)=p(x_t|z_{1:\ t-1},u_{1:\ t})
+ $</p>
+  </li>
 </ol>
 
-<h2 id="消融实验">消融实验</h2>
-<p><img src="/img/in_post/LVI-SAM/4.png" width="70%" />
-<img src="/img/in_post/LVI-SAM/5.png" width="80%" /></p>
+<h3 id="24-bayes-filters">2.4 Bayes Filters</h3>
 
-<p>该场景由于植被茂密，GPS信号差，所以在同一位置开始和结束录制数据，比较起点和终点的平移和旋转误差</p>
+<ol>
+  <li>
+    <p>伪代码：$u_t$是控制，$z_t$是观测</p>
 
-<ul>
-  <li>A1：VIS</li>
-  <li>A2：LIS</li>
-  <li>A3：VIS+LIS，激光为视觉提供深度信息，没有视觉回环</li>
-  <li>A4：VIS+LIS，激光为视觉提供深度信息，有视觉回环（完整系统）</li>
-</ul>
+    <p>Algorithm Bayes_filter $(bel(x_{t-1}),u_t,z_t)$:</p>
 
-<blockquote>
-  <p>表格中的w/o表示without，w/表示with</p>
+    <p>for all $x_t$ do</p>
 
-  <p>A1中的with depth深度信息来自于雷达，VIS并不是完全不使用雷达，详见VIS部分</p>
-</blockquote>
+    <p>$\overline {bel}(x_t)=\int p(x_t|u_t,x_{t-1})bel(x_{t-1})dx_{t-1}$</p>
 
-<h2 id="代码">代码</h2>
-<p><a href="https://github.com/ZhouShihui210/LVI-SAM_detailed_comments">代码仓库</a></p>
+    <p>${bel}(x_t)=\eta \  p(z_t|x_t) \  \overline{bel}(x_t)$</p>
 
-<p>rviz
-<img src="/img/in_post/LVI-SAM/6.png" alt="img" /></p>
+    <p>endfor</p>
 
-<p>rqt_graph
-<img src="/img/in_post/LVI-SAM/7.png" alt="img" /></p>
+    <p>return $bel(x_t)$</p>
+  </li>
+</ol>
+
+<h2 id="exercises">Exercises</h2>
+
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2022/11/28/cartographer/" data-toggle="tooltip" data-placement="top" title="论文笔记：cartographer">
+                        <a href="/2022/11/29/LVI-SAM/" data-toggle="tooltip" data-placement="top" title="论文笔记：LVI-SAM">
                         Previous<br>
-                        <span>论文笔记：cartographer</span>
+                        <span>论文笔记：LVI-SAM</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2022/12/05/Probabilistic-Robotics2/" data-toggle="tooltip" data-placement="top" title="笔记：Probabilistic Robotics Chapter2">
-                        Next<br>
-                        <span>笔记：Probabilistic Robotics Chapter2</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">

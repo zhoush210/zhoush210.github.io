@@ -5,9 +5,130 @@
     <description>这里是周诗蕙的个人博客</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 02 Dec 2022 11:24:50 +0800</pubDate>
-    <lastBuildDate>Fri, 02 Dec 2022 11:24:50 +0800</lastBuildDate>
+    <pubDate>Mon, 05 Dec 2022 19:38:22 +0800</pubDate>
+    <lastBuildDate>Mon, 05 Dec 2022 19:38:22 +0800</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
+    
+      <item>
+        <title>笔记：Probabilistic Robotics Chapter2</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://gaoyichao.com/Xiaotu//resource/refs/PR.MIT.en.pdf&quot;&gt;《Probabilistic Robotics》&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gaoyichao.com/Xiaotu/?book=probabilistic_robotics&amp;amp;title=index&quot;&gt;一个较好的中文翻译版（无处不在的小土）&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+
+&lt;h3 id=&quot;22-basic-concepts-in-probability&quot;&gt;2.2 Basic Concepts in Probability&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;假设所有随机变量都有概率密度函数（PDF，probability dendity function）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;一维正态分布的PDF（高斯函数）：&lt;/p&gt;
+
+    &lt;p&gt;$
+ p(x)=(2\pi\sigma)^{-\frac{1}{2}} exp\lbrace-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}\rbrace
+ $&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;多元正态分布的PDF：&lt;/p&gt;
+
+    &lt;p&gt;$
+ p(x)=det(2\pi\Sigma)^{-\frac{1}{2}} exp\lbrace-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\rbrace
+ $&lt;/p&gt;
+
+    &lt;p&gt;其中，$\mu$是平均向量，$\Sigma$是一个半正定对称矩阵，协方差。$\Sigma=\sigma^2$时，和一元正态分布函数等价&lt;/p&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/11030459&quot;&gt;正定矩阵&lt;/a&gt;的性质类似复数中的正实数&lt;/p&gt;
+
+      &lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/%E5%8D%8A%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/2152711&quot;&gt;半正定矩阵&lt;/a&gt;，设A是n阶方阵或实对称矩阵，如果对任何非零向量X，都有$X^TAX\geq0$ ，就称A为半正定矩阵&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;PDF的值不以1为上限&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;贝叶斯定律：&lt;/p&gt;
+
+    &lt;p&gt;$
+ p(x|y)=\frac{p(y|x)p(x)}{p(y)}=\eta\ p(y|x)p(x)
+ $&lt;/p&gt;
+
+    &lt;p&gt;其中$\eta$为归一化常数。如果要从y推出x，则称$p(x)$为先验分布，y为data，$p(x|y)$为后验分布&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;期望：&lt;/p&gt;
+
+    &lt;p&gt;$
+ E[X]=\sum_x x\ p(x)
+ $&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;协方差：&lt;/p&gt;
+
+    &lt;p&gt;$
+ Cov[X]=E[X-E[X]]^2=E(X^2+E(X)^2-2XE(X))=E[X^2]-E[X]^2
+ $&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;熵：假设x的概率为 $p(x)$，则编码x需要 $-log_2 p(x)$ 位字节&lt;/p&gt;
+
+    &lt;p&gt;$
+ H_p(x)=E[-log_2 p(x)]
+ $&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;23-robot-environment-interaction&quot;&gt;2.3 Robot Environment Interaction&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;A state $x_t$ will be called $complete$ if it is the best predictor of the futrue.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;belief（包含t时刻的测量）：
+ $
+ bel(x_t)=p(x_t|z_{1:\ t},u_{1:\ t})
+ $&lt;/p&gt;
+
+    &lt;p&gt;belief（不包含t时刻的测量）：
+ $
+ \overline {bel}(x_t)=p(x_t|z_{1:\ t-1},u_{1:\ t})
+ $&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;24-bayes-filters&quot;&gt;2.4 Bayes Filters&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;伪代码：$u_t$是控制，$z_t$是观测&lt;/p&gt;
+
+    &lt;p&gt;Algorithm Bayes_filter $(bel(x_{t-1}),u_t,z_t)$:&lt;/p&gt;
+
+    &lt;p&gt;for all $x_t$ do&lt;/p&gt;
+
+    &lt;p&gt;$\overline {bel}(x_t)=\int p(x_t|u_t,x_{t-1})bel(x_{t-1})dx_{t-1}$&lt;/p&gt;
+
+    &lt;p&gt;${bel}(x_t)=\eta \  p(z_t|x_t) \  \overline{bel}(x_t)$&lt;/p&gt;
+
+    &lt;p&gt;endfor&lt;/p&gt;
+
+    &lt;p&gt;return $bel(x_t)$&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;exercises&quot;&gt;Exercises&lt;/h2&gt;
+
+</description>
+        <pubDate>Mon, 05 Dec 2022 13:47:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/12/05/Probabilistic-Robotics2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/12/05/Probabilistic-Robotics2/</guid>
+        
+        <category>概率机器人</category>
+        
+        
+      </item>
     
       <item>
         <title>论文笔记：LVI-SAM</title>
