@@ -86,7 +86,7 @@ tags:
 
     for all $x_t$ do
 
-    $\overline {bel}(x_t)=\int p(x_t\|u_t,x_{t-1})bel(x_{t-1})dx_{t-1}$
+    $\overline {bel}(x_t)=\sum_{x_{t-1}} p(x_t\|u_t,x_{t-1})bel(x_{t-1})$
 
     ${bel}(x_t)=\eta \  p(z_t\|x_t) \  \overline{bel}(x_t)$
 
