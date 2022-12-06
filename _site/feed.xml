@@ -5,15 +5,18 @@
     <description>这里是周诗蕙的个人博客</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 05 Dec 2022 21:30:29 +0800</pubDate>
-    <lastBuildDate>Mon, 05 Dec 2022 21:30:29 +0800</lastBuildDate>
+    <pubDate>Tue, 06 Dec 2022 09:46:42 +0800</pubDate>
+    <lastBuildDate>Tue, 06 Dec 2022 09:46:42 +0800</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
     
       <item>
         <title>笔记：Probabilistic Robotics Chapter2</title>
-        <description>&lt;p&gt;&lt;a href=&quot;https://gaoyichao.com/Xiaotu//resource/refs/PR.MIT.en.pdf&quot;&gt;《Probabilistic Robotics》&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://gaoyichao.com/Xiaotu//resource/refs/PR.MIT.en.pdf&quot;&gt;《Probabilistic Robotics》&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://gaoyichao.com/Xiaotu/?book=probabilistic_robotics&amp;amp;title=index&quot;&gt;一个较好的中文翻译版（无处不在的小土）&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/pptacher/probabilistic_robotics&quot;&gt;习题参考答案（github:pptacher probabilistic_robotics）&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
 

@@ -9,9 +9,12 @@ header-mask: 0.4
 tags:
     - 概率机器人
 ---
+## 参考资料
 [《Probabilistic Robotics》](https://gaoyichao.com/Xiaotu//resource/refs/PR.MIT.en.pdf)
 
 [一个较好的中文翻译版（无处不在的小土）](https://gaoyichao.com/Xiaotu/?book=probabilistic_robotics&title=index)
+
+[习题参考答案（github:pptacher probabilistic_robotics）](https://github.com/pptacher/probabilistic_robotics)
 
 ## Notes
 
