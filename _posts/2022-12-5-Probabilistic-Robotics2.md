@@ -99,4 +99,75 @@ tags:
 
 ## Exercises
 
+### 1. 
+机器人雷达测量范围为0~3m，平均分布。当传感器坏时（fault），雷达输出为小于1m。雷达坏掉的先验概率为$p=0.01$。机器人获取雷达数据N次，每次测量结果都小于1，则雷达坏掉的后验概率为？
+
+已知
+$
+P(X=faulty)=p=0.01, P(X=good)=1-p=0.99
+$
+
+因为
+$
+P(X=faulty|Z_{1:n})=\eta_1 P(Z_n|X=faulty,Z_{1:n-1}) P(X=faulty|Z_{1:n-1})=\eta_1 \times 1 \times P(X=faulty|Z_{1:n-1})
+$
+
+所以
+$
+P(X=faulty|Z_{1:n})=\eta_1 P(X=faulty|Z_{1:n-1})=\eta_2 P(X=faulty|Z_{1:n-2})=\cdots=\eta_n P(X=faulty|Z_0)=\eta_n P(X=faulty)=\eta_n p
+$
+
+因为
+$
+P(X=good|Z_{1:n})=\eta_1 P(Z_n|X=good,Z_{1:n-1}) P(X=good|Z_{1:n-1})=\eta_1 \times \frac{1}{3} \times P(X=good|Z_{1:n-1})
+$
+
+所以
+$
+P(X=good|Z_{1:n})=\eta_1 \frac{1}{3} P(X=good|Z_{1:n-1})=\eta_2 \frac{1}{3^2} P(X=good|Z_{1:n-2})=\cdots=\eta_n \frac{1}{3^n} P(X=good|Z_0)=\eta_n \frac{1}{3^n} P(X=good)=\eta_n \frac{1}{3^n} (1-p)
+$
+
+因为
+$
+\eta_n p+\eta_n \frac{1}{3^n} (1-p)=1
+$
+
+所以
+$
+\eta=\frac{1}{p+\frac{1}{3^n}(1-p)}
+$
+
+所以
+$
+P(X=faulty|Z_{1:n})=\eta_n p=\frac{p}{p+\frac{1}{3^n}(1-p)}=\frac{0.01}{0.01+\frac{1}{3^n}\times 0.99}
+$
+
+所以
+
+$
+n=1,P(X=faulty|Z_1)=0.0294118;
+n=2,P(X=faulty|Z_{1:2})=0.0833333;
+$
+
+$
+n=3,P(X=faulty|Z_{1:3})=0.214286;
+n=4,P(X=faulty|Z_{1:4})=0.45;
+$
+
+$
+n=5,P(X=faulty|Z_{1:5})=0.710526;
+n=6,P(X=faulty|Z_{1:6})=0.880435;
+$
+
+$
+n=7,P(X=faulty|Z_{1:7})=0.956693;
+n=8,P(X=faulty|Z_{1:8})=0.956693;
+$
+
+$
+n=9,P(X=faulty|Z_{1:9})=0.994995;
+n=10,P(X=faulty|Z_{1:10})=0.998326;
+$
+
+
 
