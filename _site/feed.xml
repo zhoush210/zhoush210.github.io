@@ -5,8 +5,8 @@
     <description>这里是周诗蕙的个人博客</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Dec 2022 10:44:35 +0800</pubDate>
-    <lastBuildDate>Tue, 06 Dec 2022 10:44:35 +0800</lastBuildDate>
+    <pubDate>Thu, 08 Dec 2022 15:23:43 +0800</pubDate>
+    <lastBuildDate>Thu, 08 Dec 2022 15:23:43 +0800</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
     
       <item>
@@ -124,7 +124,7 @@
 &lt;h2 id=&quot;exercises&quot;&gt;Exercises&lt;/h2&gt;
 
 &lt;h3 id=&quot;1&quot;&gt;1.&lt;/h3&gt;
-&lt;p&gt;机器人雷达测量范围为0~3m，平均分布。当传感器坏时（fault），雷达输出为小于1m。雷达坏掉的先验概率为$p=0.01$。机器人获取雷达数据N次，每次测量结果都小于1，则雷达坏掉的后验概率为？&lt;/p&gt;
+&lt;p&gt;机器人雷达测量范围为0~3m，平均分布。当传感器坏时（faulty），雷达输出为小于1m。雷达坏掉的先验概率为$p=0.01$。机器人获取雷达数据N次，每次测量结果都小于1，则雷达坏掉的后验概率为？&lt;/p&gt;
 
 &lt;p&gt;已知
 $
@@ -314,9 +314,9 @@ $&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;scan to scan match&lt;/strong&gt;：两帧激光雷达数据之间的匹配。假如当前帧的激光雷达数据为A，和它匹配的另一帧激光雷达数据为B，如果以A为起始帧，B为目标帧，那么A经过一个相对平移和旋转变换到B，我们目的就是求出这个相对平移量和旋转角度。目前来说，匹配效果最好的算法就是ICP（Iterative Closest Point）方法，它充分利用了激光雷达每个数据点来进行匹配，后来所有ICP变种基本都是为了提高计算效率而演化的，如何减小循环次数加快收敛等等。&lt;a href=&quot;https://www.jianshu.com/p/12cafbd14797&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/12cafbd14797&quot;&gt;&lt;strong&gt;scan to scan match&lt;/strong&gt;&lt;/a&gt;：两帧激光雷达数据之间的匹配。假如当前帧的激光雷达数据为A，和它匹配的另一帧激光雷达数据为B，如果以A为起始帧，B为目标帧，那么A经过一个相对平移和旋转变换到B，我们目的就是求出这个相对平移量和旋转角度。目前来说，匹配效果最好的算法就是ICP（Iterative Closest Point）方法，它充分利用了激光雷达每个数据点来进行匹配，后来所有ICP变种基本都是为了提高计算效率而演化的，如何减小循环次数加快收敛等等。&lt;/p&gt;
 
-  &lt;p&gt;&lt;strong&gt;scan to map match&lt;/strong&gt;：即激光雷达扫描数据直接与地图进行匹配，得到实际位置坐标[x,y,theta]。这种方式一边计算位置，一边把新扫描到的数据及时加入到先前地图中。&lt;a href=&quot;https://www.jianshu.com/p/12cafbd14797&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/12cafbd14797&quot;&gt;&lt;strong&gt;scan to map match&lt;/strong&gt;&lt;/a&gt;：即激光雷达扫描数据直接与地图进行匹配，得到实际位置坐标[x,y,theta]。这种方式一边计算位置，一边把新扫描到的数据及时加入到先前地图中。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h3 id=&quot;减少局部累计误差&quot;&gt;减少局部累计误差&lt;/h3&gt;
@@ -326,9 +326,9 @@ $&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;粒子滤波&lt;/strong&gt;：通过寻找一组在状态空间中传播的随机样本来近似的表示概率密度函数，用样本均值代替积分运算，进而获得系统状态的最小方差估计的过程，这些样本被形象的称为“粒子”，故而叫粒子滤波。&lt;a href=&quot;https://baike.baidu.com/item/%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2/2128986&quot;&gt;参考&lt;/a&gt; ；&lt;a href=&quot;https://zhuanlan.zhihu.com/p/161617286&quot;&gt;附一个非常生动的说明&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2/2128986&quot;&gt;&lt;strong&gt;粒子滤波&lt;/strong&gt;&lt;/a&gt;：通过寻找一组在状态空间中传播的随机样本来近似的表示概率密度函数，用样本均值代替积分运算，进而获得系统状态的最小方差估计的过程，这些样本被形象的称为“粒子”，故而叫粒子滤波。&lt;a href=&quot;https://zhuanlan.zhihu.com/p/161617286&quot;&gt;附一个非常生动的说明&lt;/a&gt;&lt;/p&gt;
 
-  &lt;p&gt;&lt;strong&gt;基于图优化的SLAM&lt;/strong&gt;：&lt;a href=&quot;https://zhuanlan.zhihu.com/p/41424435&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/41424435&quot;&gt;&lt;strong&gt;基于图优化的SLAM&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;system-overview&quot;&gt;System overview&lt;/h2&gt;
@@ -418,7 +418,7 @@ $&lt;/p&gt;
 &lt;/ol&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;hube loss: 相比于最小二乘的线性回归，HuberLoss降低了对离群点的惩罚程度。当预测偏差小于 $\delta$ 时，采用平方误差；当预测偏差大于 $\delta$ 时，采用线性误差。&lt;a href=&quot;https://www.cnblogs.com/nowgood/p/Huber-Loss.html&quot;&gt;参考&lt;/a&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/nowgood/p/Huber-Loss.html&quot;&gt;hube loss&lt;/a&gt;: 相比于最小二乘的线性回归，HuberLoss降低了对离群点的惩罚程度。当预测偏差小于 $\delta$ 时，采用平方误差；当预测偏差大于 $\delta$ 时，采用线性误差。
 &lt;img src=&quot;/img/in_post/cartographer/7.png&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -448,7 +448,7 @@ $&lt;/p&gt;
 &lt;/ol&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;分支定界法：通常，把全部可行解空间反复地分割为越来越小的子集，称为分支；并且对每个子集内的解集计算一个目标下界（对于最小值问题），这称为定界。在每次分枝后，凡是界限超出已知可行解集目标值的那些子集不再进一步分枝，这样，许多子集可不予考虑，这称剪枝。这就是分枝定界法的主要思路。&lt;a href=&quot;https://baike.baidu.com/item/%E5%88%86%E6%94%AF%E5%AE%9A%E7%95%8C%E6%B3%95/9902038&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/%E5%88%86%E6%94%AF%E5%AE%9A%E7%95%8C%E6%B3%95/9902038&quot;&gt;分支定界法&lt;/a&gt;：通常，把全部可行解空间反复地分割为越来越小的子集，称为分支；并且对每个子集内的解集计算一个目标下界（对于最小值问题），这称为定界。在每次分枝后，凡是界限超出已知可行解集目标值的那些子集不再进一步分枝，这样，许多子集可不予考虑，这称剪枝。这就是分枝定界法的主要思路。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;要将分支定界法具体化，我们需要选择节点选择、分支、上界计算的方法&lt;/p&gt;
@@ -469,7 +469,7 @@ $&lt;/p&gt;
 &lt;/ol&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;分支：对一个大的步长在 x 和 y 方向进行对半拆分，而 $\theta$ 不变。对 x 和 y 都进行减半操作，相当于“分田”，在空间坐标上将搜索空间划分为四个更小的区域 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/364015137&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/364015137&quot;&gt;分支&lt;/a&gt;：对一个大的步长在 x 和 y 方向进行对半拆分，而 $\theta$ 不变。对 x 和 y 都进行减半操作，相当于“分田”，在空间坐标上将搜索空间划分为四个更小的区域&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h4 id=&quot;3-computing-upper-bounds&quot;&gt;3. Computing upper bounds&lt;/h4&gt;

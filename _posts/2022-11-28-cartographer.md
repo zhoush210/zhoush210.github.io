@@ -22,17 +22,17 @@ tags:
     - 减少计算量的策略：通过laser特征提取匹配
     - 加强回环检测的策略：直方图统计匹配、提取laser特征、机器学习
 
-> **scan to scan match**：两帧激光雷达数据之间的匹配。假如当前帧的激光雷达数据为A，和它匹配的另一帧激光雷达数据为B，如果以A为起始帧，B为目标帧，那么A经过一个相对平移和旋转变换到B，我们目的就是求出这个相对平移量和旋转角度。目前来说，匹配效果最好的算法就是ICP（Iterative Closest Point）方法，它充分利用了激光雷达每个数据点来进行匹配，后来所有ICP变种基本都是为了提高计算效率而演化的，如何减小循环次数加快收敛等等。[参考](https://www.jianshu.com/p/12cafbd14797)
+> [**scan to scan match**](https://www.jianshu.com/p/12cafbd14797)：两帧激光雷达数据之间的匹配。假如当前帧的激光雷达数据为A，和它匹配的另一帧激光雷达数据为B，如果以A为起始帧，B为目标帧，那么A经过一个相对平移和旋转变换到B，我们目的就是求出这个相对平移量和旋转角度。目前来说，匹配效果最好的算法就是ICP（Iterative Closest Point）方法，它充分利用了激光雷达每个数据点来进行匹配，后来所有ICP变种基本都是为了提高计算效率而演化的，如何减小循环次数加快收敛等等。
 >
-> **scan to map match**：即激光雷达扫描数据直接与地图进行匹配，得到实际位置坐标[x,y,theta]。这种方式一边计算位置，一边把新扫描到的数据及时加入到先前地图中。[参考](https://www.jianshu.com/p/12cafbd14797)
+> [**scan to map match**](https://www.jianshu.com/p/12cafbd14797)：即激光雷达扫描数据直接与地图进行匹配，得到实际位置坐标[x,y,theta]。这种方式一边计算位置，一边把新扫描到的数据及时加入到先前地图中。
 
 ### 减少局部累计误差
 - 粒子滤波：对于grid-based SLAM，占用计算资源过多
 - 基于图优化的SLAM：node表示位姿和特征，边表示观测约束
 
-> **粒子滤波**：通过寻找一组在状态空间中传播的随机样本来近似的表示概率密度函数，用样本均值代替积分运算，进而获得系统状态的最小方差估计的过程，这些样本被形象的称为“粒子”，故而叫粒子滤波。[参考](https://baike.baidu.com/item/%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2/2128986) ；[附一个非常生动的说明](https://zhuanlan.zhihu.com/p/161617286)
+> [**粒子滤波**](https://baike.baidu.com/item/%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2/2128986)：通过寻找一组在状态空间中传播的随机样本来近似的表示概率密度函数，用样本均值代替积分运算，进而获得系统状态的最小方差估计的过程，这些样本被形象的称为“粒子”，故而叫粒子滤波。[附一个非常生动的说明](https://zhuanlan.zhihu.com/p/161617286)
 >
-> **基于图优化的SLAM**：[参考](https://zhuanlan.zhihu.com/p/41424435)
+> [**基于图优化的SLAM**](https://zhuanlan.zhihu.com/p/41424435)
 
 ## System overview
 ![img](/img/in_post/cartographer/system.png)
@@ -94,7 +94,7 @@ tags:
 <img src="/img/in_post/cartographer/6.png" width="70%">
   - 损失函数$\rho$（例如huber损失函数）用于减少异常值的影响。这些异常值可能出现在scan matching向优化问题SPA增加不正确的约束时，例如像办公室隔间这样的局部对称空间。
 
-> hube loss: 相比于最小二乘的线性回归，HuberLoss降低了对离群点的惩罚程度。当预测偏差小于 $\delta$ 时，采用平方误差；当预测偏差大于 $\delta$ 时，采用线性误差。[参考](https://www.cnblogs.com/nowgood/p/Huber-Loss.html)
+> [hube loss](https://www.cnblogs.com/nowgood/p/Huber-Loss.html): 相比于最小二乘的线性回归，HuberLoss降低了对离群点的惩罚程度。当预测偏差小于 $\delta$ 时，采用平方误差；当预测偏差大于 $\delta$ 时，采用线性误差。
 <img src="/img/in_post/cartographer/7.png" width="60%">
 
 ### B. Branch-and-bound scan matching（BBS）
@@ -114,7 +114,7 @@ tags:
 4. 用Branch-and-bound分支定界法在较大搜索窗口下求解BBS问题
 <img src="/img/in_post/cartographer/13.png" width="70%">
 
-> 分支定界法：通常，把全部可行解空间反复地分割为越来越小的子集，称为分支；并且对每个子集内的解集计算一个目标下界（对于最小值问题），这称为定界。在每次分枝后，凡是界限超出已知可行解集目标值的那些子集不再进一步分枝，这样，许多子集可不予考虑，这称剪枝。这就是分枝定界法的主要思路。[参考](https://baike.baidu.com/item/%E5%88%86%E6%94%AF%E5%AE%9A%E7%95%8C%E6%B3%95/9902038)
+> [分支定界法](https://baike.baidu.com/item/%E5%88%86%E6%94%AF%E5%AE%9A%E7%95%8C%E6%B3%95/9902038)：通常，把全部可行解空间反复地分割为越来越小的子集，称为分支；并且对每个子集内的解集计算一个目标下界（对于最小值问题），这称为定界。在每次分枝后，凡是界限超出已知可行解集目标值的那些子集不再进一步分枝，这样，许多子集可不予考虑，这称剪枝。这就是分枝定界法的主要思路。
 
   要将分支定界法具体化，我们需要选择节点选择、分支、上界计算的方法
 
@@ -129,7 +129,7 @@ tags:
 <img src="/img/in_post/cartographer/15.png" width="60%">
   2. 将节点分为4个子节点
 
-> 分支：对一个大的步长在 x 和 y 方向进行对半拆分，而 $\theta$ 不变。对 x 和 y 都进行减半操作，相当于“分田”，在空间坐标上将搜索空间划分为四个更小的区域 [参考](https://zhuanlan.zhihu.com/p/364015137)
+> [分支](https://zhuanlan.zhihu.com/p/364015137)：对一个大的步长在 x 和 y 方向进行对半拆分，而 $\theta$ 不变。对 x 和 y 都进行减半操作，相当于“分田”，在空间坐标上将搜索空间划分为四个更小的区域
 
 #### 3. Computing upper bounds
 <img src="/img/in_post/cartographer/16.png" width="60%">
