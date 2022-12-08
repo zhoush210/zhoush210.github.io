@@ -12,26 +12,26 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="回环检测 - 周诗蕙的博客 | ZhouSh Blog">
+        content="笔记：SLAM十四讲 1&2 - 周诗蕙的博客 | ZhouSh Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="我们可以把仅有前端和局部后端的系统称为VO，而把带有回环检测和全局后端的系统称为SLAM
+    <meta property="og:description" content="第1讲 预备知识
 ">
     
-    <meta property="article:published_time" content=" 2022-11-24T09:05:00Z">
+    <meta property="article:published_time" content=" 2022-12-08T17:10:00Z">
     
     
     <meta property="article:author" content="ZhouSh">
     
     
-    <meta property="article:tag" content="SLAM">
+    <meta property="article:tag" content="SLAM十四讲">
     
     
     <meta property="og:image" content="http://localhost:4000/img/profile.jpg">
-    <meta property="og:url" content="http://localhost:4000/2022/11/24/loop-closing/">
+    <meta property="og:url" content="http://localhost:4000/2022/12/08/SLAM14-1/">
     <meta property="og:site_name" content="周诗蕙的博客 | ZhouSh Blog">
 
-    <title>回环检测 - 周诗蕙的博客 | ZhouSh Blog</title>
+    <title>笔记：SLAM十四讲 1&2 - 周诗蕙的博客 | ZhouSh Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -40,7 +40,7 @@
     <link rel="shortcut icon" href="/img/profile.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2022/11/24/loop-closing/">
+    <link rel="canonical" href="http://localhost:4000/2022/12/08/SLAM14-1/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css">
@@ -206,7 +206,7 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/in_post/loop-closing/head.png" width="0" height="0"> -->
+<!-- <img src="/img/in_post/SLAM14/head.png" width="0" height="0"> -->
 
 <!-- Post Header -->
 
@@ -215,7 +215,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in_post/loop-closing/head.png');
+        background-image: url('/img/in_post/SLAM14/head.png');
         background: ;
     }
 
@@ -224,7 +224,7 @@
         width: 100%;
         height: 100%;
         position: absolute;
-        background: rgba(0,0,0, 0.2);
+        background: rgba(0,0,0, 0.4);
     }
     
 </style>
@@ -242,13 +242,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=SLAM" title="SLAM">SLAM</a>
+                        <a class="tag" href="/archive/?tag=SLAM%E5%8D%81%E5%9B%9B%E8%AE%B2" title="SLAM十四讲">SLAM十四讲</a>
                         
                     </div>
-                    <h1>回环检测</h1>
+                    <h1>笔记：SLAM十四讲 1&2</h1>
                     
-                    <h2 class="subheading">Bag of Word</h2>
-                    <span class="meta">Posted by ZhouSh on November 24, 2022</span>
+                    <h2 class="subheading"> </h2>
+                    <span class="meta">Posted by ZhouSh on December 8, 2022</span>
                 </div>
             </div>
         </div>
@@ -275,84 +275,104 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>我们可以把仅有前端和局部后端的系统称为<strong>VO</strong>，而把带有回环检测和全局后端的系统称为<strong>SLAM</strong></p>
+				<h1 id="第1讲-预备知识">第1讲 预备知识</h1>
 
-<h3 id="朴素的回环检测">朴素的回环检测：</h3>
-<ul>
-  <li>对任意两幅图像都做一遍特征匹配</li>
-  <li>随机抽取历史数据并进行回环检测</li>
-</ul>
+<h2 id="11-本书讲什么">1.1 本书讲什么</h2>
 
-<h3 id="预计哪出可能出现回环">预计哪出可能出现回环：</h3>
-<ol>
-  <li>基于里程计的几何关系（Odometry based）（存在倒为因果的假设，累积误差较大时不适用）</li>
-  <li>基于外观（Appearance based）（词袋模型BoW）</li>
-</ol>
+<p>SLAM是Simultaneous Localization and Mapping的缩写，中文译作“同时定位与地图构建 ” 。它是指搭载特定传感器的主体，在没有环境先验信息的情况下，于运动过程中建立环境的模型，同时估计自己的运动 。如果这里的传感器主要为相机，那就称为“视觉SLAM”。</p>
 
-<h3 id="准确率和召回率">准确率和召回率</h3>
-<p><img src="/img/in_post/loop-closing/1.png" width="70%" /></p>
+<p>目前，与SLAM相关的书籍主要有《概率机器人》（Probabilistic robotics）、《计算机视觉中的多视图几何》（Multiple View Geometry in Computer Vision）、《机器人学中的状态估计》（State Estimation for Robotics:A Matrix-Lie-Group Approach）等。</p>
 
-<ul>
-  <li>假阳性又称<strong>感知偏差</strong>，假阴性又称<strong>感知变异</strong></li>
-  <li>准确率：Precision=TP/(TP+FP)，描述算法提取的所有回环中确实是真实回环的概率</li>
-  <li>召回率：Recall=TP/(TP+FN)，描述在所有真实回环中被正确检测出来的概率</li>
-  <li>在SLAM中，我们对准确率的要求更高，对召回率则相对宽容（宁可放过一千，绝不错杀一个！hhh）</li>
-</ul>
+<h2 id="12-如何使用本书">1.2 如何使用本书</h2>
 
-<h3 id="词袋模型bow">词袋模型BoW</h3>
-<p><img src="/img/in_post/loop-closing/3.png" width="40%" /></p>
-<ul>
-  <li>用 “图像上有哪些特征” 来描述一幅图像，假设字典为[眼，鼻，口，手]，则一幅仅包含一张人脸的图像可描述为[2，1，1，0]或[1，1，1，0]（不考虑数量），与特征的空间位置和排列顺序无关</li>
-  <li>考虑到字典通用性，通常会使用一个较大规模的字典，以保证当前使用环境中的图像特征都在其中</li>
-  <li>可用k叉树来表达字典（有点像生物中的界门纲目科属种）</li>
-</ul>
+<p>每一讲正文之后，我们设计了一些习题。其中，带*号的习题是具有一定难度的。我们强烈建议读者把习题都练习一遍，这对你掌握这些知识很有帮助。</p>
 
-<h3 id="k-means">K-means</h3>
-<p>字典的生成问题类似一个聚类问题，可以用K-means解决，步骤如下：</p>
-<ol>
-  <li>随机选取k个中心点</li>
-  <li>对每个样本，计算他们与每个中心点之间的距离，取最小的作为它的归类</li>
-  <li>重新计算每个类的中心点</li>
-  <li>如果每个中心点的变化很小，则算法收敛，退出；否则返回第2步重复</li>
-</ol>
+<p>值得一提的是，我们只会把与解决问题相关的数学知识放在书里，并尽量保持浅显。虽然我们是工科生，但也要承认，某些做法只要经验上够用，没必要非得在数学上追求完备。只要我们知道这些算法能够工作，并且数学家们告诉了我们在什么情况下可能不工作，那么我们就表示满意，而不追究那些看似完美但实际复杂冗长的证明（当然它们固有自己的价值）。</p>
 
-<h3 id="相似度计算">相似度计算</h3>
-<p>我们希望对单词的区分性或重要性加以评估，给他们不同的权值以起到更好的效果。在文本检索中常用的一种做法是TF-IDF（Term Frequency-Inverse Document Frequency）。TF的思想是某单词在一幅图像中经常出现，它的区分度就高；IDF的思想是某单词在一幅图像中出现的频率越低，它的区分度越高。
-<img src="/img/in_post/loop-closing/2.png" width="80%" /></p>
+<p>本书所有源代码均托管在<a href="https://github.com/gaoxiang12/slambook">github</a>上。</p>
 
-<h3 id="相似性评分的处理">相似性评分的处理</h3>
-<p>仅仅利用相似性不一定合适，比如办公室往往有很多同款桌椅。所以我们会先取一个先验相似度，表示某时刻关键帧图像与上以时刻关键帧的相似性，然后其他的分支都参照这个值归一化。比如说，如果当前帧与之前某关键帧的相似度超过当前帧与上一关键帧相似度的3倍，就认为可能存在回环。</p>
+<p>如果你不了解C++的基本知识，可以读一点C++Primer Plus 之类的图书入门。</p>
 
-<h3 id="检测之后的验证">检测之后的验证</h3>
-<p>词袋的回环检测算法完全依赖于外观而没有利用任何的几何信息，这导致外观相似的图像容易被当成回环。并且，由于词袋不在乎单词顺序，只在意单词有无的表达方式，更容易引发感知偏差。所以，在回环检测之后，我们通常还会有一个验证步骤</p>
-<ul>
-  <li><strong>时间一致性检测</strong>：设立回环的缓存机制，认为单次检测到的回环并不足以构成良好的约束，而在一段时间中一直检测到的回环，才认为是正确的回环。</li>
-  <li><strong>空间一致性检测</strong>：对回环检测到的两个帧进行特征匹配，估计相机的运动。然后，再把运动放到之前的Pose Graph中，检查与之前的估计是否有很大的出入。</li>
-</ul>
+<p>代码方面，你最好花点时间亲自输入一遍，再调节里面的参数，看看效果会发生怎样的改变。这会对学习很有帮助。</p>
 
-<h2 id="参考">参考</h2>
-<ul>
-  <li>《slam十四讲》</li>
-</ul>
+<p>我们设计的实验大多数是演示性质的。看懂了它们不代表你已经熟悉整个库的使用。所以我们建议你在课外花一点时间，对本书经常用的几个库进行深入学习。</p>
+
+<p>本书的习题和选读内容可能需要你自己搜索额外材料，所以你需要学会使用搜索引擎。</p>
+
+<h2 id="习题">习题</h2>
+
+<p><a href="https://blog.csdn.net/joyee512/article/details/106077304">参考1</a></p>
+
+<p><a href="https://blog.csdn.net/u012348774/article/details/83576140">参考2</a></p>
+
+<h1 id="第2讲-初始slam">第2讲 初始SLAM</h1>
+
+<h2 id="21-引子小萝卜的例子">2.1 引子：小萝卜的例子</h2>
+
+<p>轮式编码器会测到轮子转动的角度，IMU测量运动的角速度和加速度。</p>
+
+<p>由于单目相机拍摄的图像只是三维空间的二维投影，所以，如果真想恢复三维结构，必须改变相机的视角。在单目SLAM中也是同样的原理。我们必须移动相机，才能估计它的运动 （Motion），同时估计场景中物体的远近和大小，不妨称之为结构（Structure）。</p>
+
+<p>由于单目相机拍摄的图像只是三维空间的二维投影，所以，如果真想恢复三维结构，必须改变相机的视角。在单目SLAM中也是同样的原理。我们必须移动相机，才能估计它的运动 （Motion），同时估计场景中物体的远近和大小，不妨称之为结构 （Structure）</p>
+
+<p>单目SLAM估计的轨迹和地图将与真实的轨迹和地图相差一个因子，也就是所谓的尺度 （Scale） 。由于单目SLAM无法仅凭图像确定这个真实尺度，所以又称为尺度不确定性 。</p>
+
+<p>平移之后才能计算深度，以及无法确定真实尺度，这两件事情给单目SLAM的应用造成了很大的麻烦。其根本原因是通过单张图像无法确定深度。所以，为了得到这个深度，人们开始使用双目和深度相机。</p>
+
+<h2 id="23-slam问题的数学表述">2.3 SLAM问题的数学表述</h2>
+
+<p>在离散时刻 $t=1,\cdots,K$，用x表示机器人自身的位置，记为$x_1,\cdots,x_k$。假设地图是由许多个路标（Landmark）组成的，设路标点一共有N个，则记为$y_1,\cdots,y_N$。</p>
+
+<p>什么是运动 ？我们要考虑从k- 1时刻到k 时刻，小萝卜的位置x 是如何变化的。</p>
+
+<p>什么是观测 ？假设小萝卜在k 时刻于$x_k$处探测到了某一个路标$y_j$，我们要考虑这件事情是如何用数学语言来描述的。</p>
+
+<p>运动方程：$x_k=f(x_{k-1},u_k.w_k)$</p>
+
+<p>观测方程：$z_{k,j}=h(y_j,x_k,v_{k,j})$</p>
+
+<p>其中$u_k$是运动传感器读数（输入），$w_k$为噪声。观测方程描述的是，当小萝卜在$x_k$位置上看到某个路标点$y_j$，产生了一个观测数据$z_{k,j}$。</p>
+
+<p>这两个方程描述了最基本的SLAM问题：当知道运动测量的读数u ，以及传感器的读数z时，如何求解定位问题（估计x）和建图问题（估计y）？</p>
+
+<h2 id="24-编程实践">2.4 编程实践</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>cmake_minimum_required(VERSION 2.8)
+project(HelloSLAM)
+add_executable(helloSLAM main.cpp) # 程序名，源代码
+add_library(libhello libHello.cpp) # 把libHello.cpp编译成一个叫“hello”的静态库
+add_library(libhello SHARED libHello.cpp) # 编译成共享库
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>在Linux中，库文件分成静态库和共享库两种 。静态库以.a作为后缀名，共享库以.so结尾。所有库都是一些函数打包后的集合，差别在于静态库每次被调用都会生成一个副本，而共享库则只有一个副本，更省空间。</p>
+
+<p>某程序要调用hello库时，要在生成时链接到hello库</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>add_executable(useHello main.cpp)
+target_link_libraries(useHello libhello)
+</pre></td></tr></tbody></table></code></pre></div></div>
+<h2 id="习题-1">习题</h2>
+
+<p>7.阅读<a href="http://file.ncnynl.com/ros/CMake%20Practice.pdf">《CMAKE实践》</a>，了解cmake的其他语法。</p>
+
+<p>9.寻找其他cmake教学材料，深入了解cmake，例如 <a href="https://github.com/TheErk/CMake-tutorial">CMake-tutorial</a> 。</p>
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2022/11/23/ORB-feature/" data-toggle="tooltip" data-placement="top" title="ORB feature">
+                        <a href="/2022/12/05/Probabilistic-Robotics2/" data-toggle="tooltip" data-placement="top" title="笔记：Probabilistic Robotics Chapter2">
                         Previous<br>
-                        <span>ORB feature</span>
+                        <span>笔记：Probabilistic Robotics Chapter2</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2022/11/25/ORB-SLAM1/" data-toggle="tooltip" data-placement="top" title="论文笔记：ORB SLAM 1">
-                        Next<br>
-                        <span>论文笔记：ORB SLAM 1</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">

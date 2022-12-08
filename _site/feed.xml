@@ -5,9 +5,107 @@
     <description>这里是周诗蕙的个人博客</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 08 Dec 2022 15:23:43 +0800</pubDate>
-    <lastBuildDate>Thu, 08 Dec 2022 15:23:43 +0800</lastBuildDate>
+    <pubDate>Thu, 08 Dec 2022 20:17:25 +0800</pubDate>
+    <lastBuildDate>Thu, 08 Dec 2022 20:17:25 +0800</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
+    
+      <item>
+        <title>笔记：SLAM十四讲 1&amp;2</title>
+        <description>&lt;h1 id=&quot;第1讲-预备知识&quot;&gt;第1讲 预备知识&lt;/h1&gt;
+
+&lt;h2 id=&quot;11-本书讲什么&quot;&gt;1.1 本书讲什么&lt;/h2&gt;
+
+&lt;p&gt;SLAM是Simultaneous Localization and Mapping的缩写，中文译作“同时定位与地图构建 ” 。它是指搭载特定传感器的主体，在没有环境先验信息的情况下，于运动过程中建立环境的模型，同时估计自己的运动 。如果这里的传感器主要为相机，那就称为“视觉SLAM”。&lt;/p&gt;
+
+&lt;p&gt;目前，与SLAM相关的书籍主要有《概率机器人》（Probabilistic robotics）、《计算机视觉中的多视图几何》（Multiple View Geometry in Computer Vision）、《机器人学中的状态估计》（State Estimation for Robotics:A Matrix-Lie-Group Approach）等。&lt;/p&gt;
+
+&lt;h2 id=&quot;12-如何使用本书&quot;&gt;1.2 如何使用本书&lt;/h2&gt;
+
+&lt;p&gt;每一讲正文之后，我们设计了一些习题。其中，带*号的习题是具有一定难度的。我们强烈建议读者把习题都练习一遍，这对你掌握这些知识很有帮助。&lt;/p&gt;
+
+&lt;p&gt;值得一提的是，我们只会把与解决问题相关的数学知识放在书里，并尽量保持浅显。虽然我们是工科生，但也要承认，某些做法只要经验上够用，没必要非得在数学上追求完备。只要我们知道这些算法能够工作，并且数学家们告诉了我们在什么情况下可能不工作，那么我们就表示满意，而不追究那些看似完美但实际复杂冗长的证明（当然它们固有自己的价值）。&lt;/p&gt;
+
+&lt;p&gt;本书所有源代码均托管在&lt;a href=&quot;https://github.com/gaoxiang12/slambook&quot;&gt;github&lt;/a&gt;上。&lt;/p&gt;
+
+&lt;p&gt;如果你不了解C++的基本知识，可以读一点C++Primer Plus 之类的图书入门。&lt;/p&gt;
+
+&lt;p&gt;代码方面，你最好花点时间亲自输入一遍，再调节里面的参数，看看效果会发生怎样的改变。这会对学习很有帮助。&lt;/p&gt;
+
+&lt;p&gt;我们设计的实验大多数是演示性质的。看懂了它们不代表你已经熟悉整个库的使用。所以我们建议你在课外花一点时间，对本书经常用的几个库进行深入学习。&lt;/p&gt;
+
+&lt;p&gt;本书的习题和选读内容可能需要你自己搜索额外材料，所以你需要学会使用搜索引擎。&lt;/p&gt;
+
+&lt;h2 id=&quot;习题&quot;&gt;习题&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/joyee512/article/details/106077304&quot;&gt;参考1&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/u012348774/article/details/83576140&quot;&gt;参考2&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;第2讲-初始slam&quot;&gt;第2讲 初始SLAM&lt;/h1&gt;
+
+&lt;h2 id=&quot;21-引子小萝卜的例子&quot;&gt;2.1 引子：小萝卜的例子&lt;/h2&gt;
+
+&lt;p&gt;轮式编码器会测到轮子转动的角度，IMU测量运动的角速度和加速度。&lt;/p&gt;
+
+&lt;p&gt;由于单目相机拍摄的图像只是三维空间的二维投影，所以，如果真想恢复三维结构，必须改变相机的视角。在单目SLAM中也是同样的原理。我们必须移动相机，才能估计它的运动 （Motion），同时估计场景中物体的远近和大小，不妨称之为结构（Structure）。&lt;/p&gt;
+
+&lt;p&gt;由于单目相机拍摄的图像只是三维空间的二维投影，所以，如果真想恢复三维结构，必须改变相机的视角。在单目SLAM中也是同样的原理。我们必须移动相机，才能估计它的运动 （Motion），同时估计场景中物体的远近和大小，不妨称之为结构 （Structure）&lt;/p&gt;
+
+&lt;p&gt;单目SLAM估计的轨迹和地图将与真实的轨迹和地图相差一个因子，也就是所谓的尺度 （Scale） 。由于单目SLAM无法仅凭图像确定这个真实尺度，所以又称为尺度不确定性 。&lt;/p&gt;
+
+&lt;p&gt;平移之后才能计算深度，以及无法确定真实尺度，这两件事情给单目SLAM的应用造成了很大的麻烦。其根本原因是通过单张图像无法确定深度。所以，为了得到这个深度，人们开始使用双目和深度相机。&lt;/p&gt;
+
+&lt;h2 id=&quot;23-slam问题的数学表述&quot;&gt;2.3 SLAM问题的数学表述&lt;/h2&gt;
+
+&lt;p&gt;在离散时刻 $t=1,\cdots,K$，用x表示机器人自身的位置，记为$x_1,\cdots,x_k$。假设地图是由许多个路标（Landmark）组成的，设路标点一共有N个，则记为$y_1,\cdots,y_N$。&lt;/p&gt;
+
+&lt;p&gt;什么是运动 ？我们要考虑从k- 1时刻到k 时刻，小萝卜的位置x 是如何变化的。&lt;/p&gt;
+
+&lt;p&gt;什么是观测 ？假设小萝卜在k 时刻于$x_k$处探测到了某一个路标$y_j$，我们要考虑这件事情是如何用数学语言来描述的。&lt;/p&gt;
+
+&lt;p&gt;运动方程：$x_k=f(x_{k-1},u_k.w_k)$&lt;/p&gt;
+
+&lt;p&gt;观测方程：$z_{k,j}=h(y_j,x_k,v_{k,j})$&lt;/p&gt;
+
+&lt;p&gt;其中$u_k$是运动传感器读数（输入），$w_k$为噪声。观测方程描述的是，当小萝卜在$x_k$位置上看到某个路标点$y_j$，产生了一个观测数据$z_{k,j}$。&lt;/p&gt;
+
+&lt;p&gt;这两个方程描述了最基本的SLAM问题：当知道运动测量的读数u ，以及传感器的读数z时，如何求解定位问题（估计x）和建图问题（估计y）？&lt;/p&gt;
+
+&lt;h2 id=&quot;24-编程实践&quot;&gt;2.4 编程实践&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;cmake_minimum_required(VERSION 2.8)
+project(HelloSLAM)
+add_executable(helloSLAM main.cpp) # 程序名，源代码
+add_library(libhello libHello.cpp) # 把libHello.cpp编译成一个叫“hello”的静态库
+add_library(libhello SHARED libHello.cpp) # 编译成共享库
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在Linux中，库文件分成静态库和共享库两种 。静态库以.a作为后缀名，共享库以.so结尾。所有库都是一些函数打包后的集合，差别在于静态库每次被调用都会生成一个副本，而共享库则只有一个副本，更省空间。&lt;/p&gt;
+
+&lt;p&gt;某程序要调用hello库时，要在生成时链接到hello库&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;add_executable(useHello main.cpp)
+target_link_libraries(useHello libhello)
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;习题-1&quot;&gt;习题&lt;/h2&gt;
+
+&lt;p&gt;7.阅读&lt;a href=&quot;http://file.ncnynl.com/ros/CMake%20Practice.pdf&quot;&gt;《CMAKE实践》&lt;/a&gt;，了解cmake的其他语法。&lt;/p&gt;
+
+&lt;p&gt;9.寻找其他cmake教学材料，深入了解cmake，例如 &lt;a href=&quot;https://github.com/TheErk/CMake-tutorial&quot;&gt;CMake-tutorial&lt;/a&gt; 。&lt;/p&gt;
+</description>
+        <pubDate>Thu, 08 Dec 2022 17:10:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/12/08/SLAM14-1/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/12/08/SLAM14-1/</guid>
+        
+        <category>SLAM十四讲</category>
+        
+        
+      </item>
     
       <item>
         <title>笔记：Probabilistic Robotics Chapter2</title>
