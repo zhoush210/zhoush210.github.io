@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "笔记：Probabilistic Robotics Chapter2"
+title:  "Probabilistic Robotics Chapter2"
 subtitle: "Recursive State Estimation"
 date:   2022-12-5 13:47:00 +0800
 author:     "ZhouSh"

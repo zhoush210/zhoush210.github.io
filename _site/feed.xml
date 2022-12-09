@@ -5,12 +5,40 @@
     <description>这里是周诗蕙的个人博客</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 08 Dec 2022 20:17:25 +0800</pubDate>
-    <lastBuildDate>Thu, 08 Dec 2022 20:17:25 +0800</lastBuildDate>
+    <pubDate>Fri, 09 Dec 2022 10:35:03 +0800</pubDate>
+    <lastBuildDate>Fri, 09 Dec 2022 10:35:03 +0800</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
     
       <item>
-        <title>笔记：SLAM十四讲 1&amp;2</title>
+        <title>SLAM十四讲 3</title>
+        <description>&lt;h1 id=&quot;第3讲三维空间刚体运动&quot;&gt;第3讲　三维空间刚体运动&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;内积&lt;/strong&gt;可以描述向量间的投影关系&lt;/p&gt;
+
+&lt;p&gt;$
+a\cdot b=a^Tb=\Sigma^3_{i=1}a_ib_i=|a||b|cos&amp;lt;a,b&amp;gt;
+$&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;外积&lt;/strong&gt;的方向垂直于这两个向量，大小为$|a||b|sin&amp;lt;a,b&amp;gt;$ ，是两个向量张成的四边形的有向面积&lt;/p&gt;
+
+\[a\times b=\left[
+\begin{matrix}
+1 &amp;amp; 2 &amp;amp; 3 \\
+4 &amp;amp; 5 &amp;amp; 6 \\
+7 &amp;amp; 8 &amp;amp; 9 
+\end{matrix} \right]\]
+</description>
+        <pubDate>Thu, 08 Dec 2022 17:10:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/12/08/SLAM14-3/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/12/08/SLAM14-3/</guid>
+        
+        <category>SLAM十四讲</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>SLAM十四讲 1&amp;2</title>
         <description>&lt;h1 id=&quot;第1讲-预备知识&quot;&gt;第1讲 预备知识&lt;/h1&gt;
 
 &lt;h2 id=&quot;11-本书讲什么&quot;&gt;1.1 本书讲什么&lt;/h2&gt;
@@ -99,8 +127,8 @@ target_link_libraries(useHello libhello)
 &lt;p&gt;9.寻找其他cmake教学材料，深入了解cmake，例如 &lt;a href=&quot;https://github.com/TheErk/CMake-tutorial&quot;&gt;CMake-tutorial&lt;/a&gt; 。&lt;/p&gt;
 </description>
         <pubDate>Thu, 08 Dec 2022 17:10:00 +0800</pubDate>
-        <link>http://localhost:4000/2022/12/08/SLAM14-1/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022/12/08/SLAM14-1/</guid>
+        <link>http://localhost:4000/2022/12/08/SLAM14-1-2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/12/08/SLAM14-1-2/</guid>
         
         <category>SLAM十四讲</category>
         
@@ -108,7 +136,7 @@ target_link_libraries(useHello libhello)
       </item>
     
       <item>
-        <title>笔记：Probabilistic Robotics Chapter2</title>
+        <title>Probabilistic Robotics Chapter2</title>
         <description>&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://gaoyichao.com/Xiaotu//resource/refs/PR.MIT.en.pdf&quot;&gt;《Probabilistic Robotics》&lt;/a&gt;&lt;/p&gt;
 
@@ -302,7 +330,7 @@ $&lt;/p&gt;
       </item>
     
       <item>
-        <title>论文笔记：LVI-SAM</title>
+        <title>LVI-SAM</title>
         <description>&lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/pdf/2104.10831v2.pdf&quot;&gt;LVI-SAM: Tightly-coupled Lidar-Visual-Inertial Odometry via Smoothing and Mapping&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;abstract&quot;&gt;Abstract&lt;/h2&gt;
@@ -392,7 +420,7 @@ $&lt;/p&gt;
       </item>
     
       <item>
-        <title>论文笔记：cartographer</title>
+        <title>cartographer</title>
         <description>&lt;p&gt;论文：&lt;a href=&quot;/doc/cartographer%20-%202016%20-%20Real%20time%20loop%20closure%20in%202D%20LIDAR%20SLAM%20-%20Hess%20et%20al.pdf&quot;&gt;Real-Time Loop Closure in 2D LIDAR SLAM&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;abstract&quot;&gt;Abstract&lt;/h2&gt;
 &lt;p&gt;为了实现实时的回环检测，cartographer使用&lt;strong&gt;分支定界法&lt;/strong&gt;计算&lt;strong&gt;scan-to-map&lt;/strong&gt;匹配作为约束&lt;/p&gt;
@@ -614,7 +642,7 @@ $&lt;/p&gt;
       </item>
     
       <item>
-        <title>摘记：围城</title>
+        <title>围城</title>
         <description>&lt;blockquote&gt;
   &lt;p&gt;阅读时长：14h&lt;/p&gt;
 
@@ -713,7 +741,7 @@ $&lt;/p&gt;
       </item>
     
       <item>
-        <title>论文笔记：ORB SLAM 1</title>
+        <title>ORB SLAM 1</title>
         <description>&lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/pdf/1502.00956.pdf&quot;&gt;ORB-SLAM: a Versatile and Accurate Monocular SLAM System&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;主要贡献&quot;&gt;主要贡献&lt;/h2&gt;

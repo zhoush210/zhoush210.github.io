@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "论文笔记：cartographer"
+title:  "cartographer"
 subtitle: "Real-Time Loop Closure in 2D LIDAR SLAM"
 date:   2022-11-28 09:05:00 +0800
 author:     "ZhouSh"
