@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Probabilistic Robotics Chapter2"
-subtitle: "Recursive State Estimation"
+title:  "Recursive State Estimation"
+subtitle: "Probabilistic Robotics Chapter2"
 date:   2022-12-5 13:47:00 +0800
 author:     "ZhouSh"
 header-img: "img/in_post/Probabilistic-Robotics/head1.png"
