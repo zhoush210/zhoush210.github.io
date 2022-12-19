@@ -37,12 +37,6 @@ export const vitePWAOptions: Partial<VitePWAOptions> = {
         sizes: '512x512',
         type: 'image/png',
       },
-      {
-        src: '/logo-light.svg',
-        sizes: '165x165',
-        type: 'image/svg',
-        purpose: 'any maskable',
-      },
     ],
   },
   workbox: {
