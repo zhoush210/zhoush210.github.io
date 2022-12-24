@@ -1,4 +1,5 @@
 import '@unocss/reset/tailwind.css'
+import 'katex/dist/katex.min.css'
 import 'uno.css'
 import './styles/main.css'
 

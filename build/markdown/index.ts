@@ -23,8 +23,8 @@ export const registerMarkdownPlugins = (md: MarkdownIt) => {
   md.use(CodePreWrapperPlugin)
   md.use(Shiki, {
     theme: {
-      light: 'vitesse-light',
-      dark: 'vitesse-dark',
+      light: 'github-light',
+      dark: 'github-dark',
     },
   })
   md.use(Anchor, {

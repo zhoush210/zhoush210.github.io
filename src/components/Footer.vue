@@ -20,7 +20,7 @@ import { author, email, site } from '~/meta'
     </div>
     <div class="op-70 text-sm">
       <router-link class="item" to="/posts">
-        博客
+        Blog
       </router-link>
       <span> · </span>
       <a

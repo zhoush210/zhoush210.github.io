@@ -20,7 +20,7 @@ const __outputDir = resolve(__dirname, '../../', __output)
  * @see https://www.qbb.sh/feed.xml
  */
 export async function generateRSS() {
-  const posts = await fg('**/*.md', { cwd: __sourceDir, ignore: ['index.md'] })
+  const posts = await fg('**/*.md', { cwd: __sourceDir, ignore: ['index.md', 'tags/*'] })
   if (posts.length === 0)
     return
 
@@ -46,7 +46,7 @@ export async function generateRSS() {
       const raw = await fs.readFile(`${__sourceDir}/${p}`)
       const { data } = matter(raw)
       const { description, title: pageTitle, desc: descriptionAlias, headerImage } = data as PageFrontmatter
-      let image = `${site}/og/posts-${p.replace(/\.md?/, '.png')}`
+      let image = ogImg
       if (headerImage)
         image = isExternal(headerImage) ? headerImage : site + headerImage
 

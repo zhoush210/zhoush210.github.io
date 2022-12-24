@@ -10,10 +10,13 @@ import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import {
+  getTagPathsFromFiles,
   registerMarkdownPlugins,
   resolvePageFile,
   resolvePostList,
+  resolveTags,
   vitePWAOptions,
+
 } from './build'
 
 export default defineConfig({
@@ -46,7 +49,10 @@ export default defineConfig({
       pagesDir: 'pages',
       extensions: ['vue', 'md'],
       extendRoute: route => resolvePageFile(route),
-      onRoutesGenerated: routes => resolvePostList(routes),
+      onRoutesGenerated: (routes) => {
+        resolvePostList(routes)
+        resolveTags(routes)
+      },
     }),
     // https://github.com/antfu/vite-plugin-vue-markdown
     Markdown({
@@ -88,5 +94,15 @@ export default defineConfig({
     script: 'async',
     formatting: 'minify',
     format: 'cjs',
+    includedRoutes: async (paths) => {
+      const p = paths.filter(
+        i => !['/:all(.*)*', '/posts/tags/:all(.*)', ''].includes(i),
+      )
+      const tagPaths = await getTagPathsFromFiles('pages/posts', [
+        'index.md',
+        'tags/*',
+      ])
+      return p.concat(tagPaths)
+    },
   },
 })

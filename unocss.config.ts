@@ -31,7 +31,7 @@ export const _VARS: Theme = {
       codeBG: 'rgba(52, 52, 52, 0.5)',
       innerCodeBG: 'rgba(255, 255, 255, 0.1)',
     },
-    brand: 'rgb(168, 191, 191)',
+    brand: 'rgb(239, 151, 181)',
   },
   borderRadius: {
     DEFAULT: '0.325rem',

@@ -9,6 +9,7 @@ import fs from 'fs-extra'
 import matter from 'gray-matter'
 import dayjs from 'dayjs'
 import type { RouteMeta, RouteRecordNormalized } from 'vue-router'
+import { ogImg } from '../../src/meta'
 import { type ReadingTime, readingTime } from './readingTime'
 
 export interface PostPager {
@@ -26,6 +27,10 @@ export interface PageFrontmatter {
    */
   title: string
   /**
+   * Post List usage
+   */
+  subtitle?: string
+  /**
    * using page description and og:description
    * `desc` is alias for `description`
    */
@@ -35,6 +40,14 @@ export interface PageFrontmatter {
    * Use custom header image for og:image
    */
   headerImage?: string
+  /**
+   * background blur
+   */
+  headerMask?: string
+  /**
+   * Post tag
+   */
+  tag?: string
 }
 
 export interface PageMeta extends RouteMeta {
@@ -54,6 +67,8 @@ export interface PostRouterRecord extends RouteRecordNormalized {
   dateText: string
   readingTimeText: number
   meta: PageMeta
+  subTitle: string
+  headerImage: string
 }
 
 export const resolvePageFile = (route: any) => {
@@ -83,8 +98,10 @@ export const resolvePostList = (routes: any[]) => {
     .map((item: any) => ({
       path: item.path,
       title: item.meta.frontmatter.title,
+      subtitle: item.meta.frontmatter.subtitle || '',
       description: item.meta.frontmatter.description ?? item.meta.frontmatter.desc ?? '',
-      headerImage: item.meta.frontmatter.headerImage ?? `/og/${item.name}.png`,
+      headerImage: item.meta.frontmatter.headerImage ?? ogImg,
+      tag: item.meta.frontmatter.tag || '',
       date: item.meta.date,
       readingTime: item.meta.readingTime,
     }))

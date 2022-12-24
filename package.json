@@ -12,6 +12,7 @@
     "gen:sitemap": "tsx ./build/node/sitemap.ts"
   },
   "dependencies": {
+    "@renovamen/markdown-it-katex": "^0.1.0",
     "@unocss/reset": "^0.47.6",
     "@vueuse/core": "^9.6.0",
     "@vueuse/head": "^1.0.22",

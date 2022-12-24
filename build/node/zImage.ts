@@ -2,9 +2,8 @@
  * Resolve png jpeg jpg ... To webp srcipt
  * Gen og png image thin
  *
- * @usage pnpm image
- * @usage pnpm image [--clear|-c]
- *   : To clear origin assert
+ * @usage pnpm z:image
+ * @usage pnpm z:image [--clear|-c]  => To clear origin assert
  *
  * @author Zhengqbbb <https://github.com/Zhengqbbb>
  */
@@ -21,12 +20,23 @@ import rm from 'rimraf'
 const __ASSERT_DIR = resolve(__dirname, '../../public/image')
 
 const run = async () => {
-  return await imagemin([`${__ASSERT_DIR}/*.{png,jpeg,jpg}`], {
+  await imagemin([`${__ASSERT_DIR}/*.{png,jpeg,jpg}`], {
     destination: __ASSERT_DIR,
     plugins: [
       imageminWebp({ quality: 80 }),
     ],
   })
+  const imagesFolderDir = await fg('*', { cwd: __ASSERT_DIR, absolute: true, onlyDirectories: true })
+  return Promise.all(
+    imagesFolderDir.map(async (folderDir) => {
+      await imagemin([`${folderDir}/*.{png,jpeg,jpg}`], {
+        destination: folderDir,
+        plugins: [
+          imageminWebp({ quality: 80 }),
+        ],
+      })
+    }),
+  )
 }
 
 const clear = async () => {

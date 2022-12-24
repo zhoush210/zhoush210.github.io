@@ -10,7 +10,13 @@ const meta = computed(() => router.currentRoute.value.meta) as ComputedRef<PageM
 const title = computed(() => meta.value.frontmatter.title || siteName)
 const date = computed(() => meta.value.date)
 const readingTime = computed(() => meta.value.readingTime)
+const headerImage = computed(() => meta.value.frontmatter.headerImage)
+const headerImageMask = computed(() => {
+  const headerMask = meta.value.frontmatter.headerMask || 0.8
+  return `rgba(78, 78, 78, ${headerMask})`
+})
 
+const bg = ref<HTMLElement | null>(null)
 const content = ref<HTMLDivElement>()
 onMounted(() => {
   const navigate = () => {
@@ -70,15 +76,35 @@ onMounted(() => {
 
   navigate()
   setTimeout(navigate, 500)
+
+  watchEffect(() => {
+    if (headerImage.value) {
+      nextTick(() => {
+        const bgImage = new Image()
+        bgImage.src = headerImage.value as string
+        bgImage.onload = () => {
+          bg.value!.style.backgroundImage = `url(${headerImage.value})`
+          bg.value!.style.backgroundColor = headerImageMask.value
+        }
+      })
+    }
+  })
 })
 </script>
 
 <template>
-  <div class="prose m-auto mb-space">
-    <h1>{{ title }}</h1>
-    <p class="op-50">
+  <div class="prose m-auto mb-20 sm:mb-30">
+    <h1 class="text-white!">
+      {{ title }}
+    </h1>
+    <p class="text-white! op-70">
       {{ formatDate(date) }} · {{ readingTime.minutes }}分钟
     </p>
+    <div
+      ref="bg"
+      class="absolute top-0 right-0 left-0 h-70 z--1 max-w-full"
+      bg="no-repeat center cover blend-multiply"
+    />
   </div>
 
   <article ref="content">

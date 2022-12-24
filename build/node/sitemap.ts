@@ -17,7 +17,7 @@ const __outputDir = resolve(__dirname, '../../', __output)
  * @see https://www.qbb.sh/sitemap.xml
  */
 async function generateSitemap() {
-  const pages = await fg('**/*.{vue,md}', { cwd: __sourceDir, ignore: ['*...all*.vue'] })
+  const pages = await fg('**/*.{vue,md}', { cwd: __sourceDir, ignore: ['*...all*.{vue,md}', 'tags/*'] })
   const pageData = await Promise.all(
     pages.map(async (page) => {
       const p = page.replace(/\.(md)?(vue)?$/g, '')

@@ -1,7 +1,7 @@
 /** Section: Init */
 
 .prose {
-  --at-apply: max-w-content text-c-fg text-4 leading-1.75em;
+  --at-apply: max-w-content text-c-fg leading-1.75em;
 }
 
 .prose> :first-child {
@@ -632,4 +632,12 @@ h6:focus .header-anchor {
   --at-apply: op-50;
 }
 
+/** EndSection: */
+
+/** Section: katex */
+.prose .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
 /** EndSection: */
