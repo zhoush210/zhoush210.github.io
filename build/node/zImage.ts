@@ -26,7 +26,7 @@ const run = async () => {
       imageminWebp({ quality: 80 }),
     ],
   })
-  const imagesFolderDir = await fg('*', { cwd: __ASSERT_DIR, absolute: true, onlyDirectories: true })
+  const imagesFolderDir = await fg('*/*', { cwd: __ASSERT_DIR, absolute: true, onlyDirectories: true })
   return Promise.all(
     imagesFolderDir.map(async (folderDir) => {
       await imagemin([`${folderDir}/*.{png,jpeg,jpg}`], {

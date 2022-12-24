@@ -58,7 +58,6 @@ specifiers:
   vue-router: ^4.1.6
 
 dependencies:
-  '@renovamen/markdown-it-katex': 0.1.0
   '@unocss/reset': 0.47.6
   '@vueuse/core': 9.6.0_vue@3.2.45
   '@vueuse/head': 1.0.22_vue@3.2.45
@@ -70,6 +69,7 @@ dependencies:
 devDependencies:
   '@antfu/eslint-config': 0.34.0_ha6vam6werchizxrnqvarmz2zu
   '@iconify/json': 2.1.152
+  '@renovamen/markdown-it-katex': 0.1.0
   '@resvg/resvg-js': 2.2.0
   '@types/fs-extra': 9.0.13
   '@types/markdown-it': 12.2.3
@@ -1642,7 +1642,7 @@ packages:
     resolution: {integrity: sha512-dYtOPasq1Meu1/PnXNRAAMC7qFydhKdzLgzcq0r55CG/PhSFrpCKgyflzyTtuhJItBxf0LrNtqrWf2ukXVBJcw==}
     dependencies:
       katex: 0.16.4
-    dev: false
+    dev: true
 
   /@resvg/resvg-js-android-arm-eabi/2.2.0:
     resolution: {integrity: sha512-w3lAI6R5cfxGM5oxX6XhEFob4mJkkyfKm0veUQJOg65J4dznwcaJ54lGuQPfjAPhcHxSk/w+7BvFLjbbjV09qw==}
@@ -3085,7 +3085,7 @@ packages:
   /commander/8.3.0:
     resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
     engines: {node: '>= 12'}
-    dev: false
+    dev: true
 
   /common-tags/1.8.2:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
@@ -5433,7 +5433,7 @@ packages:
     hasBin: true
     dependencies:
       commander: 8.3.0
-    dev: false
+    dev: true
 
   /keyv/3.0.0:
     resolution: {integrity: sha512-eguHnq22OE3uVoSYG0LVWNP+4ppamWr9+zWBe1bsNcovIMy6huUJFPgy4mGwCd/rnl3vOLGW1MTlu4c57CT1xA==}

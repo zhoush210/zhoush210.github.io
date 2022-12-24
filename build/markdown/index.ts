@@ -8,6 +8,7 @@ import CheckBox from 'markdown-it-task-checkbox'
 import TOC from 'markdown-it-table-of-contents'
 // @ts-expect-error missing types
 import Mark from 'markdown-it-mark'
+import KaTeX from '@renovamen/markdown-it-katex'
 import CodePreWrapperPlugin from './codePreWrap'
 import ImagePlugin from './image'
 import TableWrapPlugin from './tableWrap'
@@ -17,6 +18,7 @@ import slugify from './slugify'
 export const registerMarkdownPlugins = (md: MarkdownIt) => {
   md.use(Mark)
   md.use(CheckBox)
+  md.use(KaTeX)
   md.use(ImagePlugin)
   md.use(TableWrapPlugin)
   md.use(ContainerPlugin)
