@@ -7,7 +7,7 @@ author:     "ZhouSh"
 header-img: "img/in_post/cartographer/head.png"
 header-mask: 0
 tags:
-    - SLAM
+    - SLAM论文
 ---
 论文：[Real-Time Loop Closure in 2D LIDAR SLAM](/doc/cartographer%20-%202016%20-%20Real%20time%20loop%20closure%20in%202D%20LIDAR%20SLAM%20-%20Hess%20et%20al.pdf)
 ## Abstract

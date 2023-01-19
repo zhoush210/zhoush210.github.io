@@ -7,7 +7,7 @@ author:     "ZhouSh"
 header-img: "img/in_post/ORB-feature/head.png"
 header-mask: 0.4
 tags:
-    - SLAM
+    - SLAM论文
 ---
 ORB特征由**关键点**和**描述子**两部分组成，关键点称为Oriented FAST，由FAST角点改进而来；描述子称为BRIEF（Binary Robust Independent Elementary Feature。下面先讲FAST，再介绍ORB。
 
