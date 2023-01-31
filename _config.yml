@@ -90,11 +90,12 @@ featured-condition-size: 1 # A tag will be featured if the size of it is more th
 page-mathjax: true
 
 # Friends
+# { title: "羟基香豆素", href: "https://hydroxycoumarin.github.io/" },
 friends:
   [
-    { title: "羟基香豆素", href: "https://hydroxycoumarin.github.io/" },
+    { title: "无处不在的小土", href: "https://gaoyichao.com/Xiaotu/" },
     { title: "膜法师猫定谔", href: "http://www.fangmuseum.com" },
+    { title: "qbb", href: "https://www.qbb.sh/" },
     { title: "linyang", href: "http://www.yangjlin.com" },
     { title: "linyang's phtography", href: "http://yanglin.photo" },
-    { title: "qbb", href: "https://www.qbb.sh/" },
   ]
