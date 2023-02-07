@@ -34,6 +34,20 @@ Thread 10 "cartographer_no" received signal SIGSEGV, Segmentation fault.
 
 在用vscode gdb多次观察DBoW2::score函数运行时的变量情况后发现，某变量会突然变得很奇怪。在跟芝姐讲这个问题时反应过来，应该是这个函数的上一层，传入参数时出了问题，毕竟这是个DBoW库函数。芝姐问到这个变量在哪写入的，于是我盲猜是读写冲突（后来想应该是有迹可循的，毕竟这个变量在库函数内部运行时突然变得很奇怪且无法访问），加锁后bug不复现。
 
+后来想到，《C++ Primer》中提到：**不能在范围for循环（`for(auto a:A)`）中向vector对象添加元素。任何一种可能改变vector对象容量的操作，比如push_back，都会使该vector对象的迭代器失效。**
+```
+vector<int> A = {1, 2, 3};
+for (auto a : A)
+{
+  A.push_back(1);
+  cout << a << ", ";
+}
+cout << endl;
+```
+> 输出：1, 0, 1781690384,
+
+多线程读写时，某变量突然变得很奇怪，应该也是同样的道理。
+
 在长时间debug且大部分时间毫无进展及头绪时，会焦虑、迷茫。不过最终还是解决了，可以作为一次很好的经验。
 
 总结：
