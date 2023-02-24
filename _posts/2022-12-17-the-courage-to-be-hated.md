@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "被讨厌的勇气"
+title:  "《被讨厌的勇气》"
 subtitle:   "岸见一郎 古贺史建"
 date:   2022-12-17 11:42:00 +0800
 author:     "ZhouSh"

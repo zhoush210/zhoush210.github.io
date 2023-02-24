@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "幸福的勇气"
+title:  "《幸福的勇气》"
 subtitle:   "岸见一郎 古贺史建"
 date:   2022-12-23 09:17:00 +0800
 author:     "ZhouSh"

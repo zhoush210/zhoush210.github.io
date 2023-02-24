@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "自卑与超越"
+title:  "《自卑与超越》"
 subtitle:   "阿德勒"
 date:   2023-02-14 09:08:00 +0800
 author:     "ZhouSh"

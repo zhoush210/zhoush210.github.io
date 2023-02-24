@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "人生的智慧"
+title:  "《人生的智慧》"
 subtitle:   "叔本华"
 date:   2023-01-28 11:12:00 +0800
 author:     "ZhouSh"
