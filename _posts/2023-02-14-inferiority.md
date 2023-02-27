@@ -4,7 +4,7 @@ title:  "《自卑与超越》"
 subtitle:   "阿德勒"
 date:   2023-02-14 09:08:00 +0800
 author:     "ZhouSh"
-header-img: "img/bg-little-universe.jpg"
+header-img: "img/bg-guidao9.jpg"
 header-mask: 0.3
 tags:
     - 读书笔记

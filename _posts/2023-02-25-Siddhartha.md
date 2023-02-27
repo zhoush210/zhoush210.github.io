@@ -4,7 +4,7 @@ title:  "《悉达多》"
 subtitle:   "赫尔曼·黑塞"
 date:   2023-02-25 20:44:00 +0800
 author:     "ZhouSh"
-header-img: "img/bg-little-universe.jpg"
+header-img: "img/bg-guidao9.jpg"
 header-mask: 0.3
 tags:
     - 读书笔记

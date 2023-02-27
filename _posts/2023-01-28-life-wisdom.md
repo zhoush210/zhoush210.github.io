@@ -4,7 +4,7 @@ title:  "《人生的智慧》"
 subtitle:   "叔本华"
 date:   2023-01-28 11:12:00 +0800
 author:     "ZhouSh"
-header-img: "img/in_post/life-wisdom/head.png"
+header-img: "img/bg-guidao9.jpg"
 header-mask: 0.3
 tags:
     - 读书笔记
