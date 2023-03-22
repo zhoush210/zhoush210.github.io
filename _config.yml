@@ -5,7 +5,7 @@ header-img: img/bg-guidao10.jpg
 email: zhoushihui210@foxmail.com
 description: "这里是周诗蕙的个人博客"
 #keyword: ""
-url: "https://zhoushihui210.github.io/" # your host, for absolute URL
+url: "https://zhoush210.github.io/" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
 # Publish posts or collection documents with a future date.
