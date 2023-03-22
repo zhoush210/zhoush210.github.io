@@ -6,9 +6,9 @@
     "homepage": "http://zhoush210.github.io",
     "repository": {
         "type": "git",
-        "url": "https://github.com/ZhouShihui210/zhoush210.github.io"
+        "url": "https://github.com/zhoush210/zhoush210.github.io"
     },
-    "bugs": "https://github.com/ZhouShihui210/zhoush210.github.io/issues",
+    "bugs": "https://github.com/zhoush210/zhoush210.github.io/issues",
     "devDependencies": {
         "grunt": ">=1.3.0",
         "grunt-banner": "~0.2.3",
