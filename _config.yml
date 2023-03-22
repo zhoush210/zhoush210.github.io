@@ -94,8 +94,9 @@ page-mathjax: true
 friends:
   [
     { title: "无处不在的小土", href: "https://gaoyichao.com/Xiaotu/" },
+    { title: "沉默杀手", href: "https://charon-cheung.github.io" },
     { title: "膜法师猫定谔", href: "http://www.fangmuseum.com" },
     { title: "qbb", href: "https://www.qbb.sh/" },
     { title: "linyang", href: "http://www.yangjlin.com" },
-    { title: "linyang's phtography", href: "http://yanglin.photo" },
+    { title: "linyang's phtography", href: "http://yanglin.photo" }
   ]
