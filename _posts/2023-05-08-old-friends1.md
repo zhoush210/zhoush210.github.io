@@ -4,8 +4,8 @@ title:  "老友记第一季"
 subtitle:   ""
 date:   2023-05-08 09:57:00 +0800
 author:     "ZhouSh"
-header-img: "img/bg-guidao9.jpg"
-header-mask: 0
+header-img: "img/friends.png"
+header-mask: 0.3
 tags:
     - 英语笔记
 ---
@@ -47,6 +47,7 @@ tags:
 |spoil|v.破坏，溺爱，变质；n.赃物，废土|
 |get screwed|上当受骗|
 |get screwed up|搞砸|
+|shred|n.碎片；v.切碎，撕碎|
 |steer clear of|避开；绕开|
 |sock|n.短袜，重击；v.猛击，给……穿袜|
 |rip out|扯掉|
@@ -75,4 +76,4 @@ tags:
 |vulnerability|n.脆弱性|
 |butt|n.烟头，屁股；v.顶，撞|
 
-- Pheebs: I wish I could,but I don't want to.
+- Pheebs: I wish I could,but I don't want to. 我希望我可以去，但我不想去。
