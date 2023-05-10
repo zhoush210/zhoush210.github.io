@@ -77,3 +77,4 @@ tags:
 |butt|n.烟头，屁股；v.顶，撞|
 
 - Pheebs: I wish I could,but I don't want to. 我希望我可以去，但我不想去。
+- Monica: Welcome to the real world! It sucks.You're gonna love it. 欢迎来到现实世界！它糟透了，你会爱死它的。
