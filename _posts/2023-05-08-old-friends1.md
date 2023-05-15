@@ -78,3 +78,52 @@ tags:
 
 - Pheebs: I wish I could,but I don't want to. 我希望我可以去，但我不想去。
 - Monica: Welcome to the real world! It sucks.You're gonna love it. 欢迎来到现实世界！它糟透了，你会爱死它的。
+
+# E2 参加助产训练班
+
+|mastodon|n.乳齿象，庞然大物；v.巨大的|
+|carpet|n.地毯；v.给……铺地毯，斥责|
+|glacier|n.冰川|
+|paranoid|adj.多疑的，妄想的；n.偏执狂，妄想症患者|
+|fluff|n.绒毛，错误；vt.念错，抖松，使……起毛|
+|ammunition|n.弹药，把柄|
+|lasagna|n.烤宽面条|
+|flatness|n.平坦，单调，断然的态度|
+|chaotic|adj.混乱的|
+|twirly|adj.卷曲的|
+|chaotic and twirly|慌慌张张，团团转的|
+|thigh|n.大腿，股|
+|couch cushions|沙发垫|
+|dread|v.畏惧，担心；n.畏惧，可怕的人或事；adj.可怕的，恼火的|
+|veil|n.面纱；v.遮盖|
+|stomp|v.重踩；n.调子|
+|pear|n.梨|
+|presumably|adv.大概，可能|
+|sonogram|n.声纳图；b超检查|
+|curry|n.咖喱|
+|latch|n.门闩；v.闩上|
+|latch on|占有，抓住，理解|
+|altar|n.圣坛|
+|chubby|adj.圆胖的，丰满的|
+|shoot for|争取，为……而努力|
+|shoot for the stars|追求卓越，设立远大目标|
+|content|adj.满足的；n.目录；v.使满足|
+|folk|n.双亲，大伙儿；adj.民俗的，传统的|
+|steer clear of|避开，绕开|
+|broken shell of a man|一个痛不欲生的人|
+|get stuck|v.受骗，被卡在……，被堵……|
+|cervix|n.子宫颈|
+|gag|n.塞口物；v.塞住……的口|
+|roll with the punches|逆来顺受，兵来将挡|
+|tan|n.棕褐色；v.晒黑，痛打；adj.棕褐色的|
+|maid of honor|伴娘|
+|plug|n.插头，塞子；v.插入，塞|
+|get plugs|植发|
+|lens|n.透镜|
+|get lens|配隐形眼镜|
+|orthodontist|n.正畸牙医|
+|settle for|勉强接受|
+|border on|相邻于，近似于|
+|wind up doing|最终落得……|
+|nausea|n.恶心，呕吐感|
+|well up|涌出，热泪盈眶|
