@@ -127,3 +127,29 @@ tags:
 |wind up doing|最终落得……|
 |nausea|n.恶心，呕吐感|
 |well up|涌出，热泪盈眶|
+
+# E3 飞来横财
+
+|alcoholics|n.酗酒者，酒鬼|
+|cushions the blow|给垫着点儿，说话绵软一点以免打击过重，善意的谎言|
+|go off to|动身前往|
+|wrist|n.手腕，膝关节|
+|puff|v.吸烟；n.吸烟|
+|flick|v.轻弹；v.轻弹|
+|put out|熄灭，伸出，打扰|
+|minion|n.宠臣，奴才，小黄人；v.优雅的，漂亮的|
+|karmic debt|孽债（佛教用语）|
+|coyote|n.丛林狼，非法移民偷运者|
+|herb|n.药草|
+|herd|n.兽群，人群；v.驱赶，放牧|
+|look out after|关照，关心|
+|odd|adj.奇怪的，偶发的；adv.大约|
+|odds|n.可能性|
+|slimmer|n.减肥者；adj.更苗条的，更小的|
+|whimper|v.呜咽，啜泣；n.呜咽声，啜泣声|
+|bash|v.猛击，严厉批评；n.猛击，盛典|
+|pimento|n.甜椒|
+|olive|n.橄榄；adj.橄榄色的|
+|crook|n.骗子，弯曲部分；v.诈骗，弯曲；adj.有病的，非法的|
+|nursery|n.幼儿园；adj.幼儿教育的|
+|nursery rhyme|童谣|
