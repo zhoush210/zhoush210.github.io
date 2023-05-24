@@ -153,3 +153,8 @@ tags:
 |crook|n.骗子，弯曲部分；v.诈骗，弯曲；adj.有病的，非法的|
 |nursery|n.幼儿园；adj.幼儿教育的|
 |nursery rhyme|童谣|
+|yardstick|n.码尺|
+|impression|n.印象，作用，对名人的滑稽模仿|
+|innate|adj.先天的，固有的|
+|saltine|n.撒盐饼干|
+|tinfoil|n.锡箔，锡纸；adj.锡箔的|
