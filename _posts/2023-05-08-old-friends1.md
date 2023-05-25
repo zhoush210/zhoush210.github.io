@@ -158,3 +158,15 @@ tags:
 |innate|adj.先天的，固有的|
 |saltine|n.撒盐饼干|
 |tinfoil|n.锡箔，锡纸；adj.锡箔的|
+|pretzel|n.椒盐卷饼|
+|hitch|v.搭便车，拉起；n.临时故障，小问题|
+|hiker|n.徒步旅行者|
+|hitchhiker|n.搭便车的旅行者，顺便插入的广告|
+|flaw|n.缺点，瑕疵；v.削弱，使失效|
+|knuckle|n.关节；vt.用指关节敲打；vi.开始认真工作|
+|crack|n.裂缝，爆裂声；v.破裂，劈啪作响；adj.优秀的|
+|knuckle cracking|扳指关节|
+|snort|n.鼻息声；v.发哼声|
+|endearing|adj.可爱的，讨人喜欢的|
+|emphysema|n.肺气肿|
+|pop-tart|上面有果酱的小圆饼|
