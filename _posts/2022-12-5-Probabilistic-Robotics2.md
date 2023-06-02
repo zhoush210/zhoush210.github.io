@@ -1,13 +1,13 @@
 ---
 layout: post
 title:  "Recursive State Estimation"
-subtitle: "Probabilistic Robotics Chapter2"
+subtitle: "《Probabilistic Robotics》Chapter2"
 date:   2022-12-5 13:47:00 +0800
 author:     "ZhouSh"
 header-img: "img/in_post/Probabilistic-Robotics/head1.png"
 header-mask: 0.4
 tags:
-    - 概率机器人
+    - 机器人笔记
 ---
 ## 参考资料
 [《Probabilistic Robotics》](https://gaoyichao.com/Xiaotu//resource/refs/PR.MIT.en.pdf)
