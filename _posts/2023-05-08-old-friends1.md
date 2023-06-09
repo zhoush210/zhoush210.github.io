@@ -170,3 +170,48 @@ tags:
 |endearing|adj.可爱的，讨人喜欢的|
 |emphysema|n.肺气肿|
 |pop-tart|上面有果酱的小圆饼|
+
+# E4 克林顿亲信助手
+
+|omnipotent|adj.全能的，无所不能的|
+|impotent|adj.无力的，虚弱的，阳萎的|
+|nod|v.打瞌睡，点头示意；n.打瞌睡，点头示意|
+|reassure|v.使安心，使消除疑虑|
+|hockey|n.冰球，曲棍球|
+|duplex|n.成对物；adj.两倍的|
+|cave-in|n.塌方，陷落|
+|phenomenal|adj.非凡的，杰出的，可感知的，现象的|
+|crease|n.折痕，折缝；v.弄皱|
+|pit|n.坑，洼，疤痕，果核；v.使对立，使有疤痕，去除……的果核|
+|nectarine|n.油桃|
+|dirt|n.尘土，丑闻，流言蜚语|
+|blobby|满是滴状斑点的|
+|rum|n.朗姆酒；adj.古怪的|
+|slumber|n.睡眠|
+|slumber party|睡衣派对|
+|trashy|adj.没用的，碎屑的，垃圾似的|
+|dough|n.生面团|
+|tweezer|n.镊子；v.用镊子钳|
+|in reference to|关于|
+|plastic|n.塑料，信用卡；adj.塑料制的，可塑的|
+|frost|n.霜，冷漠；v.结霜|
+|floppy|adj.松散下垂的，耷拉的；n.软磁盘|
+|predicament|n.窘况，困境|
+|dent|v.使产生凹痕；n.凹痕|
+|crust|n.面包皮，酥皮；v.形成硬皮|
+|bonehead|n.笨蛋，傻瓜|
+|stunning|adj.极吸引人的，令人震惊的；使惊讶|
+|nut|n.坚果，螺母，疯子|
+|preppy|n.预科生；adj.像预科生的，学院风|
+|preppy animal|野生动物|
+|painkiller|n.止痛药|
+|coma|n.昏迷|
+|goose|n.鹅，鹅肉，傻瓜，熨斗；v.触摸，激励|
+|locker|n.锁柜，寄物柜|
+|puck|n.冰球|
+|weeper|n.哭泣者|
+|rubber|n.橡胶；v.扭转脖子看|
+|glue|n.胶水，凝聚力；v.粘贴，专注于|
+|roughhouse|n.骚乱，大吵大闹；v.打闹，粗暴对待|
+|monopoly|n.垄断，大富翁游戏|
+
