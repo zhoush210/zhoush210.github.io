@@ -215,3 +215,43 @@ tags:
 |roughhouse|n.骚乱，大吵大闹；v.打闹，粗暴对待|
 |monopoly|n.垄断，大富翁游戏|
 
+# E5 洗衣服
+
+|maneuver|n.巧妙的移动；v.巧妙地移动|
+|sleeve|n.袖子，袖套|
+|beyond me|难以理解|
+|gang up on|联合起来对付|
+|hunger-strike|n.绝食抗议|
+|nutty|adj.多坚果的，古怪的|
+|scrunch|v.发出嘎吱嘎吱的响声，把……揉成一团，使蜷缩，造发型；n.嘎吱的响声，碾压|
+|scrunchy|不高兴的，束发带|
+|convertible|adj.有活动折蓬的，可转换的；n.活动顶篷式汽车，可换证券|
+|accent|n.口音，强调；v.强调，突出，重读|
+|glamour|n.吸引力；v.迷住，迷惑|
+|laundromat|n.自助洗衣店|
+|freakish|adj.畸形的，奇特的，朝三暮四的|
+|sevenish|n.七点左右|
+|belch|v.打嗝，喷出；n.打嗝；冒烟|
+|tile|n.瓷砖，地砖；v.铺瓦，铺砖|
+|snowflake|n.雪花，独特、特别的人，过分敏感的人|
+|shave|v.剃，刮去；n.刮脸，剃毛，剃刀|
+|fabric|n.布料，织物|
+|supremely|adj.崇高地，极度，极其|
+|espresso|n.浓咖啡|
+|moose|n.麋，驼鹿|
+|brutal|adj.野蛮的，凶残的|
+|suds|n.肥皂水，泡沫；v.用肥皂水洗|
+|detergent|n.洗涤剂|
+|spaz|n.笨家伙，怪人|
+|nibble|v.啃，小口咬；反复轻咬|
+|weasel|n.鼬，黄鼠狼，狡猾的人；v.逃避，逃脱，欺骗|
+|virginity|n.童贞|
+|wound|n.创伤，痛苦|
+|marshmallow|n.棉花软糖|
+|flop|v.扑通坐下，猛然倒下|
+|rambunctious|adj.难控制的，喧闹的，粗暴的，骚乱的|
+|wing|n.翅膀；v.飞|
+|jammy|adj.粘上果酱的，适意的|
+|jammies|n.睡衣|
+|neat|adj.整齐的，巧妙的|
+|rip|v.撕裂|
