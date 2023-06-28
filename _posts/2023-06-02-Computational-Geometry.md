@@ -10,8 +10,7 @@ tags:
     - 机器人笔记
 ---
 - [《计算几何:算法与应用》pdf](https://search.zhelper.net/?[%7B%22name%22:%22zlib.app%22，%22url%22:%22https://worker.zlib.app%22，%22type%22:%22full%22，%22sensitive%22:false，%22detail%22:false，%22download%22:%22https://worker.zlib.app/download/%22%7D]#%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E2%80%94%E2%80%94%E7%AE%97%E6%B3%95%E4%B8%8E%E5%BA%94%E7%94%A8)
-- 本书网站 [geobook](http://www.cs.uu.nl/geobook/) 提供了本书各版本的勘误、所有插图、所有算法的
-伪代码，以及其它资源。
+- 本书网站 [geobook](http://www.cs.uu.nl/geobook/) 提供了本书各版本的勘误、所有插图、所有算法的伪代码，以及其它资源。
 
 # 1.计算几何:导言
 
@@ -90,7 +89,7 @@ tags:
 <img src="/img/in_post/Computational-Geometry/11.png" width="60%">
 定理 3.1：任何简单多边形都存在（至少）一个三角剖分；若其顶点数目为n，则它的每个三角剖分都恰好包含n-2个三角形。
 
-定理 3.2(艺术画廊定理)：包含n个顶点的任何简单多边形，只需(放置在适当位置的)$\lfloor \frac n3 \rfloor$台摄像机就能保证：其中任何一点都可见于至少一台摄像机。
+定理 3.2（艺术画廊定理）：包含n个顶点的任何简单多边形，只需（放置在适当位置的）$\lfloor \frac n3 \rfloor$台摄像机就能保证：其中任何一点都可见于至少一台摄像机。
 
 定理 3.3：任给一个包含n个顶点的简单多边形P。总可以在O(nlogn)时间内，在P中确定$\lfloor \frac n3 \rfloor$台摄像机的位置，使得P中的任何一点都可见于其中的至少一台摄像机。
 
@@ -100,7 +99,7 @@ tags:
 
 <img src="/img/in_post/Computational-Geometry/12.png" width="60%">
 
-例如y-单调多边形(y monotone polygon)的特性：在沿着多边形的左(右)边界，从最高顶点走向最低顶点的过程中，我们始终都是朝下方(或者水平)运动，而绝不会向上。
+例如y-单调多边形（y monotone polygon）的特性：在沿着多边形的左（右）边界，从最高顶点走向最低顶点的过程中，我们始终都是朝下方（或者水平）运动，而绝不会向上。
 
 我们对多边形P进行三角剖分的策略是：首先将P划分成若干个y-单调块，然后再对每块分别进行三角剖分。
 
@@ -116,8 +115,7 @@ P的顶点可划分为五类：
 
 引理 3.5：通过引入一系列互不相交的对角线，算法MAKE MONOTONE能够将P划分为多个单调子多边形。
 
-定理 3.6：使用 O(n)的存储空间，可以在O(nlogn)时间内将包含n个顶点的任何简单多边形分解为多个y-单调
-的子块。
+定理 3.6：使用O(n)的存储空间，可以在O(nlogn)时间内将包含n个顶点的任何简单多边形分解为多个y-单调的子块。
 
 # 7.Voronoi图:邮局问题
 
