@@ -47,6 +47,18 @@ h(x)的常见形式有曼哈顿距离、对角线距离、欧氏距离等。当�
 
 <img src="/img/in_post/path-planning/3.png" width="70%">
 
+# Hybrid A*（混合A*）
+
+混合A\*与和A\*算法的区别：考虑了车辆动力学
+1. 增加了θ维度
+2. 改变了节点的扩展方式
+3. 扩展了节点的字段
+4. 丰富了遍历搜索策略
+5. 完善了碰撞检测方式
+6. 丰富了g的含义
+7. 丰富了h的含义
+
+详见 [知乎：混合A*算法详解](https://zhuanlan.zhihu.com/p/595725661)
 # PRM算法
 
 **算法原理：**全名Probabilistic Road Map，也称概率路线图算法，将机器人所处的连续空间用**随机采样**离散化，再在离散采样点上进行路径搜索。
@@ -81,3 +93,4 @@ h(x)的常见形式有曼哈顿距离、对角线距离、欧氏距离等。当�
 - 仿真平台：[PathFinding](https://qiao.github.io/PathFinding.js/visual/)（如果演示过程中卡住，可以先点一下别的标签页，再点一回原标签页。或者先将浏览器最小化，再复原）
 - [Introduction to the A* Algorithm](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
 - [csdn：路径规划算法学习参考资料](https://blog.csdn.net/Draonly/article/details/111458844)
+- [知乎：混合A*算法详解](https://zhuanlan.zhihu.com/p/595725661)
