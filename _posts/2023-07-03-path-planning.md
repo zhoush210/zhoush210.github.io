@@ -26,7 +26,7 @@ tags:
 3. 直至所有节点均被访问
 <img src="/img/in_post/path-planning/2.png" width="100%">
 
-# A*算法
+# A\*算法
 
 <img src="/img/in_post/path-planning/Astar.gif" width="50%">
 **算法原理：**在代价函数中加入**该节点到目标节点**的估计代价（启发函数），降低搜索节点的范围。
@@ -47,18 +47,15 @@ h(x)的常见形式有曼哈顿距离、对角线距离、欧氏距离等。当�
 
 <img src="/img/in_post/path-planning/3.png" width="70%">
 
-# Hybrid A*（混合A*）
+# Hybrid A\*（混合A\*）
 
-混合A\*与和A\*算法的区别：考虑了车辆动力学
-1. 增加了θ维度
-2. 改变了节点的扩展方式
-3. 扩展了节点的字段
-4. 丰富了遍历搜索策略
-5. 完善了碰撞检测方式
-6. 丰富了g的含义
-7. 丰富了h的含义
+Hybrid A\*算法是一种图搜索算法，改进于A\*算法。与普通的A\*算法区别在于，Hybrid A\*规划的路径考虑了**车辆的运动学约束**，即满足了**车辆的最大曲率约束**。
+<img src="/img/in_post/path-planning/6.png" width="50%">
+<img src="/img/in_post/path-planning/8.png" width="70%">
+由于车辆运动学模型的限制，车辆无法按照 A\* 所生成的路径行走。例如下图所示的情况，车辆最初的朝向是向下的，而A\*的路径则是从障碍物的上方绕过去的。由于转弯半径的限制，这样的路径无法跟随，而Hybrid A\*则会考虑到车辆初始方向和终点方向，以及每一次节点拓展都符合车辆的运动学，因此生成的路径一定是车辆可以跟随的。
+<img src="/img/in_post/path-planning/7.png" width="80%">
+Hybrid A\*规划的路径由两部分组成，第一部分是考虑了车辆运动学的探索结点连接而成的路径；第二部分是使用ReedSheeps曲线连接中间点位姿与目标位姿的路径。
 
-详见 [知乎：混合A*算法详解](https://zhuanlan.zhihu.com/p/595725661)
 # PRM算法
 
 **算法原理：**全名Probabilistic Road Map，也称概率路线图算法，将机器人所处的连续空间用**随机采样**离散化，再在离散采样点上进行路径搜索。
@@ -69,7 +66,7 @@ h(x)的常见形式有曼哈顿距离、对角线距离、欧氏距离等。当�
 3. 连接：按照最近邻规则将采样点与周围相邻点进行连接
 4. 移除无效连接：将横穿障碍物的连接删除，这样就构建出了所谓的PRM路线图
 5. 添加导航任务的源节点和目标节点：将源节点和目标节点与PRM路线图相连
-6. 搜索路径：在构建出来的PRM路线图上利用A*算法搜索源节点到目标节点之间的路径
+6. 搜索路径：在构建出来的PRM路线图上利用A\*算法搜索源节点到目标节点之间的路径
 <img src="/img/in_post/path-planning/4.png" width="100%">
 
 # RRT算法
@@ -91,6 +88,10 @@ h(x)的常见形式有曼哈顿距离、对角线距离、欧氏距离等。当�
 - [知乎：路径规划该如何入门? ​](https://www.zhihu.com/question/356961141/answer/2968725974)
 - 各种算法demo：[github/zhm-real/PathPlanning](https://github.com/zhm-real/PathPlanning)
 - 仿真平台：[PathFinding](https://qiao.github.io/PathFinding.js/visual/)（如果演示过程中卡住，可以先点一下别的标签页，再点一回原标签页。或者先将浏览器最小化，再复原）
-- [Introduction to the A* Algorithm](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
+- [Introduction to the A\* Algorithm](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
 - [csdn：路径规划算法学习参考资料](https://blog.csdn.net/Draonly/article/details/111458844)
-- [知乎：混合A*算法详解](https://zhuanlan.zhihu.com/p/595725661)
+- [知乎：混合A\*算法详解](https://zhuanlan.zhihu.com/p/595725661)
+- [博客园：Hybrid A\*算法原理](https://www.cnblogs.com/youngsea/p/14833592.html)
+- [知乎：Hybrid A\*原理与代码](https://zhuanlan.zhihu.com/p/593406203)
+- [Hybrid A\*论文：Practical Search Techniques in Path Planning for Autonomous Driving](https://ai.stanford.edu/~ddolgov/papers/dolgov_gpp_stair08.pdf)
+- [知乎：从零开始学图形学：10分钟看懂贝塞尔曲线](https://zhuanlan.zhihu.com/p/344934774)
