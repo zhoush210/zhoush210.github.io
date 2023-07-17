@@ -20,7 +20,7 @@ tags:
 3. 将所有离终点2步之遥的点标记为2
 4. 如此递增，直至起点被标记
 5. 从起点依次寻找标记递减的点到终点，遇到相同标记的点可以任选其一
-<img src="/img/in_post/coursera/Motion-Planning/1.png" width="40%">
+<img src="/img/in_post/coursera/Motion-Planning/1.png" width="30%">
 
 网格中的数字代表“这个点抵达目的地节点的最小步数“，这些数字由目的地节点向外辐射的模式，就像火势蔓延一样，所以叫Grassfire。
 
@@ -40,3 +40,22 @@ Dijkstra就是Grassfire在有权图上的扩展！好妙啊！
 <img src="/img/in_post/coursera/Motion-Planning/3.png" width="40%">
 
 > Dijkstra和A\*详见之前的博文：[路径规划常用算法](https://zhoush210.github.io/2023/07/03/path-planning/)
+
+## 2.1.Introduction to Configuration Space
+
+配置空间（configuration space）是指描述机器人的自由度和可行动姿态的抽象空间。它是一个多维空间，其中每个维度表示机器人的一个自由度，例如关节角度或笛卡尔坐标。配置空间中的每个点都代表着机器人可能的姿态或配置。
+
+机器人的配置空间是指由其全部可达到的配置（位置）所组成的一个集合。某机器人无法到达的特定$t_x$和$t_y$配置，被称为是配置空间障碍。
+<img src="/img/in_post/coursera/Motion-Planning/4.png" width="60%">
+<img src="/img/in_post/coursera/Motion-Planning/5.png" width="60%">
+<img src="/img/in_post/coursera/Motion-Planning/6.png" width="60%">
+
+## 2.2.RR arm
+下图是一个拥有两个转动关节的简易二维机械臂，它的配置可以用转动角$\theta_1$和$\theta_2$组成的元组表示，两个角的活动范围均为0～360度，则右图是它的配置空间。
+<img src="/img/in_post/coursera/Motion-Planning/7.png" width="60%">
+<img src="/img/in_post/coursera/Motion-Planning/8.png" width="60%">
+
+## 2.3.Piano Mover’s Problem
+
+下面是一个可以在x、y方向平移，且可以旋转的机器人，其配置可以用$\{t_x,t_y,\theta\}$表示，其配置空间是3维的。
+<img src="/img/in_post/coursera/Motion-Planning/9.png" width="70%">
