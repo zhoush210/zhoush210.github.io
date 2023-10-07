@@ -41,6 +41,14 @@ Dijkstra就是Grassfire在有权图上的扩展！好妙啊！
 
 > Dijkstra和A\*详见之前的博文：[路径规划常用算法](https://zhoush210.github.io/2023/07/03/path-planning/)
 
+## 练习
+
+If you use the Grassfire or breadth first search procedure to plan a path through a grid from a node A to a node B, then you use the same procedure to plan a path from node B to node A, are the two paths guaranteed to be the same except in opposite directions?
+
+Answer: No.
+
+暂时没有想到例子，我认为都是有多条最短路径，就算运行2次都是从A到B，结果也会不同，而不是因为从B到A造成结果不同。我觉得这题的表述不对，出的不好。
+
 ## 2.1.Introduction to Configuration Space
 
 配置空间（configuration space）是指描述机器人的自由度和可行动姿态的抽象空间。它是一个多维空间，其中每个维度表示机器人的一个自由度，例如关节角度或笛卡尔坐标。配置空间中的每个点都代表着机器人可能的姿态或配置。
