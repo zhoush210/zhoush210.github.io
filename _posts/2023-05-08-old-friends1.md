@@ -255,3 +255,36 @@ tags:
 |jammies|n.睡衣|
 |neat|adj.整齐的，巧妙的|
 |rip|v.撕裂|
+
+# E6 洗衣服
+
+|impend|v.迫近，(坏事)隐现|
+|doom|n.厄运；v.注定|
+|exclamation|n.惊叫，感叹|
+|exclamation point|感叹号|
+|tinkle|v.发叮当声；n.叮当声|
+|league|n.联盟，级别;v.组成联盟|
+|tongue|n.舌头|
+|troll|n.巨怪，侏儒怪物；v.拖捞，搜寻|
+|ush|v.陪同，引领|
+|monogamy|n.一夫一妻制|
+|bristle|n.刚毛，胡茬；v.竖起，发怒|
+|ottoman|n.软垫凳|
+|fan out|展开，分散开|
+|raggedy|adj.破烂的，褴褛的|
+|kook|n.怪人，疯子|
+|madcap|adj.狂妄的，鲁莽的|
+|detergent|n.洗涤剂；adj.使清洁的|
+|laundry detergent|洗衣粉|
+|spout|n.管口；v.喷涌,滔滔不绝地说|
+|coaster|n.沿岸贸易船，杯托，小托盘，雪橇|
+|bead|n.珠子，液滴；v.把（珠）串在一起|
+|inch|n.英寸；v.（数量）逐渐增加（或减少）|
+|crack|v.破裂，裂开；n.裂缝；adj.优秀的，训练有素的|
+|moisturizer|n.润肤膏|
+|robe|n.睡袍，浴衣；v.穿，披|
+|clench|v.攥紧（拳头等），咬紧（牙齿等）；n.紧绷|
+|crappy|adj.蹩脚的，糟糕的，没价值的|
+|strew|vt.散播，撒满|
+|reckless|adj.鲁莽的，不计后果的|
+|haphazard|adj.无计划的，没有条理的|
